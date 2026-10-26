@@ -1,0 +1,27 @@
+# gitleaks config: default rules + allowlist for generated, gitignored build output.
+# cdk.out/ holds CDK asset manifests whose S3 keys are content hashes (flagged as generic-api-key).
+[extend]
+useDefault = true
+
+[allowlist]
+description = "generated build output (gitignored)"
+# Container image digests (sha256:<64 hex>) are public content addresses, not credentials; the generic rule
+# matches them when the line also names a repo like "keepframe-api". `regexes` is tested against the
+# extracted secret (the bare hex), so match exactly 64 lowercase hex chars; `regexTarget = "line"` would be
+# broader than needed.
+regexes = [
+  '''^[0-9a-f]{64}$''',
+  # Benchmark host labels such as src-gcc14-kleidicv / stock-carotene appear as string literals in UI tests and
+  # bench docs; they trip generic-api-key by entropy. They are public row names, never credentials.
+  '''^(src|stock|kleidicv|carotene)[-a-z0-9]*$''',
+  # Secrets Manager secret *names* (CULL_ANTHROPIC_SECRET_ID=keepframe/anthropic) are ids, not values.
+  '''^keepframe/[a-z-]+$''',
+]
+paths = [
+  '''(^|/)cdk\.out/''',
+  '''(^|/)node_modules/''',
+  '''(^|/)\.venv/''',
+  '''(^|/)ui/\.next/''',
+  '''(^|/)ui/out/''',
+  '''(^|/)\.mypy_cache/''',
+]

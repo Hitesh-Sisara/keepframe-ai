@@ -1,0 +1,12 @@
+KeepFrame
+Copyright 2026 Hitesh Sisara
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Third-party components keep their own licences:
+- OpenCV 5 (opencv-contrib-python-headless), Apache License 2.0.
+- Model files are not included in this repository. They are downloaded at build time and
+  checked against SHA-256 pins in config/models.lock; sources and licences are listed in
+  models/README.md.
+- Face test fixtures in tests/fixtures/faces/ are listed with their licences in
+  tests/fixtures/faces/LICENCES.md.

@@ -1,0 +1,27 @@
+# Keep build contexts small and secret-free. Images need only: requirements.txt, keepframe/, config/,
+# scripts/fetch_models.py, services/ (api, sync, agent_runtime).
+**/.git
+.git
+.github
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/__pycache__
+**/*.pyc
+**/.venv
+.venv
+.uv
+.mypy_cache
+.ruff_cache
+.pytest_cache
+**/node_modules
+cdk
+ui
+data
+docs
+bench
+eval
+tests
+**/cdk.out
+**/*.jsonl
