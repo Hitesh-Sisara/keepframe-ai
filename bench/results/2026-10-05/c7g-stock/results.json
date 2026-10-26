@@ -1,0 +1,335 @@
+{
+  "schema": "keepframe/bench-run/v1",
+  "host_label": "c7g-stock",
+  "date": "2026-10-05",
+  "dataset": "manifest_5k",
+  "n_images": 5000,
+  "set_mib": 1737.55,
+  "set_sha256": "58ae8af03f670a8bd154cdc847c0f30669a4ff7024f6bba3fbe9408fbd3ea774",
+  "workers": 4,
+  "reps": 3,
+  "warmup_images": 200,
+  "chunksize": 4,
+  "copy_to_local_s_not_timed": 0.06,
+  "instance_type": "c7g.xlarge",
+  "opencv_version": "5.0.0",
+  "cv2_file": "/opt/venv/lib/python3.12/site-packages/cv2/__init__.py",
+  "prices_usd_per_hour": {
+    "ec2_usd_per_hour": 0.0982,
+    "cool_usd_per_hour": 0.0
+  },
+  "median": {
+    "images_per_sec": 25.3414,
+    "wall_s": 197.3056,
+    "cpu_util_mean": 99.94,
+    "peak_rss_mb": 798.0,
+    "cost_per_1k_usd": 0.001076
+  },
+  "max_worker_rss_mb": 193.2,
+  "reps_detail": [
+    {
+      "rep": 1,
+      "n_images": 5000,
+      "errors": 0,
+      "wall_s": 196.9762,
+      "images_per_sec": 25.3838,
+      "cpu_util_mean": 99.49,
+      "cpu_util_samples": 195,
+      "peak_rss_mb": 751.6,
+      "stages": {
+        "read_file": {
+          "n": 5000,
+          "p50_ms": 0.1054,
+          "p95_ms": 0.1407,
+          "mean_ms": 0.1078,
+          "min_ms": 0.0478,
+          "max_ms": 2.3393
+        },
+        "decode_webp": {
+          "n": 5000,
+          "p50_ms": 36.8129,
+          "p95_ms": 53.4869,
+          "mean_ms": 37.5119,
+          "min_ms": 15.4494,
+          "max_ms": 77.4279
+        },
+        "resize_1024_area": {
+          "n": 5000,
+          "p50_ms": 13.9697,
+          "p95_ms": 14.0677,
+          "mean_ms": 13.9656,
+          "min_ms": 11.7449,
+          "max_ms": 18.7878
+        },
+        "cvtcolor_gray": {
+          "n": 5000,
+          "p50_ms": 0.2706,
+          "p95_ms": 0.2798,
+          "mean_ms": 0.2712,
+          "min_ms": 0.2262,
+          "max_ms": 0.6708
+        },
+        "clahe": {
+          "n": 5000,
+          "p50_ms": 2.8308,
+          "p95_ms": 3.1009,
+          "mean_ms": 2.863,
+          "min_ms": 2.3601,
+          "max_ms": 7.1484
+        },
+        "laplacian_sobel": {
+          "n": 5000,
+          "p50_ms": 6.1167,
+          "p95_ms": 7.3181,
+          "mean_ms": 6.4467,
+          "min_ms": 4.9722,
+          "max_ms": 9.9399
+        },
+        "phash_blockmean": {
+          "n": 5000,
+          "p50_ms": 0.3403,
+          "p95_ms": 0.3568,
+          "mean_ms": 0.3439,
+          "min_ms": 0.323,
+          "max_ms": 4.2427
+        },
+        "yunet_1024": {
+          "n": 5000,
+          "p50_ms": 66.5511,
+          "p95_ms": 68.9276,
+          "mean_ms": 66.1936,
+          "min_ms": 52.7525,
+          "max_ms": 83.4294
+        },
+        "brisque": {
+          "n": 5000,
+          "p50_ms": 29.7815,
+          "p95_ms": 31.9526,
+          "mean_ms": 29.3147,
+          "min_ms": 18.9725,
+          "max_ms": 41.3404
+        },
+        "opencv_total": {
+          "n": 5000,
+          "p50_ms": 156.6857,
+          "p95_ms": 175.0574,
+          "mean_ms": 156.9107,
+          "min_ms": 116.9635,
+          "max_ms": 204.6387
+        },
+        "image_total": {
+          "n": 5000,
+          "p50_ms": 156.7918,
+          "p95_ms": 175.2081,
+          "mean_ms": 157.0185,
+          "min_ms": 117.0528,
+          "max_ms": 204.9038
+        }
+      },
+      "cost_per_1k_usd": 0.001075
+    },
+    {
+      "rep": 2,
+      "n_images": 5000,
+      "errors": 0,
+      "wall_s": 197.3056,
+      "images_per_sec": 25.3414,
+      "cpu_util_mean": 99.94,
+      "cpu_util_samples": 196,
+      "peak_rss_mb": 798.0,
+      "stages": {
+        "read_file": {
+          "n": 5000,
+          "p50_ms": 0.1013,
+          "p95_ms": 0.1334,
+          "mean_ms": 0.1028,
+          "min_ms": 0.0447,
+          "max_ms": 0.2505
+        },
+        "decode_webp": {
+          "n": 5000,
+          "p50_ms": 36.9818,
+          "p95_ms": 53.9087,
+          "mean_ms": 37.7084,
+          "min_ms": 15.3978,
+          "max_ms": 80.3568
+        },
+        "resize_1024_area": {
+          "n": 5000,
+          "p50_ms": 13.9546,
+          "p95_ms": 14.1795,
+          "mean_ms": 13.988,
+          "min_ms": 11.7394,
+          "max_ms": 20.1991
+        },
+        "cvtcolor_gray": {
+          "n": 5000,
+          "p50_ms": 0.2699,
+          "p95_ms": 0.2796,
+          "mean_ms": 0.2705,
+          "min_ms": 0.2306,
+          "max_ms": 0.7482
+        },
+        "clahe": {
+          "n": 5000,
+          "p50_ms": 2.8314,
+          "p95_ms": 3.0962,
+          "mean_ms": 2.8633,
+          "min_ms": 2.3698,
+          "max_ms": 7.2293
+        },
+        "laplacian_sobel": {
+          "n": 5000,
+          "p50_ms": 6.097,
+          "p95_ms": 7.3533,
+          "mean_ms": 6.4128,
+          "min_ms": 4.9212,
+          "max_ms": 11.9342
+        },
+        "phash_blockmean": {
+          "n": 5000,
+          "p50_ms": 0.3402,
+          "p95_ms": 0.3575,
+          "mean_ms": 0.3414,
+          "min_ms": 0.3205,
+          "max_ms": 0.4866
+        },
+        "yunet_1024": {
+          "n": 5000,
+          "p50_ms": 66.5808,
+          "p95_ms": 69.0202,
+          "mean_ms": 66.1971,
+          "min_ms": 53.8027,
+          "max_ms": 82.4225
+        },
+        "brisque": {
+          "n": 5000,
+          "p50_ms": 29.8362,
+          "p95_ms": 32.0708,
+          "mean_ms": 29.3596,
+          "min_ms": 18.9099,
+          "max_ms": 38.4945
+        },
+        "opencv_total": {
+          "n": 5000,
+          "p50_ms": 156.9558,
+          "p95_ms": 175.7309,
+          "mean_ms": 157.1411,
+          "min_ms": 118.6584,
+          "max_ms": 203.6515
+        },
+        "image_total": {
+          "n": 5000,
+          "p50_ms": 157.0618,
+          "p95_ms": 175.871,
+          "mean_ms": 157.2439,
+          "min_ms": 118.7487,
+          "max_ms": 203.8263
+        }
+      },
+      "cost_per_1k_usd": 0.001076
+    },
+    {
+      "rep": 3,
+      "n_images": 5000,
+      "errors": 0,
+      "wall_s": 197.5725,
+      "images_per_sec": 25.3072,
+      "cpu_util_mean": 99.97,
+      "cpu_util_samples": 196,
+      "peak_rss_mb": 837.4,
+      "stages": {
+        "read_file": {
+          "n": 5000,
+          "p50_ms": 0.1015,
+          "p95_ms": 0.1332,
+          "mean_ms": 0.1039,
+          "min_ms": 0.0499,
+          "max_ms": 2.6446
+        },
+        "decode_webp": {
+          "n": 5000,
+          "p50_ms": 36.9604,
+          "p95_ms": 53.5918,
+          "mean_ms": 37.6373,
+          "min_ms": 16.3079,
+          "max_ms": 77.5631
+        },
+        "resize_1024_area": {
+          "n": 5000,
+          "p50_ms": 13.9851,
+          "p95_ms": 14.2133,
+          "mean_ms": 14.0157,
+          "min_ms": 11.7558,
+          "max_ms": 18.4736
+        },
+        "cvtcolor_gray": {
+          "n": 5000,
+          "p50_ms": 0.2699,
+          "p95_ms": 0.2791,
+          "mean_ms": 0.2704,
+          "min_ms": 0.2277,
+          "max_ms": 0.3379
+        },
+        "clahe": {
+          "n": 5000,
+          "p50_ms": 2.831,
+          "p95_ms": 3.097,
+          "mean_ms": 2.8609,
+          "min_ms": 2.3602,
+          "max_ms": 5.4495
+        },
+        "laplacian_sobel": {
+          "n": 5000,
+          "p50_ms": 6.2327,
+          "p95_ms": 7.4133,
+          "mean_ms": 6.6132,
+          "min_ms": 5.053,
+          "max_ms": 10.5292
+        },
+        "phash_blockmean": {
+          "n": 5000,
+          "p50_ms": 0.3404,
+          "p95_ms": 0.3583,
+          "mean_ms": 0.3423,
+          "min_ms": 0.3213,
+          "max_ms": 2.8563
+        },
+        "yunet_1024": {
+          "n": 5000,
+          "p50_ms": 66.5067,
+          "p95_ms": 68.9761,
+          "mean_ms": 66.191,
+          "min_ms": 54.3697,
+          "max_ms": 81.4721
+        },
+        "brisque": {
+          "n": 5000,
+          "p50_ms": 29.8294,
+          "p95_ms": 32.0704,
+          "mean_ms": 29.381,
+          "min_ms": 19.4056,
+          "max_ms": 36.2369
+        },
+        "opencv_total": {
+          "n": 5000,
+          "p50_ms": 157.0718,
+          "p95_ms": 175.5576,
+          "mean_ms": 157.3119,
+          "min_ms": 118.924,
+          "max_ms": 200.7066
+        },
+        "image_total": {
+          "n": 5000,
+          "p50_ms": 157.1735,
+          "p95_ms": 175.6702,
+          "mean_ms": 157.4157,
+          "min_ms": 119.0115,
+          "max_ms": 200.8533
+        }
+      },
+      "cost_per_1k_usd": 0.001078
+    }
+  ],
+  "method": "per-image stage times via time.perf_counter_ns in worker processes with cv2.setNumThreads(1); images/sec = N / wall time of the timed pass; warm-up images run first in the same pool and are discarded; images were on local disk before timing."
+}

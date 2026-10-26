@@ -1,0 +1,1074 @@
+{
+  "generated_at": "2026-10-09T07:34:12+00:00",
+  "events": [
+    {
+      "event_id": "E03",
+      "labels": false,
+      "n_labelled": 0,
+      "n_decided": 664,
+      "n_scored": 0,
+      "run_counts": {
+        "n_photos": 664,
+        "verdicts": {
+          "keep": 633,
+          "review": 9,
+          "reject": 22
+        },
+        "decided_by": {
+          "worker": 664
+        },
+        "human_source": {},
+        "needs_approval": 20,
+        "reason_codes": {
+          "KEEP_SINGLETON": 606,
+          "BURST_NOT_BEST": 28,
+          "KEEP_BEST_OF_GROUP": 27,
+          "REVIEW_LOW_CONFIDENCE": 8,
+          "EYES_CLOSED": 6,
+          "DUPLICATE_OF": 2,
+          "LOW_CONTRAST": 1
+        }
+      },
+      "group_shape": {
+        "n_groups": 27,
+        "n_singletons": 607,
+        "photos_in_groups": 57,
+        "size_histogram": {
+          "2": 25,
+          "3": 1,
+          "4": 1
+        },
+        "max_size": 4,
+        "ties": 4,
+        "margin_lt_0_05": 10,
+        "exact_duplicates": {}
+      },
+      "agent_loop": {
+        "run_id": "E03-agentcore-20261008T062729Z",
+        "run_status": "awaiting_approval",
+        "model": "claude-sonnet-5",
+        "provider": "anthropic",
+        "n_trace_lines": 22,
+        "tool_calls": 9,
+        "tool_calls_per_event": 9,
+        "tool_calls_excl_next_work_item": 8,
+        "tool_calls_run_summary": null,
+        "model_calls": null,
+        "tool_calls_per_photo": 0.0136,
+        "tool_calls_per_agent_photo": null,
+        "photos_in_event": 664,
+        "photos_agent_decided": 0,
+        "work_items": 11,
+        "tool_calls_by_tool": {
+          "detect_faces": 1,
+          "make_contact_sheet": 1,
+          "next_work_item": 1,
+          "pick_best_in_cluster": 1,
+          "request_human_approval": 1,
+          "score_exposure": 1,
+          "score_eyes_open": 1,
+          "score_face_quality": 1,
+          "score_sharpness": 1
+        },
+        "tool_results_not_ok": 0,
+        "approval_items": 1,
+        "pauses": 1,
+        "resumes": 0,
+        "photos_escalated": 2,
+        "pct_escalated": 0.3,
+        "pct_escalated_of_agent_photos": null,
+        "human_source_breakdown": {
+          "pending": 2
+        },
+        "escalations_pending": 2,
+        "scripted_answers_excluded": 0,
+        "lead_test_answers_excluded": 0,
+        "source_override": null,
+        "agent_active_s": 24.5,
+        "host": "agentcore",
+        "unknown_source_answers_excluded": 0,
+        "escalation_human_agreed_pct": null,
+        "escalation_human_agreed_n": 0,
+        "escalated_final_vs_label_agreement_pct": null,
+        "pivots": 1,
+        "pivots_by_policy": {
+          "Policy 5": 1
+        },
+        "pivots_by_kind": {
+          "small_margin_to_human": 1
+        },
+        "policy_hooks": {},
+        "tool_latency_ms_p50": 119.97,
+        "tool_latency_ms_p95": 292.64,
+        "tool_latency_ms_mean": 132.73,
+        "tool_latency_ms_by_tool": {
+          "detect_faces": {
+            "n": 1,
+            "p50": 225.81,
+            "p95": 225.81
+          },
+          "make_contact_sheet": {
+            "n": 1,
+            "p50": 92.42,
+            "p95": 92.42
+          },
+          "next_work_item": {
+            "n": 1,
+            "p50": 0.53,
+            "p95": 0.53
+          },
+          "pick_best_in_cluster": {
+            "n": 1,
+            "p50": 0.68,
+            "p95": 0.68
+          },
+          "score_exposure": {
+            "n": 1,
+            "p50": 132.11,
+            "p95": 132.11
+          },
+          "score_eyes_open": {
+            "n": 1,
+            "p50": 107.82,
+            "p95": 107.82
+          },
+          "score_face_quality": {
+            "n": 1,
+            "p50": 173.83,
+            "p95": 173.83
+          },
+          "score_sharpness": {
+            "n": 1,
+            "p50": 328.63,
+            "p95": 328.63
+          }
+        },
+        "run_wall_s": null,
+        "model_tokens": null,
+        "loop_guard_triggers": 0,
+        "stopped": null,
+        "runs_in_trace": 4,
+        "selected_run": "E03-agentcore-20261008T062729Z",
+        "other_runs": [
+          "E03-aws-20261005T155605Z",
+          "E03-agentcore-20261008T050441Z",
+          "E03-agentcore-20261008T061112Z"
+        ]
+      },
+      "robustness": null,
+      "inter_annotator": null,
+      "label_counts": {
+        "photographer": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "team": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "unclassified": {
+          "rows": 0,
+          "labellers": 0
+        }
+      },
+      "team_labels": null,
+      "agent_runs": [
+        {
+          "run_id": "E03-aws-20261005T155605Z",
+          "started": "2026-10-05T15:58:35.827Z",
+          "host": "fargate-arm64-4vcpu",
+          "run_kind": "deployed",
+          "status": "awaiting_approval",
+          "is_results_run": false,
+          "tool_calls": 38,
+          "tool_calls_excl_next_work_item": 34,
+          "model_calls": null,
+          "pauses": 3,
+          "resumes": 2,
+          "approval_items": 3,
+          "photos_escalated": 8,
+          "answer_sources": {
+            "lead_test": 6,
+            "pending": 2
+          },
+          "pivots": 5,
+          "pivots_by_policy": {
+            "Policy 5": 3,
+            "Policy 3": 2
+          },
+          "agent_active_s": 136.9,
+          "agent_wall_s_run_item": 136.57,
+          "tool_results_not_ok": 1,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 91.21,
+          "tool_latency_ms_p95": 469.55
+        },
+        {
+          "run_id": "E03-agentcore-20261008T050441Z",
+          "started": "2026-10-08T05:05:54.889Z",
+          "host": "agentcore",
+          "run_kind": "deployed",
+          "status": "awaiting_approval",
+          "is_results_run": false,
+          "tool_calls": 19,
+          "tool_calls_excl_next_work_item": 17,
+          "model_calls": null,
+          "pauses": 2,
+          "resumes": 1,
+          "approval_items": 2,
+          "photos_escalated": 6,
+          "answer_sources": {
+            "lead_test": 2,
+            "pending": 4
+          },
+          "pivots": 2,
+          "pivots_by_policy": {
+            "Policy 5": 2
+          },
+          "agent_active_s": 61.5,
+          "agent_wall_s_run_item": 61.16,
+          "tool_results_not_ok": 0,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 125.81,
+          "tool_latency_ms_p95": 497.68
+        },
+        {
+          "run_id": "E03-agentcore-20261008T061112Z",
+          "started": "2026-10-08T06:14:15.874Z",
+          "host": "agentcore",
+          "run_kind": "deployed",
+          "status": "awaiting_approval",
+          "is_results_run": false,
+          "tool_calls": 9,
+          "tool_calls_excl_next_work_item": 8,
+          "model_calls": null,
+          "pauses": 1,
+          "resumes": 0,
+          "approval_items": 1,
+          "photos_escalated": 2,
+          "answer_sources": {
+            "pending": 2
+          },
+          "pivots": 1,
+          "pivots_by_policy": {
+            "Policy 5": 1
+          },
+          "agent_active_s": 23.5,
+          "agent_wall_s_run_item": 23.33,
+          "tool_results_not_ok": 0,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 121.56,
+          "tool_latency_ms_p95": 300.49
+        },
+        {
+          "run_id": "E03-agentcore-20261008T062729Z",
+          "started": "2026-10-08T06:28:47.848Z",
+          "host": "agentcore",
+          "run_kind": "deployed",
+          "status": "awaiting_approval",
+          "is_results_run": true,
+          "tool_calls": 9,
+          "tool_calls_excl_next_work_item": 8,
+          "model_calls": null,
+          "pauses": 1,
+          "resumes": 0,
+          "approval_items": 1,
+          "photos_escalated": 2,
+          "answer_sources": {
+            "pending": 2
+          },
+          "pivots": 1,
+          "pivots_by_policy": {
+            "Policy 5": 1
+          },
+          "agent_active_s": 24.5,
+          "agent_wall_s_run_item": 24.37,
+          "tool_results_not_ok": 0,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 119.97,
+          "tool_latency_ms_p95": 292.64
+        }
+      ]
+    },
+    {
+      "event_id": "E01",
+      "labels": false,
+      "n_labelled": 0,
+      "n_decided": 2442,
+      "n_scored": 0,
+      "run_counts": {
+        "n_photos": 2442,
+        "verdicts": {
+          "keep": 1784,
+          "review": 203,
+          "reject": 455
+        },
+        "decided_by": {
+          "worker": 2442
+        },
+        "human_source": {},
+        "needs_approval": 483,
+        "reason_codes": {
+          "KEEP_SINGLETON": 1367,
+          "BURST_NOT_BEST": 561,
+          "KEEP_BEST_OF_GROUP": 417,
+          "REVIEW_LOW_CONFIDENCE": 198,
+          "EYES_CLOSED": 126,
+          "DUPLICATE_OF": 91,
+          "REVIEW_POLICY_GROUP_EYES": 38,
+          "LOW_CONTRAST": 3,
+          "EXPOSURE_UNDER": 2,
+          "EXPOSURE_OVER": 1
+        }
+      },
+      "group_shape": {
+        "n_groups": 417,
+        "n_singletons": 1373,
+        "photos_in_groups": 1069,
+        "size_histogram": {
+          "2": 302,
+          "3": 48,
+          "4": 45,
+          "5": 11,
+          "6": 4,
+          "7": 1,
+          "8": 4,
+          "9": 1,
+          "14": 1
+        },
+        "max_size": 14,
+        "ties": 88,
+        "margin_lt_0_05": 218,
+        "exact_duplicates": {
+          "<id>": "<id>"
+        }
+      },
+      "agent_loop": {
+        "run_id": "E01-aws-20261008T061801Z",
+        "run_status": "awaiting_approval",
+        "model": "claude-sonnet-5",
+        "provider": "anthropic",
+        "n_trace_lines": 19,
+        "tool_calls": 7,
+        "tool_calls_per_event": 7,
+        "tool_calls_excl_next_work_item": 6,
+        "tool_calls_run_summary": null,
+        "model_calls": null,
+        "tool_calls_per_photo": 0.0029,
+        "tool_calls_per_agent_photo": null,
+        "photos_in_event": 2442,
+        "photos_agent_decided": 0,
+        "work_items": 239,
+        "tool_calls_by_tool": {
+          "detect_faces": 1,
+          "make_contact_sheet": 1,
+          "next_work_item": 1,
+          "pick_best_in_cluster": 1,
+          "request_human_approval": 1,
+          "score_exposure": 1,
+          "score_sharpness": 1
+        },
+        "tool_results_not_ok": 0,
+        "approval_items": 1,
+        "pauses": 1,
+        "resumes": 0,
+        "photos_escalated": 2,
+        "pct_escalated": 0.08,
+        "pct_escalated_of_agent_photos": null,
+        "human_source_breakdown": {
+          "pending": 2
+        },
+        "escalations_pending": 2,
+        "scripted_answers_excluded": 0,
+        "lead_test_answers_excluded": 0,
+        "source_override": null,
+        "agent_active_s": 22.3,
+        "host": "agentcore",
+        "unknown_source_answers_excluded": 0,
+        "escalation_human_agreed_pct": null,
+        "escalation_human_agreed_n": 0,
+        "escalated_final_vs_label_agreement_pct": null,
+        "pivots": 1,
+        "pivots_by_policy": {
+          "Policy 5": 1
+        },
+        "pivots_by_kind": {
+          "small_margin_to_human": 1
+        },
+        "policy_hooks": {},
+        "tool_latency_ms_p50": 113.29,
+        "tool_latency_ms_p95": 656.76,
+        "tool_latency_ms_mean": 220.59,
+        "tool_latency_ms_by_tool": {
+          "detect_faces": {
+            "n": 1,
+            "p50": 330.27,
+            "p95": 330.27
+          },
+          "make_contact_sheet": {
+            "n": 1,
+            "p50": 94.05,
+            "p95": 94.05
+          },
+          "next_work_item": {
+            "n": 1,
+            "p50": 0.45,
+            "p95": 0.45
+          },
+          "pick_best_in_cluster": {
+            "n": 1,
+            "p50": 0.63,
+            "p95": 0.63
+          },
+          "score_exposure": {
+            "n": 1,
+            "p50": 132.53,
+            "p95": 132.53
+          },
+          "score_sharpness": {
+            "n": 1,
+            "p50": 765.59,
+            "p95": 765.59
+          }
+        },
+        "run_wall_s": null,
+        "model_tokens": null,
+        "loop_guard_triggers": 0,
+        "stopped": null,
+        "runs_in_trace": 1
+      },
+      "robustness": null,
+      "inter_annotator": null,
+      "label_counts": {
+        "photographer": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "team": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "unclassified": {
+          "rows": 0,
+          "labellers": 0
+        }
+      },
+      "team_labels": null,
+      "agent_runs": [
+        {
+          "run_id": "E01-aws-20261008T061801Z",
+          "started": "2026-10-08T06:25:53.221Z",
+          "host": "agentcore",
+          "run_kind": "deployed",
+          "status": "awaiting_approval",
+          "is_results_run": true,
+          "tool_calls": 7,
+          "tool_calls_excl_next_work_item": 6,
+          "model_calls": null,
+          "pauses": 1,
+          "resumes": 0,
+          "approval_items": 1,
+          "photos_escalated": 2,
+          "answer_sources": {
+            "pending": 2
+          },
+          "pivots": 1,
+          "pivots_by_policy": {
+            "Policy 5": 1
+          },
+          "agent_active_s": 22.3,
+          "agent_wall_s_run_item": 22.13,
+          "tool_results_not_ok": 0,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 113.29,
+          "tool_latency_ms_p95": 656.76
+        }
+      ]
+    },
+    {
+      "event_id": "E07",
+      "labels": false,
+      "n_labelled": 0,
+      "n_decided": 1000,
+      "n_scored": 0,
+      "run_counts": {
+        "n_photos": 1000,
+        "verdicts": {
+          "keep": 301,
+          "reject": 624,
+          "review": 75
+        },
+        "decided_by": {
+          "worker": 1000
+        },
+        "human_source": {},
+        "needs_approval": 211,
+        "reason_codes": {
+          "BURST_NOT_BEST": 632,
+          "KEEP_BEST_OF_GROUP": 171,
+          "EYES_CLOSED": 152,
+          "KEEP_SINGLETON": 130,
+          "REVIEW_LOW_CONFIDENCE": 73,
+          "DUPLICATE_OF": 65,
+          "REVIEW_POLICY_GROUP_EYES": 21,
+          "LOW_CONTRAST": 2
+        }
+      },
+      "group_shape": {
+        "n_groups": 171,
+        "n_singletons": 132,
+        "photos_in_groups": 868,
+        "size_histogram": {
+          "2": 66,
+          "3": 38,
+          "4": 23,
+          "5": 7,
+          "6": 8,
+          "7": 3,
+          "8": 1,
+          "9": 8,
+          "10": 1,
+          "11": 2,
+          "12": 2,
+          "13": 2,
+          "15": 2,
+          "17": 1,
+          "18": 2,
+          "23": 1,
+          "24": 1,
+          "29": 1,
+          "30": 1,
+          "75": 1
+        },
+        "max_size": 75,
+        "ties": 40,
+        "margin_lt_0_05": 107,
+        "exact_duplicates": {
+          "<id>": "<id>"
+        }
+      },
+      "agent_loop": {
+        "run_id": "E07-aws-20261005T184515Z",
+        "run_status": "awaiting_approval",
+        "model": "claude-sonnet-5",
+        "provider": "anthropic",
+        "n_trace_lines": 24,
+        "tool_calls": 9,
+        "tool_calls_per_event": 9,
+        "tool_calls_excl_next_work_item": 8,
+        "tool_calls_run_summary": null,
+        "model_calls": null,
+        "tool_calls_per_photo": 0.009,
+        "tool_calls_per_agent_photo": null,
+        "photos_in_event": 1000,
+        "photos_agent_decided": 0,
+        "work_items": 98,
+        "tool_calls_by_tool": {
+          "detect_faces": 1,
+          "make_contact_sheet": 1,
+          "next_work_item": 1,
+          "pick_best_in_cluster": 1,
+          "request_human_approval": 1,
+          "score_exposure": 1,
+          "score_eyes_open": 1,
+          "score_face_quality": 1,
+          "score_sharpness": 1
+        },
+        "tool_results_not_ok": 0,
+        "approval_items": 1,
+        "pauses": 1,
+        "resumes": 0,
+        "photos_escalated": 9,
+        "pct_escalated": 0.9,
+        "pct_escalated_of_agent_photos": null,
+        "human_source_breakdown": {
+          "pending": 9
+        },
+        "escalations_pending": 9,
+        "scripted_answers_excluded": 0,
+        "lead_test_answers_excluded": 0,
+        "source_override": null,
+        "agent_active_s": 49.1,
+        "host": null,
+        "unknown_source_answers_excluded": 0,
+        "escalation_human_agreed_pct": null,
+        "escalation_human_agreed_n": 0,
+        "escalated_final_vs_label_agreement_pct": null,
+        "pivots": 2,
+        "pivots_by_policy": {
+          "Policy 3": 1,
+          "Policy 5": 1
+        },
+        "pivots_by_kind": {
+          "eyes_compare_in_group": 1,
+          "small_margin_to_human": 1
+        },
+        "policy_hooks": {},
+        "tool_latency_ms_p50": 277.63,
+        "tool_latency_ms_p95": 1136.89,
+        "tool_latency_ms_mean": 438.88,
+        "tool_latency_ms_by_tool": {
+          "detect_faces": {
+            "n": 1,
+            "p50": 1174.14,
+            "p95": 1174.14
+          },
+          "make_contact_sheet": {
+            "n": 1,
+            "p50": 101.48,
+            "p95": 101.48
+          },
+          "next_work_item": {
+            "n": 1,
+            "p50": 0.52,
+            "p95": 0.52
+          },
+          "pick_best_in_cluster": {
+            "n": 1,
+            "p50": 0.9,
+            "p95": 0.9
+          },
+          "score_exposure": {
+            "n": 1,
+            "p50": 181.85,
+            "p95": 181.85
+          },
+          "score_eyes_open": {
+            "n": 1,
+            "p50": 373.42,
+            "p95": 373.42
+          },
+          "score_face_quality": {
+            "n": 1,
+            "p50": 611.04,
+            "p95": 611.04
+          },
+          "score_sharpness": {
+            "n": 1,
+            "p50": 1067.7,
+            "p95": 1067.7
+          }
+        },
+        "run_wall_s": null,
+        "model_tokens": null,
+        "loop_guard_triggers": 0,
+        "stopped": null,
+        "runs_in_trace": 2,
+        "selected_run": "E07-aws-20261005T184515Z",
+        "other_runs": [
+          "E07-aws-20261005T170642Z"
+        ]
+      },
+      "robustness": null,
+      "inter_annotator": null,
+      "label_counts": {
+        "photographer": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "team": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "unclassified": {
+          "rows": 0,
+          "labellers": 0
+        }
+      },
+      "team_labels": null,
+      "agent_runs": [
+        {
+          "run_id": "E07-aws-20261005T170642Z",
+          "started": "2026-10-05T17:10:28.044Z",
+          "host": "fargate-arm64-4vcpu",
+          "run_kind": "deployed",
+          "status": "awaiting_approval",
+          "is_results_run": false,
+          "tool_calls": 9,
+          "tool_calls_excl_next_work_item": 8,
+          "model_calls": null,
+          "pauses": 1,
+          "resumes": 0,
+          "approval_items": 1,
+          "photos_escalated": 9,
+          "answer_sources": {
+            "pending": 9
+          },
+          "pivots": 2,
+          "pivots_by_policy": {
+            "Policy 3": 1,
+            "Policy 5": 1
+          },
+          "agent_active_s": 49.8,
+          "agent_wall_s_run_item": null,
+          "tool_results_not_ok": 0,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 287.16,
+          "tool_latency_ms_p95": 967.92
+        },
+        {
+          "run_id": "E07-aws-20261005T184515Z",
+          "started": "2026-10-05T18:50:38.329Z",
+          "host": "fargate-arm64-4vcpu",
+          "run_kind": null,
+          "status": "awaiting_approval",
+          "is_results_run": true,
+          "tool_calls": 9,
+          "tool_calls_excl_next_work_item": 8,
+          "model_calls": null,
+          "pauses": 1,
+          "resumes": 0,
+          "approval_items": 1,
+          "photos_escalated": 9,
+          "answer_sources": {
+            "pending": 9
+          },
+          "pivots": 2,
+          "pivots_by_policy": {
+            "Policy 3": 1,
+            "Policy 5": 1
+          },
+          "agent_active_s": 49.1,
+          "agent_wall_s_run_item": 48.82,
+          "tool_results_not_ok": 0,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 277.63,
+          "tool_latency_ms_p95": 1136.89
+        }
+      ]
+    },
+    {
+      "event_id": "E09",
+      "labels": false,
+      "n_labelled": 0,
+      "n_decided": 661,
+      "n_scored": 0,
+      "run_counts": {
+        "n_photos": 661,
+        "verdicts": {
+          "keep": 609,
+          "reject": 39,
+          "review": 13
+        },
+        "decided_by": {
+          "worker": 637,
+          "scripted": 21,
+          "agent": 3
+        },
+        "human_source": {
+          "scripted": 21
+        },
+        "needs_approval": 0,
+        "reason_codes": {
+          "KEEP_SINGLETON": 559,
+          "KEEP_BEST_OF_GROUP": 50,
+          "DUPLICATE_OF": 37,
+          "REVIEW_POLICY_GROUP_EYES": 13,
+          "BURST_NOT_BEST": 12,
+          "REVIEW_LOW_CONFIDENCE": 5,
+          "EYES_CLOSED": 5,
+          "EXPOSURE_UNDER": 3
+        }
+      },
+      "group_shape": {
+        "n_groups": 50,
+        "n_singletons": 560,
+        "photos_in_groups": 101,
+        "size_histogram": {
+          "2": 49,
+          "3": 1
+        },
+        "max_size": 3,
+        "ties": 1,
+        "margin_lt_0_05": 7,
+        "exact_duplicates": {
+          "<id>": "<id>"
+        }
+      },
+      "agent_loop": {
+        "run_id": "E09-agent-20261005T141910Z",
+        "run_status": "finished",
+        "model": "claude-sonnet-5",
+        "provider": "anthropic",
+        "n_trace_lines": 280,
+        "tool_calls": 115,
+        "tool_calls_per_event": 115,
+        "tool_calls_excl_next_work_item": 102,
+        "tool_calls_run_summary": 102,
+        "model_calls": 72,
+        "tool_calls_per_photo": 0.174,
+        "tool_calls_per_agent_photo": 4.7917,
+        "photos_in_event": 661,
+        "photos_agent_decided": 24,
+        "work_items": 12,
+        "tool_calls_by_tool": {
+          "next_work_item": 13,
+          "detect_faces": 12,
+          "score_exposure": 12,
+          "score_eyes_open": 12,
+          "score_sharpness": 12,
+          "write_decision": 12,
+          "pick_best_in_cluster": 11,
+          "score_face_quality": 11,
+          "make_contact_sheet": 10,
+          "request_human_approval": 10
+        },
+        "tool_results_not_ok": 1,
+        "approval_items": 10,
+        "pauses": 10,
+        "resumes": 10,
+        "photos_escalated": 21,
+        "pct_escalated": 3.18,
+        "pct_escalated_of_agent_photos": 87.5,
+        "human_source_breakdown": {
+          "scripted": 21
+        },
+        "escalations_pending": 0,
+        "scripted_answers_excluded": 21,
+        "lead_test_answers_excluded": 0,
+        "source_override": "scripted",
+        "agent_active_s": 564.7,
+        "host": null,
+        "unknown_source_answers_excluded": 0,
+        "escalation_human_agreed_pct": null,
+        "escalation_human_agreed_n": 0,
+        "escalated_final_vs_label_agreement_pct": null,
+        "pivots": 20,
+        "pivots_by_policy": {
+          "Policy 3": 10,
+          "Policy 5": 10
+        },
+        "pivots_by_kind": {
+          "eyes_compare_in_group": 10,
+          "small_margin_to_human": 10
+        },
+        "policy_hooks": {
+          "policy_P1": 1
+        },
+        "tool_latency_ms_p50": 234.19,
+        "tool_latency_ms_p95": 3787.81,
+        "tool_latency_ms_mean": 988.5,
+        "tool_latency_ms_by_tool": {
+          "detect_faces": {
+            "n": 12,
+            "p50": 3162.74,
+            "p95": 3514.89
+          },
+          "make_contact_sheet": {
+            "n": 10,
+            "p50": 1387.43,
+            "p95": 1464.83
+          },
+          "next_work_item": {
+            "n": 13,
+            "p50": 1.2,
+            "p95": 4.56
+          },
+          "pick_best_in_cluster": {
+            "n": 11,
+            "p50": 1.58,
+            "p95": 2.68
+          },
+          "request_human_approval": {
+            "n": 10,
+            "p50": 1.46,
+            "p95": 3.65
+          },
+          "score_exposure": {
+            "n": 12,
+            "p50": 18.34,
+            "p95": 2135.66
+          },
+          "score_eyes_open": {
+            "n": 12,
+            "p50": 213.81,
+            "p95": 270.71
+          },
+          "score_face_quality": {
+            "n": 11,
+            "p50": 285.63,
+            "p95": 650.65
+          },
+          "score_sharpness": {
+            "n": 12,
+            "p50": 1062.45,
+            "p95": 2869.81
+          },
+          "write_decision": {
+            "n": 12,
+            "p50": 3789.22,
+            "p95": 4225.13
+          }
+        },
+        "run_wall_s": 533.72,
+        "model_tokens": null,
+        "loop_guard_triggers": 0,
+        "stopped": null,
+        "runs_in_trace": 1
+      },
+      "robustness": null,
+      "inter_annotator": null,
+      "label_counts": {
+        "photographer": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "team": {
+          "rows": 0,
+          "labellers": 0
+        },
+        "unclassified": {
+          "rows": 0,
+          "labellers": 0
+        }
+      },
+      "team_labels": null,
+      "agent_runs": [
+        {
+          "run_id": "E09-agent-20261005T141910Z",
+          "started": "2026-10-05T14:19:31.160Z",
+          "host": "local",
+          "run_kind": "local",
+          "status": "finished",
+          "is_results_run": true,
+          "tool_calls": 115,
+          "tool_calls_excl_next_work_item": 102,
+          "model_calls": 72,
+          "pauses": 10,
+          "resumes": 10,
+          "approval_items": 10,
+          "photos_escalated": 21,
+          "answer_sources": {
+            "scripted": 21
+          },
+          "pivots": 20,
+          "pivots_by_policy": {
+            "Policy 3": 10,
+            "Policy 5": 10
+          },
+          "agent_active_s": 564.7,
+          "agent_wall_s_run_item": null,
+          "tool_results_not_ok": 1,
+          "model_tokens": null,
+          "tool_latency_ms_p50": 234.19,
+          "tool_latency_ms_p95": 3787.81
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "events": [
+      "E03",
+      "E01",
+      "E07",
+      "E09"
+    ],
+    "labelled_events": [],
+    "n_scored": 0,
+    "no_labels": true
+  },
+  "determinism": {
+    "event": "E09",
+    "reps": [
+      "A",
+      "B"
+    ],
+    "model": "claude-sonnet-5",
+    "approvals": "scripted approve-as-proposed (not human)",
+    "photos_decided_in_both": 24,
+    "photos_decided_in_either": 24,
+    "only_in_one_run": 0,
+    "identical_verdict_pct": 83.33,
+    "identical_verdict_pct_of_union": 83.33,
+    "identical_reasons_pct": 58.33,
+    "escalated_sets_identical": false,
+    "escalated_in_both": 21,
+    "escalated_only_in_one": 1,
+    "identical_proposal_pct": 80.95,
+    "tool_sequence_identical": false,
+    "by_decided_by": {
+      "agent": {
+        "n": 2,
+        "same": 2,
+        "identical_verdict_pct": 100.0
+      },
+      "mixed": {
+        "n": 1,
+        "same": 1,
+        "identical_verdict_pct": 100.0
+      },
+      "scripted": {
+        "n": 21,
+        "same": 17,
+        "identical_verdict_pct": 80.95
+      }
+    },
+    "per_rep": [
+      {
+        "rep": "A",
+        "status": "done",
+        "pauses": 10,
+        "wall_s": 342.5,
+        "model": "claude-sonnet-5",
+        "items": 12,
+        "photos_decided": 24,
+        "verdicts": {
+          "keep": 11,
+          "review": 13
+        },
+        "photos_escalated": 21,
+        "tool_calls": 100,
+        "tool_calls_trace": 113,
+        "model_calls": 79,
+        "tokens": {
+          "input_tokens": 1161137,
+          "output_tokens": 1233,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0,
+          "cycles": 89,
+          "cycles_zero_output": 57,
+          "latency_ms": 0
+        },
+        "usd_list_price": 2.3346
+      },
+      {
+        "rep": "B",
+        "status": "done",
+        "pauses": 11,
+        "wall_s": 342.8,
+        "model": "claude-sonnet-5",
+        "items": 12,
+        "photos_decided": 24,
+        "verdicts": {
+          "keep": 11,
+          "reject": 4,
+          "review": 9
+        },
+        "photos_escalated": 22,
+        "tool_calls": 100,
+        "tool_calls_trace": 113,
+        "model_calls": 80,
+        "tokens": {
+          "input_tokens": 1175201,
+          "output_tokens": 1159,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0,
+          "cycles": 91,
+          "cycles_zero_output": 62,
+          "latency_ms": 0
+        },
+        "usd_list_price": 2.362
+      }
+    ],
+    "usd_per_event_mean": 2.3483,
+    "prices": {
+      "claude-sonnet-5": {
+        "input": 2.0,
+        "output": 10.0,
+        "cache_write": 2.5,
+        "cache_read": 0.2
+      }
+    },
+    "prices_source": "Anthropic list prices per MTok (claude-api model table, cached 2026-09-25)"
+  }
+}

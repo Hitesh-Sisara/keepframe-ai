@@ -1,0 +1,38 @@
+{
+  "status": "ok",
+  "opencv_version": "5.0.0",
+  "flavor": "stock",
+  "instance_type": "local-x86_64",
+  "workers": 6,
+  "n_photos": 664,
+  "n_groups": 27,
+  "n_singletons": 607,
+  "wall_s": 355.952,
+  "images_per_s": 1.865,
+  "verdict_counts": {
+    "keep": 603,
+    "reject": 8,
+    "review": 53
+  },
+  "reason_counts": {
+    "BURST_NOT_BEST": 28,
+    "DUPLICATE_OF": 2,
+    "EXPOSURE_UNDER": 30,
+    "EYES_CLOSED": 6,
+    "KEEP_BEST_OF_GROUP": 27,
+    "KEEP_SINGLETON": 576,
+    "LOW_CONTRAST": 1,
+    "REVIEW_LOW_CONFIDENCE": 22
+  },
+  "escalation_count": 53,
+  "thresholds_sha": "badbd08f78b51749cfcb29ea989906b64016f6f9be4c6471d6ff66450e5e8438",
+  "stages_wall_s": {
+    "analyse": 18.0,
+    "cluster": 0.1,
+    "decide": 6.8,
+    "ingest": 170.6,
+    "proxies_hashes": 158.9,
+    "write": 1.5
+  },
+  "note": "Second real run, E03 (Ceremony, 664 photos), cold cache, x86 dev box, untuned thresholds. ingest+proxies 330 s of 356 s are S3 round trips (serial HEAD/GET from outside the region). Event id omitted."
+}

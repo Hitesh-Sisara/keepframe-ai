@@ -1,0 +1,664 @@
+{
+  "schema": "keepframe/worker-bench/v1",
+  "host_label": "stock-carotene",
+  "date": "2026-10-08",
+  "instance_type": "c8g.xlarge",
+  "workers": 4,
+  "custom_hal": "YES (carotene (ver 0.0.1))",
+  "reps": 3,
+  "n_photos": 661,
+  "event": "661-photo event (id in raw/, not committed)",
+  "prices_usd_per_hour": {
+    "ec2_usd_per_hour": 0.10796
+  },
+  "median": {
+    "images_per_sec_worker": 27.453,
+    "images_per_sec_outer": 27.1591,
+    "wall_s_worker": 24.078,
+    "wall_s_outer": 24.338,
+    "cpu_util_mean": 98.32,
+    "peak_rss_mb": 1671.7,
+    "cost_per_1k_usd": 0.001104
+  },
+  "verdict_counts_identical_across_reps": true,
+  "reps_detail": [
+    {
+      "rep": 1,
+      "rc": 0,
+      "n_photos": 661,
+      "n_ok": 661,
+      "n_groups": 50,
+      "wall_s_worker": 24.078,
+      "wall_s_outer": 24.338,
+      "images_per_sec_worker": 27.453,
+      "images_per_sec_outer": 27.1591,
+      "cpu_util_mean": 97.7,
+      "peak_rss_mb": 1651.2,
+      "verdict_counts": {
+        "keep": 609,
+        "reject": 46,
+        "review": 6
+      },
+      "reason_counts": {
+        "BURST_NOT_BEST": 14,
+        "DUPLICATE_OF": 37,
+        "EXPOSURE_UNDER": 1,
+        "EYES_CLOSED": 8,
+        "KEEP_BEST_OF_GROUP": 50,
+        "KEEP_SINGLETON": 559,
+        "REVIEW_LOW_CONFIDENCE": 5,
+        "REVIEW_POLICY_GROUP_EYES": 9
+      },
+      "escalation_count": 9,
+      "faces_available": true,
+      "thresholds_sha": "9467e8382e93ec9d58c872a6fc1e12cf4f66ccf717edcfb2ec9f08a71d2cd3af",
+      "instance_type": "c8g.xlarge",
+      "stages": {
+        "analyse": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 14790.33,
+          "total_ms": 0.0
+        },
+        "best": {
+          "n": 50,
+          "p50_ms": 0.049,
+          "p95_ms": 0.061,
+          "wall_ms": 0.0,
+          "total_ms": 2.59
+        },
+        "cluster": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 10.14,
+          "total_ms": 0.0
+        },
+        "contact_sheet": {
+          "n": 8,
+          "p50_ms": 26.192,
+          "p95_ms": 35.331,
+          "wall_ms": 0.0,
+          "total_ms": 218.73
+        },
+        "decide": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 97.73,
+          "total_ms": 0.0
+        },
+        "decode_full": {
+          "n": 661,
+          "p50_ms": 27.229,
+          "p95_ms": 40.238,
+          "wall_ms": 0.0,
+          "total_ms": 18844.68
+        },
+        "exposure": {
+          "n": 661,
+          "p50_ms": 17.165,
+          "p95_ms": 20.162,
+          "wall_ms": 0.0,
+          "total_ms": 11570.48
+        },
+        "eyes": {
+          "n": 91,
+          "p50_ms": 10.137,
+          "p95_ms": 24.776,
+          "wall_ms": 0.0,
+          "total_ms": 1039.56
+        },
+        "face_quality": {
+          "n": 92,
+          "p50_ms": 56.419,
+          "p95_ms": 114.338,
+          "wall_ms": 0.0,
+          "total_ms": 5608.39
+        },
+        "faces": {
+          "n": 92,
+          "p50_ms": 33.18,
+          "p95_ms": 77.96,
+          "wall_ms": 0.0,
+          "total_ms": 3465.87
+        },
+        "faces_load_full": {
+          "n": 92,
+          "p50_ms": 29.586,
+          "p95_ms": 40.57,
+          "wall_ms": 0.0,
+          "total_ms": 2799.41
+        },
+        "hashes": {
+          "n": 661,
+          "p50_ms": 4.535,
+          "p95_ms": 5.26,
+          "wall_ms": 0.0,
+          "total_ms": 3187.98
+        },
+        "ingest": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 100.06,
+          "total_ms": 0.0
+        },
+        "list": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 18.01,
+          "total_ms": 0.0
+        },
+        "prefetch": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.24,
+          "total_ms": 0.0
+        },
+        "prefetch_groups": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 3.76,
+          "total_ms": 0.0
+        },
+        "proxies_hashes": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 8997.79,
+          "total_ms": 0.0
+        },
+        "proxy_decode": {
+          "n": 661,
+          "p50_ms": 2.215,
+          "p95_ms": 2.754,
+          "wall_ms": 0.0,
+          "total_ms": 1475.37
+        },
+        "proxy_encode": {
+          "n": 661,
+          "p50_ms": 2.561,
+          "p95_ms": 2.815,
+          "wall_ms": 0.0,
+          "total_ms": 1708.39
+        },
+        "proxy_total": {
+          "n": 661,
+          "p50_ms": 44.941,
+          "p95_ms": 59.419,
+          "wall_ms": 0.0,
+          "total_ms": 30700.62
+        },
+        "proxy_upload_drain": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.0,
+          "total_ms": 0.0
+        },
+        "resize": {
+          "n": 661,
+          "p50_ms": 12.38,
+          "p95_ms": 12.89,
+          "wall_ms": 0.0,
+          "total_ms": 8240.85
+        },
+        "saliency": {
+          "n": 560,
+          "p50_ms": 33.323,
+          "p95_ms": 34.442,
+          "wall_ms": 0.0,
+          "total_ms": 18661.07
+        },
+        "sharpness_metrics": {
+          "n": 661,
+          "p50_ms": 15.465,
+          "p95_ms": 55.651,
+          "wall_ms": 0.0,
+          "total_ms": 13743.0
+        },
+        "write": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 8.15,
+          "total_ms": 0.0
+        }
+      },
+      "opencv_version": "5.0.0",
+      "cv2_file": "/opt/venv-stock-carotene/lib/python3.12/site-packages/cv2/__init__.py",
+      "cost_per_1k_usd": 0.001104
+    },
+    {
+      "rep": 2,
+      "rc": 0,
+      "n_photos": 661,
+      "n_ok": 661,
+      "n_groups": 50,
+      "wall_s_worker": 24.072,
+      "wall_s_outer": 24.313,
+      "images_per_sec_worker": 27.46,
+      "images_per_sec_outer": 27.1868,
+      "cpu_util_mean": 98.32,
+      "peak_rss_mb": 1671.8,
+      "verdict_counts": {
+        "keep": 609,
+        "reject": 46,
+        "review": 6
+      },
+      "reason_counts": {
+        "BURST_NOT_BEST": 14,
+        "DUPLICATE_OF": 37,
+        "EXPOSURE_UNDER": 1,
+        "EYES_CLOSED": 8,
+        "KEEP_BEST_OF_GROUP": 50,
+        "KEEP_SINGLETON": 559,
+        "REVIEW_LOW_CONFIDENCE": 5,
+        "REVIEW_POLICY_GROUP_EYES": 9
+      },
+      "escalation_count": 9,
+      "faces_available": true,
+      "thresholds_sha": "9467e8382e93ec9d58c872a6fc1e12cf4f66ccf717edcfb2ec9f08a71d2cd3af",
+      "instance_type": "c8g.xlarge",
+      "stages": {
+        "analyse": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 14829.44,
+          "total_ms": 0.0
+        },
+        "best": {
+          "n": 50,
+          "p50_ms": 0.047,
+          "p95_ms": 0.061,
+          "wall_ms": 0.0,
+          "total_ms": 2.53
+        },
+        "cluster": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 10.58,
+          "total_ms": 0.0
+        },
+        "contact_sheet": {
+          "n": 8,
+          "p50_ms": 32.829,
+          "p95_ms": 38.468,
+          "wall_ms": 0.0,
+          "total_ms": 255.77
+        },
+        "decide": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 99.72,
+          "total_ms": 0.0
+        },
+        "decode_full": {
+          "n": 661,
+          "p50_ms": 26.989,
+          "p95_ms": 40.136,
+          "wall_ms": 0.0,
+          "total_ms": 18692.57
+        },
+        "exposure": {
+          "n": 661,
+          "p50_ms": 17.083,
+          "p95_ms": 19.978,
+          "wall_ms": 0.0,
+          "total_ms": 11538.9
+        },
+        "eyes": {
+          "n": 91,
+          "p50_ms": 10.162,
+          "p95_ms": 24.876,
+          "wall_ms": 0.0,
+          "total_ms": 1037.66
+        },
+        "face_quality": {
+          "n": 92,
+          "p50_ms": 57.419,
+          "p95_ms": 115.15,
+          "wall_ms": 0.0,
+          "total_ms": 5640.37
+        },
+        "faces": {
+          "n": 92,
+          "p50_ms": 33.258,
+          "p95_ms": 78.598,
+          "wall_ms": 0.0,
+          "total_ms": 3483.42
+        },
+        "faces_load_full": {
+          "n": 92,
+          "p50_ms": 29.374,
+          "p95_ms": 40.807,
+          "wall_ms": 0.0,
+          "total_ms": 2791.09
+        },
+        "hashes": {
+          "n": 661,
+          "p50_ms": 4.512,
+          "p95_ms": 5.215,
+          "wall_ms": 0.0,
+          "total_ms": 3159.35
+        },
+        "ingest": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 101.25,
+          "total_ms": 0.0
+        },
+        "list": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 17.87,
+          "total_ms": 0.0
+        },
+        "prefetch": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.25,
+          "total_ms": 0.0
+        },
+        "prefetch_groups": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.66,
+          "total_ms": 0.0
+        },
+        "proxies_hashes": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 8954.33,
+          "total_ms": 0.0
+        },
+        "proxy_decode": {
+          "n": 661,
+          "p50_ms": 2.224,
+          "p95_ms": 2.767,
+          "wall_ms": 0.0,
+          "total_ms": 1479.85
+        },
+        "proxy_encode": {
+          "n": 661,
+          "p50_ms": 2.557,
+          "p95_ms": 2.808,
+          "wall_ms": 0.0,
+          "total_ms": 1692.79
+        },
+        "proxy_total": {
+          "n": 661,
+          "p50_ms": 44.84,
+          "p95_ms": 58.508,
+          "wall_ms": 0.0,
+          "total_ms": 30527.52
+        },
+        "proxy_upload_drain": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.01,
+          "total_ms": 0.0
+        },
+        "resize": {
+          "n": 661,
+          "p50_ms": 12.398,
+          "p95_ms": 13.088,
+          "wall_ms": 0.0,
+          "total_ms": 8278.51
+        },
+        "saliency": {
+          "n": 560,
+          "p50_ms": 33.623,
+          "p95_ms": 34.38,
+          "wall_ms": 0.0,
+          "total_ms": 18874.37
+        },
+        "sharpness_metrics": {
+          "n": 661,
+          "p50_ms": 15.443,
+          "p95_ms": 55.817,
+          "wall_ms": 0.0,
+          "total_ms": 13747.93
+        },
+        "write": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 8.21,
+          "total_ms": 0.0
+        }
+      },
+      "opencv_version": "5.0.0",
+      "cv2_file": "/opt/venv-stock-carotene/lib/python3.12/site-packages/cv2/__init__.py",
+      "cost_per_1k_usd": 0.001103
+    },
+    {
+      "rep": 3,
+      "rc": 0,
+      "n_photos": 661,
+      "n_ok": 661,
+      "n_groups": 50,
+      "wall_s_worker": 24.145,
+      "wall_s_outer": 24.384,
+      "images_per_sec_worker": 27.377,
+      "images_per_sec_outer": 27.1079,
+      "cpu_util_mean": 98.44,
+      "peak_rss_mb": 1671.7,
+      "verdict_counts": {
+        "keep": 609,
+        "reject": 46,
+        "review": 6
+      },
+      "reason_counts": {
+        "BURST_NOT_BEST": 14,
+        "DUPLICATE_OF": 37,
+        "EXPOSURE_UNDER": 1,
+        "EYES_CLOSED": 8,
+        "KEEP_BEST_OF_GROUP": 50,
+        "KEEP_SINGLETON": 559,
+        "REVIEW_LOW_CONFIDENCE": 5,
+        "REVIEW_POLICY_GROUP_EYES": 9
+      },
+      "escalation_count": 9,
+      "faces_available": true,
+      "thresholds_sha": "9467e8382e93ec9d58c872a6fc1e12cf4f66ccf717edcfb2ec9f08a71d2cd3af",
+      "instance_type": "c8g.xlarge",
+      "stages": {
+        "analyse": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 14870.64,
+          "total_ms": 0.0
+        },
+        "best": {
+          "n": 50,
+          "p50_ms": 0.047,
+          "p95_ms": 0.062,
+          "wall_ms": 0.0,
+          "total_ms": 2.51
+        },
+        "cluster": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 10.47,
+          "total_ms": 0.0
+        },
+        "contact_sheet": {
+          "n": 8,
+          "p50_ms": 26.088,
+          "p95_ms": 36.896,
+          "wall_ms": 0.0,
+          "total_ms": 217.88
+        },
+        "decide": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 96.37,
+          "total_ms": 0.0
+        },
+        "decode_full": {
+          "n": 661,
+          "p50_ms": 27.167,
+          "p95_ms": 40.175,
+          "wall_ms": 0.0,
+          "total_ms": 18777.26
+        },
+        "exposure": {
+          "n": 661,
+          "p50_ms": 17.136,
+          "p95_ms": 20.046,
+          "wall_ms": 0.0,
+          "total_ms": 11541.32
+        },
+        "eyes": {
+          "n": 91,
+          "p50_ms": 10.272,
+          "p95_ms": 24.843,
+          "wall_ms": 0.0,
+          "total_ms": 1045.18
+        },
+        "face_quality": {
+          "n": 92,
+          "p50_ms": 56.9,
+          "p95_ms": 115.792,
+          "wall_ms": 0.0,
+          "total_ms": 5629.19
+        },
+        "faces": {
+          "n": 92,
+          "p50_ms": 32.827,
+          "p95_ms": 78.109,
+          "wall_ms": 0.0,
+          "total_ms": 3482.45
+        },
+        "faces_load_full": {
+          "n": 92,
+          "p50_ms": 29.293,
+          "p95_ms": 40.691,
+          "wall_ms": 0.0,
+          "total_ms": 2789.71
+        },
+        "hashes": {
+          "n": 661,
+          "p50_ms": 4.516,
+          "p95_ms": 5.229,
+          "wall_ms": 0.0,
+          "total_ms": 3174.19
+        },
+        "ingest": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 101.77,
+          "total_ms": 0.0
+        },
+        "list": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 17.84,
+          "total_ms": 0.0
+        },
+        "prefetch": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.25,
+          "total_ms": 0.0
+        },
+        "prefetch_groups": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.64,
+          "total_ms": 0.0
+        },
+        "proxies_hashes": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 8982.08,
+          "total_ms": 0.0
+        },
+        "proxy_decode": {
+          "n": 661,
+          "p50_ms": 2.221,
+          "p95_ms": 2.761,
+          "wall_ms": 0.0,
+          "total_ms": 1474.82
+        },
+        "proxy_encode": {
+          "n": 661,
+          "p50_ms": 2.56,
+          "p95_ms": 2.818,
+          "wall_ms": 0.0,
+          "total_ms": 1697.65
+        },
+        "proxy_total": {
+          "n": 661,
+          "p50_ms": 45.042,
+          "p95_ms": 58.449,
+          "wall_ms": 0.0,
+          "total_ms": 30619.75
+        },
+        "proxy_upload_drain": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 0.01,
+          "total_ms": 0.0
+        },
+        "resize": {
+          "n": 661,
+          "p50_ms": 12.428,
+          "p95_ms": 12.99,
+          "wall_ms": 0.0,
+          "total_ms": 8261.83
+        },
+        "saliency": {
+          "n": 560,
+          "p50_ms": 34.001,
+          "p95_ms": 34.393,
+          "wall_ms": 0.0,
+          "total_ms": 19056.63
+        },
+        "sharpness_metrics": {
+          "n": 661,
+          "p50_ms": 15.257,
+          "p95_ms": 55.513,
+          "wall_ms": 0.0,
+          "total_ms": 13732.38
+        },
+        "write": {
+          "n": 0,
+          "p50_ms": null,
+          "p95_ms": null,
+          "wall_ms": 8.26,
+          "total_ms": 0.0
+        }
+      },
+      "opencv_version": "5.0.0",
+      "cv2_file": "/opt/venv-stock-carotene/lib/python3.12/site-packages/cv2/__init__.py",
+      "cost_per_1k_usd": 0.001106
+    }
+  ],
+  "failed_reps": [],
+  "method": "keepframe.worker.run_event in LOCAL_MODE (inputs pre-synced to local disk), cold proxy and disk caches per rep, ProcessPool of --workers; images/sec_outer = n_photos / subprocess wall (includes interpreter start and model load); _worker = the worker's own summary."
+}

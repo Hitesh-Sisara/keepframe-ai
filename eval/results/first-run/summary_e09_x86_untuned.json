@@ -1,0 +1,47 @@
+{
+  "status": "ok",
+  "opencv_version": "5.0.0",
+  "cv2_file": "/home/dev/keepframe/.venv/lib/python3.12/site-packages/cv2/__init__.py",
+  "flavor": "stock",
+  "instance_type": "local-x86_64",
+  "workers": 6,
+  "n_photos": 661,
+  "n_groups": 50,
+  "n_singletons": 560,
+  "wall_s": 200.82,
+  "images_per_s": 3.292,
+  "verdict_counts": {
+    "keep": 312,
+    "reject": 42,
+    "review": 307
+  },
+  "reason_counts": {
+    "BURST_NOT_BEST": 14,
+    "DUPLICATE_OF": 37,
+    "EXPOSURE_UNDER": 315,
+    "EYES_CLOSED": 8,
+    "KEEP_BEST_OF_GROUP": 50,
+    "KEEP_SINGLETON": 262,
+    "REVIEW_LOW_CONFIDENCE": 9,
+    "REVIEW_POLICY_GROUP_EYES": 11
+  },
+  "escalation_count": 319,
+  "thresholds_sha": "badbd08f78b51749cfcb29ea989906b64016f6f9be4c6471d6ff66450e5e8438",
+  "started_at": "2026-10-05T12:17:35.687Z",
+  "ended_at": "2026-10-05T12:20:56.507Z",
+  "stages_p50_ms": {
+    "best": 0.253,
+    "contact_sheet": 461.229,
+    "exposure": 9.389,
+    "eyes": 27.059,
+    "face_quality": 98.73,
+    "faces": 78.123,
+    "faces_load_full": 83.574,
+    "hashes": 10.887,
+    "proxy_decode": 5.616,
+    "proxy_total": 10.239,
+    "saliency": 68.202,
+    "sharpness_metrics": 28.043
+  },
+  "note": "First end-to-end deterministic worker run on a real synced event (661 photos), x86 dev box, 2026-10-05. Thresholds untuned (thresholds_sha badbd08f). EXPOSURE_UNDER over-fires on dim indoor venue: 304/307 reviews. Event id omitted; run on E09 (Birthday)."
+}

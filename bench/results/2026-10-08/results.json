@@ -1,0 +1,531 @@
+{
+  "generated_at": "2026-10-08T05:42:58+00:00",
+  "hosts": [
+    {
+      "label": "stock-carotene",
+      "instance_type": "c8g.xlarge",
+      "opencv_version": "5.0.0",
+      "cv2_file": "/opt/venv-stock-carotene/lib/python3.12/site-packages/cv2/__init__.py",
+      "images_per_sec": 28.473,
+      "cost_per_1k_usd": 0.001053,
+      "cpu_util_mean": 99.97,
+      "peak_rss_mb": 795.0,
+      "stages": [
+        {
+          "name": "decode_webp",
+          "p50_ms": 31.6737,
+          "p95_ms": 46.4885
+        },
+        {
+          "name": "resize_1024_area",
+          "p50_ms": 12.9374,
+          "p95_ms": 13.5653
+        },
+        {
+          "name": "cvtcolor_gray",
+          "p50_ms": 0.228,
+          "p95_ms": 0.2377
+        },
+        {
+          "name": "clahe",
+          "p50_ms": 2.5347,
+          "p95_ms": 2.8306
+        },
+        {
+          "name": "laplacian_sobel",
+          "p50_ms": 6.3776,
+          "p95_ms": 7.2011
+        },
+        {
+          "name": "phash_blockmean",
+          "p50_ms": 0.2954,
+          "p95_ms": 0.3156
+        },
+        {
+          "name": "yunet_1024",
+          "p50_ms": 59.6829,
+          "p95_ms": 62.5161
+        },
+        {
+          "name": "brisque",
+          "p50_ms": 26.3289,
+          "p95_ms": 28.4362
+        },
+        {
+          "name": "opencv_total",
+          "p50_ms": 139.6594,
+          "p95_ms": 155.8959
+        }
+      ],
+      "custom_hal": "YES (carotene (ver 0.0.1))",
+      "opencv_hal": "carotene",
+      "host_label": "stock-carotene",
+      "images_per_s": 28.473,
+      "cpu_util_pct": 99.97,
+      "usd_per_1k": 0.001053,
+      "n_images": 5000,
+      "workers": 4,
+      "dataset": "manifest_5k",
+      "worker": {
+        "n_photos": 661,
+        "workers": 4,
+        "images_per_sec": 27.453,
+        "wall_s": 24.078,
+        "cost_per_1k_usd": 0.001104,
+        "cpu_util_mean": 98.32,
+        "peak_rss_mb": 1671.7,
+        "verdicts_identical_across_reps": true
+      }
+    },
+    {
+      "label": "stock-kleidicv",
+      "instance_type": "c8g.xlarge",
+      "opencv_version": "5.0.0",
+      "cv2_file": "/opt/venv-stock-kleidicv/lib/python3.12/site-packages/cv2/__init__.py",
+      "images_per_sec": 29.5489,
+      "cost_per_1k_usd": 0.001015,
+      "cpu_util_mean": 99.95,
+      "peak_rss_mb": 795.7,
+      "stages": [
+        {
+          "name": "decode_webp",
+          "p50_ms": 32.8263,
+          "p95_ms": 47.7982
+        },
+        {
+          "name": "resize_1024_area",
+          "p50_ms": 15.2381,
+          "p95_ms": 15.7608
+        },
+        {
+          "name": "cvtcolor_gray",
+          "p50_ms": 0.2906,
+          "p95_ms": 0.2983
+        },
+        {
+          "name": "clahe",
+          "p50_ms": 2.5338,
+          "p95_ms": 2.8123
+        },
+        {
+          "name": "laplacian_sobel",
+          "p50_ms": 6.5529,
+          "p95_ms": 7.6479
+        },
+        {
+          "name": "phash_blockmean",
+          "p50_ms": 0.4374,
+          "p95_ms": 0.4536
+        },
+        {
+          "name": "yunet_1024",
+          "p50_ms": 52.7189,
+          "p95_ms": 55.172
+        },
+        {
+          "name": "brisque",
+          "p50_ms": 24.2543,
+          "p95_ms": 26.383
+        },
+        {
+          "name": "opencv_total",
+          "p50_ms": 134.5569,
+          "p95_ms": 151.1249
+        }
+      ],
+      "custom_hal": "YES (carotene (ver 0.0.1) KleidiCV (ver 26.03))",
+      "opencv_hal": "kleidicv-26.03+carotene",
+      "host_label": "stock-kleidicv",
+      "images_per_s": 29.5489,
+      "cpu_util_pct": 99.95,
+      "usd_per_1k": 0.001015,
+      "n_images": 5000,
+      "workers": 4,
+      "dataset": "manifest_5k",
+      "worker": {
+        "n_photos": 661,
+        "workers": 4,
+        "images_per_sec": 25.848,
+        "wall_s": 25.573,
+        "cost_per_1k_usd": 0.001171,
+        "cpu_util_mean": 99.25,
+        "peak_rss_mb": 1669.6,
+        "verdicts_identical_across_reps": true
+      }
+    },
+    {
+      "label": "src-gcc14-carotene",
+      "instance_type": "c8g.xlarge",
+      "opencv_version": "5.0.0",
+      "cv2_file": "/opt/venv-src-gcc14-carotene/lib/python3.12/site-packages/cv2/__init__.py",
+      "images_per_sec": 26.2334,
+      "cost_per_1k_usd": 0.001143,
+      "cpu_util_mean": 99.88,
+      "peak_rss_mb": 790.2,
+      "stages": [
+        {
+          "name": "decode_webp",
+          "p50_ms": 31.4655,
+          "p95_ms": 46.0746
+        },
+        {
+          "name": "resize_1024_area",
+          "p50_ms": 14.9069,
+          "p95_ms": 15.4684
+        },
+        {
+          "name": "cvtcolor_gray",
+          "p50_ms": 0.2258,
+          "p95_ms": 0.2351
+        },
+        {
+          "name": "clahe",
+          "p50_ms": 2.5538,
+          "p95_ms": 2.8445
+        },
+        {
+          "name": "laplacian_sobel",
+          "p50_ms": 6.6582,
+          "p95_ms": 7.677
+        },
+        {
+          "name": "phash_blockmean",
+          "p50_ms": 0.2958,
+          "p95_ms": 0.3158
+        },
+        {
+          "name": "yunet_1024",
+          "p50_ms": 69.8204,
+          "p95_ms": 72.7405
+        },
+        {
+          "name": "brisque",
+          "p50_ms": 26.3314,
+          "p95_ms": 28.4822
+        },
+        {
+          "name": "opencv_total",
+          "p50_ms": 151.5015,
+          "p95_ms": 168.1691
+        }
+      ],
+      "custom_hal": "YES (carotene (ver 0.0.1))",
+      "opencv_hal": "carotene",
+      "host_label": "src-gcc14-carotene",
+      "images_per_s": 26.2334,
+      "cpu_util_pct": 99.88,
+      "usd_per_1k": 0.001143,
+      "n_images": 5000,
+      "workers": 4,
+      "dataset": "manifest_5k",
+      "worker": {
+        "n_photos": 661,
+        "workers": 4,
+        "images_per_sec": 26.507,
+        "wall_s": 24.937,
+        "cost_per_1k_usd": 0.001141,
+        "cpu_util_mean": 97.88,
+        "peak_rss_mb": 1652.2,
+        "verdicts_identical_across_reps": true
+      }
+    },
+    {
+      "label": "src-gcc14-kleidicv",
+      "instance_type": "c8g.xlarge",
+      "opencv_version": "5.0.0",
+      "cv2_file": "/opt/venv-src-gcc14-kleidicv/lib/python3.12/site-packages/cv2/__init__.py",
+      "images_per_sec": 26.191,
+      "cost_per_1k_usd": 0.001145,
+      "cpu_util_mean": 99.97,
+      "peak_rss_mb": 774.1,
+      "stages": [
+        {
+          "name": "decode_webp",
+          "p50_ms": 31.5367,
+          "p95_ms": 46.4283
+        },
+        {
+          "name": "resize_1024_area",
+          "p50_ms": 14.9108,
+          "p95_ms": 15.511
+        },
+        {
+          "name": "cvtcolor_gray",
+          "p50_ms": 0.2259,
+          "p95_ms": 0.2349
+        },
+        {
+          "name": "clahe",
+          "p50_ms": 2.5266,
+          "p95_ms": 2.8221
+        },
+        {
+          "name": "laplacian_sobel",
+          "p50_ms": 6.6736,
+          "p95_ms": 7.7115
+        },
+        {
+          "name": "phash_blockmean",
+          "p50_ms": 0.2976,
+          "p95_ms": 0.3177
+        },
+        {
+          "name": "yunet_1024",
+          "p50_ms": 69.7105,
+          "p95_ms": 72.5372
+        },
+        {
+          "name": "brisque",
+          "p50_ms": 26.3851,
+          "p95_ms": 28.564
+        },
+        {
+          "name": "opencv_total",
+          "p50_ms": 151.9601,
+          "p95_ms": 168.419
+        }
+      ],
+      "custom_hal": "YES (carotene (ver 0.0.1) KleidiCV (ver 26.03))",
+      "opencv_hal": "kleidicv-26.03+carotene",
+      "host_label": "src-gcc14-kleidicv",
+      "images_per_s": 26.191,
+      "cpu_util_pct": 99.97,
+      "usd_per_1k": 0.001145,
+      "n_images": 5000,
+      "workers": 4,
+      "dataset": "manifest_5k",
+      "worker": {
+        "n_photos": 661,
+        "workers": 4,
+        "images_per_sec": 26.553,
+        "wall_s": 24.894,
+        "cost_per_1k_usd": 0.001139,
+        "cpu_util_mean": 98.73,
+        "peak_rss_mb": 1640.4,
+        "verdicts_identical_across_reps": true
+      }
+    }
+  ],
+  "date": "2026-10-08",
+  "synthetic": false,
+  "instance_type": "c8g.xlarge",
+  "n_images": 5000,
+  "stages": [
+    {
+      "stage": "decode_webp",
+      "host_label": "stock-carotene",
+      "p50_ms": 31.6737,
+      "p95_ms": 46.4885
+    },
+    {
+      "stage": "resize_1024_area",
+      "host_label": "stock-carotene",
+      "p50_ms": 12.9374,
+      "p95_ms": 13.5653
+    },
+    {
+      "stage": "cvtcolor_gray",
+      "host_label": "stock-carotene",
+      "p50_ms": 0.228,
+      "p95_ms": 0.2377
+    },
+    {
+      "stage": "clahe",
+      "host_label": "stock-carotene",
+      "p50_ms": 2.5347,
+      "p95_ms": 2.8306
+    },
+    {
+      "stage": "laplacian_sobel",
+      "host_label": "stock-carotene",
+      "p50_ms": 6.3776,
+      "p95_ms": 7.2011
+    },
+    {
+      "stage": "phash_blockmean",
+      "host_label": "stock-carotene",
+      "p50_ms": 0.2954,
+      "p95_ms": 0.3156
+    },
+    {
+      "stage": "yunet_1024",
+      "host_label": "stock-carotene",
+      "p50_ms": 59.6829,
+      "p95_ms": 62.5161
+    },
+    {
+      "stage": "brisque",
+      "host_label": "stock-carotene",
+      "p50_ms": 26.3289,
+      "p95_ms": 28.4362
+    },
+    {
+      "stage": "opencv_total",
+      "host_label": "stock-carotene",
+      "p50_ms": 139.6594,
+      "p95_ms": 155.8959
+    },
+    {
+      "stage": "decode_webp",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 32.8263,
+      "p95_ms": 47.7982
+    },
+    {
+      "stage": "resize_1024_area",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 15.2381,
+      "p95_ms": 15.7608
+    },
+    {
+      "stage": "cvtcolor_gray",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 0.2906,
+      "p95_ms": 0.2983
+    },
+    {
+      "stage": "clahe",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 2.5338,
+      "p95_ms": 2.8123
+    },
+    {
+      "stage": "laplacian_sobel",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 6.5529,
+      "p95_ms": 7.6479
+    },
+    {
+      "stage": "phash_blockmean",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 0.4374,
+      "p95_ms": 0.4536
+    },
+    {
+      "stage": "yunet_1024",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 52.7189,
+      "p95_ms": 55.172
+    },
+    {
+      "stage": "brisque",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 24.2543,
+      "p95_ms": 26.383
+    },
+    {
+      "stage": "opencv_total",
+      "host_label": "stock-kleidicv",
+      "p50_ms": 134.5569,
+      "p95_ms": 151.1249
+    },
+    {
+      "stage": "decode_webp",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 31.4655,
+      "p95_ms": 46.0746
+    },
+    {
+      "stage": "resize_1024_area",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 14.9069,
+      "p95_ms": 15.4684
+    },
+    {
+      "stage": "cvtcolor_gray",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 0.2258,
+      "p95_ms": 0.2351
+    },
+    {
+      "stage": "clahe",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 2.5538,
+      "p95_ms": 2.8445
+    },
+    {
+      "stage": "laplacian_sobel",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 6.6582,
+      "p95_ms": 7.677
+    },
+    {
+      "stage": "phash_blockmean",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 0.2958,
+      "p95_ms": 0.3158
+    },
+    {
+      "stage": "yunet_1024",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 69.8204,
+      "p95_ms": 72.7405
+    },
+    {
+      "stage": "brisque",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 26.3314,
+      "p95_ms": 28.4822
+    },
+    {
+      "stage": "opencv_total",
+      "host_label": "src-gcc14-carotene",
+      "p50_ms": 151.5015,
+      "p95_ms": 168.1691
+    },
+    {
+      "stage": "decode_webp",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 31.5367,
+      "p95_ms": 46.4283
+    },
+    {
+      "stage": "resize_1024_area",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 14.9108,
+      "p95_ms": 15.511
+    },
+    {
+      "stage": "cvtcolor_gray",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 0.2259,
+      "p95_ms": 0.2349
+    },
+    {
+      "stage": "clahe",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 2.5266,
+      "p95_ms": 2.8221
+    },
+    {
+      "stage": "laplacian_sobel",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 6.6736,
+      "p95_ms": 7.7115
+    },
+    {
+      "stage": "phash_blockmean",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 0.2976,
+      "p95_ms": 0.3177
+    },
+    {
+      "stage": "yunet_1024",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 69.7105,
+      "p95_ms": 72.5372
+    },
+    {
+      "stage": "brisque",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 26.3851,
+      "p95_ms": 28.564
+    },
+    {
+      "stage": "opencv_total",
+      "host_label": "src-gcc14-kleidicv",
+      "p50_ms": 151.9601,
+      "p95_ms": 168.419
+    }
+  ]
+}

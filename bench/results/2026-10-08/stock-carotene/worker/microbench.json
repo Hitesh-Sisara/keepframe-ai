@@ -1,0 +1,122 @@
+{
+ "host": {
+  "machine": "aarch64",
+  "processor": "aarch64",
+  "python": "3.12.13",
+  "threads": 1
+ },
+ "opencv_version": "5.0.0",
+ "cv2_file": "/opt/venv-stock-carotene/lib/python3.12/site-packages/cv2/__init__.py",
+ "proxy_shape": [
+  683,
+  1024,
+  3
+ ],
+ "stages": {
+  "decode_webp_2560": {
+   "p50_ms": 21.198,
+   "p95_ms": 21.301,
+   "n": 30
+  },
+  "resize_2560_to_1024_area": {
+   "p50_ms": 11.858,
+   "p95_ms": 12.003,
+   "n": 30
+  },
+  "proxy_encode_jpeg_q90": {
+   "p50_ms": 2.154,
+   "p95_ms": 2.174,
+   "n": 30
+  },
+  "proxy_decode_jpeg_1024": {
+   "p50_ms": 2.016,
+   "p95_ms": 2.04,
+   "n": 30
+  },
+  "to_gray": {
+   "p50_ms": 0.209,
+   "p95_ms": 0.221,
+   "n": 30
+  },
+  "phash": {
+   "p50_ms": 0.015,
+   "p95_ms": 0.016,
+   "n": 30
+  },
+  "block_mean_hash_mode0": {
+   "p50_ms": 0.216,
+   "p95_ms": 0.226,
+   "n": 30
+  },
+  "color_moment_hash": {
+   "p50_ms": 3.829,
+   "p95_ms": 3.844,
+   "n": 30
+  },
+  "hamming_1_vs_10k_numpy": {
+   "p50_ms": 0.28,
+   "p95_ms": 0.288,
+   "n": 30
+  },
+  "laplacian_var": {
+   "p50_ms": 1.811,
+   "p95_ms": 1.87,
+   "n": 30
+  },
+  "tenengrad_sobel": {
+   "p50_ms": 2.874,
+   "p95_ms": 2.895,
+   "n": 30
+  },
+  "fft_hf_500": {
+   "p50_ms": 7.58,
+   "p95_ms": 7.624,
+   "n": 30
+  },
+  "sharpness_metrics_all": {
+   "p50_ms": 12.301,
+   "p95_ms": 12.405,
+   "n": 30
+  },
+  "saliency_roi_512": {
+   "p50_ms": 33.473,
+   "p95_ms": 33.81,
+   "n": 30
+  },
+  "saliency_full_1024": {
+   "p50_ms": 125.932,
+   "p95_ms": 127.187,
+   "n": 10
+  },
+  "brisque_1024": {
+   "p50_ms": 22.671,
+   "p95_ms": 22.784,
+   "n": 10
+  },
+  "score_sharpness_full": {
+   "p50_ms": 12.611,
+   "p95_ms": 12.7,
+   "n": 30
+  },
+  "score_sharpness_saliency": {
+   "p50_ms": 43.572,
+   "p95_ms": 43.673,
+   "n": 30
+  },
+  "score_exposure": {
+   "p50_ms": 10.901,
+   "p95_ms": 10.982,
+   "n": 30
+  },
+  "pick_best_8": {
+   "p50_ms": 0.067,
+   "p95_ms": 0.08,
+   "n": 30
+  },
+  "contact_sheet_4": {
+   "p50_ms": 7.701,
+   "p95_ms": 7.804,
+   "n": 10
+  }
+ }
+}

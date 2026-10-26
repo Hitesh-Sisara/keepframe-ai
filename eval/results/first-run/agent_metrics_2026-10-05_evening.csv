@@ -1,0 +1,4 @@
+event_id,run_id,run_status,escalations_pending,unknown_source_answers_excluded,tool_calls,tool_calls_per_photo,tool_calls_per_agent_photo,pauses,approval_items,photos_escalated,pct_escalated,scripted_answers_excluded,escalation_human_agreed_pct,escalation_human_agreed_n,escalated_final_vs_label_agreement_pct,pivots,tool_latency_ms_p50,tool_latency_ms_p95,run_wall_s,model_calls,model_tokens,loop_guard_triggers
+E07,E07-aws-184515Z,awaiting_approval,9,0,9,0.009,,1,1,9,0.9,0,,0,,2,277.63,1136.89,,,,0
+E03,E03-aws-155605Z,awaiting_approval,4,2,19,0.0286,9.5,2,2,6,0.9,0,,0,,2,102.1,514.93,,,,0
+E09,E09-agent-141910Z,finished,0,0,115,0.174,4.7917,10,10,21,3.18,21,,0,,20,234.19,3787.81,533.72,72,,0

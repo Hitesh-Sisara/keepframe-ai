@@ -1,0 +1,207 @@
+{
+  "E07": {
+    "category": "Engagement",
+    "photos": 1000,
+    "photos_processed": 1000,
+    "photos_not_processed": 0,
+    "not_processed_reason": [],
+    "bursts": 171,
+    "photos_in_bursts": 868,
+    "pct_in_bursts_of_processed": 86.8,
+    "pct_in_bursts_of_event": 86.8,
+    "singletons": 132,
+    "burst_size_histogram": {
+      "2": 66,
+      "3-5": 68,
+      "6-10": 21,
+      "11-20": 11,
+      "21+": 5
+    },
+    "photos_by_burst_size": {
+      "2": 132,
+      "3-5": 241,
+      "6-10": 159,
+      "11-20": 155,
+      "21+": 181
+    },
+    "largest_burst": 75,
+    "median_burst": 3,
+    "bursts_ge_3": 105,
+    "exact_duplicates": 184,
+    "faces_known_pct": 100.0,
+    "faces_per_frame_median": 2.0,
+    "faces_per_frame_mean": 2.22,
+    "faces_histogram_pct": {
+      "0": 1.8,
+      "1": 6.9,
+      "2": 82.0,
+      "3-4": 3.5,
+      "5+": 5.8
+    },
+    "cameras": 1,
+    "exif_index_present": true,
+    "exif_sidecar_pct": 100.0,
+    "exif_parsed_pct": 100.0,
+    "exif_capture_time_pct": 100.0,
+    "exif_exposure_time_pct": 100.0,
+    "exif_camera_model_pct": 100.0,
+    "exif_tz_known_pct": 0.0,
+    "exif_schema": {
+      "small": 1000
+    }
+  },
+  "E03": {
+    "category": "Ceremony",
+    "photos": 664,
+    "photos_processed": 664,
+    "photos_not_processed": 0,
+    "not_processed_reason": [],
+    "bursts": 27,
+    "photos_in_bursts": 57,
+    "pct_in_bursts_of_processed": 8.6,
+    "pct_in_bursts_of_event": 8.6,
+    "singletons": 607,
+    "burst_size_histogram": {
+      "2": 25,
+      "3-5": 2,
+      "6-10": 0,
+      "11-20": 0,
+      "21+": 0
+    },
+    "photos_by_burst_size": {
+      "2": 50,
+      "3-5": 7,
+      "6-10": 0,
+      "11-20": 0,
+      "21+": 0
+    },
+    "largest_burst": 4,
+    "median_burst": 2,
+    "bursts_ge_3": 2,
+    "exact_duplicates": 0,
+    "faces_known_pct": 100.0,
+    "faces_per_frame_median": 2.0,
+    "faces_per_frame_mean": 3.03,
+    "faces_histogram_pct": {
+      "0": 8.0,
+      "1": 28.8,
+      "2": 26.4,
+      "3-4": 15.8,
+      "5+": 21.1
+    },
+    "cameras": 2,
+    "exif_index_present": true,
+    "exif_sidecar_pct": 100.0,
+    "exif_parsed_pct": 100.0,
+    "exif_capture_time_pct": 100.0,
+    "exif_exposure_time_pct": 100.0,
+    "exif_camera_model_pct": 100.0,
+    "exif_tz_known_pct": 99.8,
+    "exif_schema": {
+      "rich": 663,
+      "small": 1
+    }
+  },
+  "E09": {
+    "category": "Birthday",
+    "photos": 661,
+    "photos_processed": 661,
+    "photos_not_processed": 0,
+    "not_processed_reason": [],
+    "bursts": 50,
+    "photos_in_bursts": 101,
+    "pct_in_bursts_of_processed": 15.3,
+    "pct_in_bursts_of_event": 15.3,
+    "singletons": 560,
+    "burst_size_histogram": {
+      "2": 49,
+      "3-5": 1,
+      "6-10": 0,
+      "11-20": 0,
+      "21+": 0
+    },
+    "photos_by_burst_size": {
+      "2": 98,
+      "3-5": 3,
+      "6-10": 0,
+      "11-20": 0,
+      "21+": 0
+    },
+    "largest_burst": 3,
+    "median_burst": 2.0,
+    "bursts_ge_3": 1,
+    "exact_duplicates": 36,
+    "faces_known_pct": 100.0,
+    "faces_per_frame_median": 3,
+    "faces_per_frame_mean": 3.93,
+    "faces_histogram_pct": {
+      "0": 11.2,
+      "1": 7.6,
+      "2": 18.3,
+      "3-4": 30.0,
+      "5+": 33.0
+    },
+    "cameras": 2,
+    "exif_index_present": true,
+    "exif_sidecar_pct": 100.0,
+    "exif_parsed_pct": 100.0,
+    "exif_capture_time_pct": 100.0,
+    "exif_exposure_time_pct": 100.0,
+    "exif_camera_model_pct": 100.0,
+    "exif_tz_known_pct": 0.0,
+    "exif_schema": {
+      "small": 661
+    }
+  },
+  "E01": {
+    "category": "Ceremony",
+    "photos": 2442,
+    "photos_processed": 2442,
+    "photos_not_processed": 0,
+    "not_processed_reason": [],
+    "bursts": 417,
+    "photos_in_bursts": 1069,
+    "pct_in_bursts_of_processed": 43.8,
+    "pct_in_bursts_of_event": 43.8,
+    "singletons": 1373,
+    "burst_size_histogram": {
+      "2": 302,
+      "3-5": 104,
+      "6-10": 10,
+      "11-20": 1,
+      "21+": 0
+    },
+    "photos_by_burst_size": {
+      "2": 604,
+      "3-5": 379,
+      "6-10": 72,
+      "11-20": 14,
+      "21+": 0
+    },
+    "largest_burst": 14,
+    "median_burst": 2,
+    "bursts_ge_3": 115,
+    "exact_duplicates": 123,
+    "faces_known_pct": 100.0,
+    "faces_per_frame_median": 3.0,
+    "faces_per_frame_mean": 4.69,
+    "faces_histogram_pct": {
+      "0": 5.4,
+      "1": 21.3,
+      "2": 21.9,
+      "3-4": 17.5,
+      "5+": 33.9
+    },
+    "cameras": 1,
+    "exif_index_present": true,
+    "exif_sidecar_pct": 89.0,
+    "exif_parsed_pct": 89.0,
+    "exif_capture_time_pct": 89.0,
+    "exif_exposure_time_pct": 89.0,
+    "exif_camera_model_pct": 89.0,
+    "exif_tz_known_pct": 0.0,
+    "exif_schema": {
+      "small": 2174
+    }
+  }
+}

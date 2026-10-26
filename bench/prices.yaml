@@ -1,0 +1,21 @@
+# On-demand prices used by bench/run_benchmark.py for $/1k images.
+# EC2: AWS Price List API, fetched 2026-10-05 with
+#   aws pricing get-products --region us-east-1 --service-code AmazonEC2 \
+#     --filters Type=TERM_MATCH,Field=instanceType,Value=<type> \
+#               Type=TERM_MATCH,Field=regionCode,Value=ap-south-1 \
+#               Type=TERM_MATCH,Field=operatingSystem,Value=Linux \
+#               Type=TERM_MATCH,Field=tenancy,Value=Shared \
+#               Type=TERM_MATCH,Field=preInstalledSw,Value=NA \
+#               Type=TERM_MATCH,Field=capacitystatus,Value=Used
+#   (offer publicationDate 2026-09-25T17:45:21Z, effectiveDate 2026-09-01). c8g.xlarge re-checked
+#   2026-10-08 (publicationDate 2026-10-07T16:54:08Z): unchanged at 0.10796.
+# Every benchmark row runs open-source OpenCV (PyPI wheels or our own source build): no software fee.
+region: ap-south-1
+currency: USD
+fetched_at: "2026-10-05"
+ec2_on_demand_usd_per_hour:
+  c8g.xlarge:  {usd: 0.10796, sku: NGMX98JQXJ3A8FJW}
+  c8g.4xlarge: {usd: 0.43184, sku: 8GQ9DPPWC6YS8HT2}
+  c7g.xlarge:  {usd: 0.09820, sku: WPM8YDSR2PZCMGSJ}
+  c7g.4xlarge: {usd: 0.39260, sku: CAM8STV5SWSGNHQQ}
+  c7i.4xlarge: {usd: 0.71400, sku: XHGKBB8PEU9FB79C}

@@ -1,0 +1,122 @@
+{
+ "host": {
+  "machine": "aarch64",
+  "processor": "aarch64",
+  "python": "3.12.13",
+  "threads": 1
+ },
+ "opencv_version": "5.0.0",
+ "cv2_file": "/opt/venv-stock-kleidicv-r2/lib/python3.12/site-packages/cv2/__init__.py",
+ "proxy_shape": [
+  683,
+  1024,
+  3
+ ],
+ "stages": {
+  "decode_webp_2560": {
+   "p50_ms": 22.172,
+   "p95_ms": 22.256,
+   "n": 30
+  },
+  "resize_2560_to_1024_area": {
+   "p50_ms": 14.229,
+   "p95_ms": 14.388,
+   "n": 30
+  },
+  "proxy_encode_jpeg_q90": {
+   "p50_ms": 2.453,
+   "p95_ms": 2.474,
+   "n": 30
+  },
+  "proxy_decode_jpeg_1024": {
+   "p50_ms": 2.231,
+   "p95_ms": 2.259,
+   "n": 30
+  },
+  "to_gray": {
+   "p50_ms": 0.282,
+   "p95_ms": 0.293,
+   "n": 30
+  },
+  "phash": {
+   "p50_ms": 0.018,
+   "p95_ms": 0.021,
+   "n": 30
+  },
+  "block_mean_hash_mode0": {
+   "p50_ms": 0.378,
+   "p95_ms": 0.385,
+   "n": 30
+  },
+  "color_moment_hash": {
+   "p50_ms": 4.37,
+   "p95_ms": 4.418,
+   "n": 30
+  },
+  "hamming_1_vs_10k_numpy": {
+   "p50_ms": 0.28,
+   "p95_ms": 0.305,
+   "n": 30
+  },
+  "laplacian_var": {
+   "p50_ms": 2.228,
+   "p95_ms": 2.261,
+   "n": 30
+  },
+  "tenengrad_sobel": {
+   "p50_ms": 3.438,
+   "p95_ms": 3.488,
+   "n": 30
+  },
+  "fft_hf_500": {
+   "p50_ms": 8.753,
+   "p95_ms": 8.794,
+   "n": 30
+  },
+  "sharpness_metrics_all": {
+   "p50_ms": 14.492,
+   "p95_ms": 14.589,
+   "n": 30
+  },
+  "saliency_roi_512": {
+   "p50_ms": 29.484,
+   "p95_ms": 30.349,
+   "n": 30
+  },
+  "saliency_full_1024": {
+   "p50_ms": 109.084,
+   "p95_ms": 131.92,
+   "n": 10
+  },
+  "brisque_1024": {
+   "p50_ms": 21.266,
+   "p95_ms": 21.441,
+   "n": 10
+  },
+  "score_sharpness_full": {
+   "p50_ms": 14.931,
+   "p95_ms": 15.015,
+   "n": 30
+  },
+  "score_sharpness_saliency": {
+   "p50_ms": 40.668,
+   "p95_ms": 46.369,
+   "n": 30
+  },
+  "score_exposure": {
+   "p50_ms": 15.291,
+   "p95_ms": 15.362,
+   "n": 30
+  },
+  "pick_best_8": {
+   "p50_ms": 0.066,
+   "p95_ms": 0.08,
+   "n": 30
+  },
+  "contact_sheet_4": {
+   "p50_ms": 9.321,
+   "p95_ms": 9.458,
+   "n": 10
+  }
+ }
+}

@@ -1,0 +1,122 @@
+{
+ "host": {
+  "machine": "aarch64",
+  "processor": "aarch64",
+  "python": "3.12.13",
+  "threads": 1
+ },
+ "opencv_version": "5.0.0",
+ "cv2_file": "/opt/venv-kleidicv-src/lib/python3.12/site-packages/cv2/__init__.py",
+ "proxy_shape": [
+  683,
+  1024,
+  3
+ ],
+ "stages": {
+  "decode_webp_2560": {
+   "p50_ms": 21.169,
+   "p95_ms": 21.212,
+   "n": 30
+  },
+  "resize_2560_to_1024_area": {
+   "p50_ms": 13.966,
+   "p95_ms": 14.481,
+   "n": 30
+  },
+  "proxy_encode_jpeg_q90": {
+   "p50_ms": 2.205,
+   "p95_ms": 2.236,
+   "n": 30
+  },
+  "proxy_decode_jpeg_1024": {
+   "p50_ms": 2.03,
+   "p95_ms": 2.054,
+   "n": 30
+  },
+  "to_gray": {
+   "p50_ms": 0.218,
+   "p95_ms": 0.224,
+   "n": 30
+  },
+  "phash": {
+   "p50_ms": 0.018,
+   "p95_ms": 0.023,
+   "n": 30
+  },
+  "block_mean_hash_mode0": {
+   "p50_ms": 0.215,
+   "p95_ms": 0.226,
+   "n": 30
+  },
+  "color_moment_hash": {
+   "p50_ms": 3.723,
+   "p95_ms": 3.745,
+   "n": 30
+  },
+  "hamming_1_vs_10k_numpy": {
+   "p50_ms": 0.284,
+   "p95_ms": 0.297,
+   "n": 30
+  },
+  "laplacian_var": {
+   "p50_ms": 2.293,
+   "p95_ms": 2.315,
+   "n": 30
+  },
+  "tenengrad_sobel": {
+   "p50_ms": 3.553,
+   "p95_ms": 3.899,
+   "n": 30
+  },
+  "fft_hf_500": {
+   "p50_ms": 4.466,
+   "p95_ms": 4.533,
+   "n": 30
+  },
+  "sharpness_metrics_all": {
+   "p50_ms": 10.308,
+   "p95_ms": 10.392,
+   "n": 30
+  },
+  "saliency_roi_512": {
+   "p50_ms": 33.711,
+   "p95_ms": 33.923,
+   "n": 30
+  },
+  "saliency_full_1024": {
+   "p50_ms": 125.577,
+   "p95_ms": 126.299,
+   "n": 10
+  },
+  "brisque_1024": {
+   "p50_ms": 22.803,
+   "p95_ms": 22.901,
+   "n": 10
+  },
+  "score_sharpness_full": {
+   "p50_ms": 10.746,
+   "p95_ms": 10.835,
+   "n": 30
+  },
+  "score_sharpness_saliency": {
+   "p50_ms": 42.371,
+   "p95_ms": 42.648,
+   "n": 30
+  },
+  "score_exposure": {
+   "p50_ms": 11.304,
+   "p95_ms": 11.417,
+   "n": 30
+  },
+  "pick_best_8": {
+   "p50_ms": 0.066,
+   "p95_ms": 0.079,
+   "n": 30
+  },
+  "contact_sheet_4": {
+   "p50_ms": 9.235,
+   "p95_ms": 9.295,
+   "n": 10
+  }
+ }
+}

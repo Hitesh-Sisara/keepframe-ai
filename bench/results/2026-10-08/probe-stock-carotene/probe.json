@@ -1,0 +1,113 @@
+{
+  "schema": "keepframe/kleidicv-probe/v1",
+  "cv2_version": "5.0.0",
+  "custom_hal": "YES (carotene (ver 0.0.1))",
+  "repeats": 60,
+  "ops": {
+    "resize_area_bgr_to_1024": {
+      "kind": "ours",
+      "p50_ms": 5.9336,
+      "min_ms": 5.8304
+    },
+    "cvtcolor_bgr2gray_1024": {
+      "kind": "ours",
+      "p50_ms": 0.2098,
+      "min_ms": 0.2055
+    },
+    "clahe_1024": {
+      "kind": "ours",
+      "p50_ms": 2.3664,
+      "min_ms": 2.3556
+    },
+    "laplacian_64f_1024": {
+      "kind": "ours",
+      "p50_ms": 1.0784,
+      "min_ms": 1.0735
+    },
+    "sobel_64f_1024": {
+      "kind": "ours",
+      "p50_ms": 1.1446,
+      "min_ms": 1.1167
+    },
+    "phash_1024": {
+      "kind": "ours",
+      "p50_ms": 0.0147,
+      "min_ms": 0.0142
+    },
+    "resize_linear_bgr_half": {
+      "kind": "hal-path",
+      "p50_ms": 0.8404,
+      "min_ms": 0.8382
+    },
+    "resize_linear_gray_half": {
+      "kind": "hal-path",
+      "p50_ms": 0.2072,
+      "min_ms": 0.204
+    },
+    "cvtcolor_bgr2gray_full": {
+      "kind": "hal-path",
+      "p50_ms": 0.4592,
+      "min_ms": 0.4589
+    },
+    "cvtcolor_bgr2rgb_full": {
+      "kind": "hal-path",
+      "p50_ms": 0.1692,
+      "min_ms": 0.1516
+    },
+    "gaussian_3x3_gray": {
+      "kind": "hal-path",
+      "p50_ms": 0.4644,
+      "min_ms": 0.4583
+    },
+    "gaussian_5x5_gray": {
+      "kind": "hal-path",
+      "p50_ms": 0.7659,
+      "min_ms": 0.7555
+    },
+    "sobel_16s_gray": {
+      "kind": "hal-path",
+      "p50_ms": 0.4421,
+      "min_ms": 0.4155
+    },
+    "threshold_binary_gray": {
+      "kind": "hal-path",
+      "p50_ms": 0.0462,
+      "min_ms": 0.0431
+    },
+    "erode_3x3_gray": {
+      "kind": "hal-path",
+      "p50_ms": 0.1842,
+      "min_ms": 0.1714
+    },
+    "median_5_gray": {
+      "kind": "hal-path",
+      "p50_ms": 2.6378,
+      "min_ms": 2.6298
+    },
+    "minmaxloc_gray": {
+      "kind": "hal-path",
+      "p50_ms": 0.1119,
+      "min_ms": 0.1061
+    },
+    "flip_bgr": {
+      "kind": "hal-path",
+      "p50_ms": 0.2461,
+      "min_ms": 0.1994
+    },
+    "transpose_gray": {
+      "kind": "hal-path",
+      "p50_ms": 0.1322,
+      "min_ms": 0.1315
+    },
+    "exp_f32": {
+      "kind": "hal-path",
+      "p50_ms": 1.7034,
+      "min_ms": 1.6684
+    },
+    "multiply_u8": {
+      "kind": "hal-path",
+      "p50_ms": 0.5304,
+      "min_ms": 0.5299
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "seed": 20261005,
+  "plan": [
+    "E07=700:1.0",
+    "E03=300:0.3",
+    "E09=300:0.2"
+  ],
+  "labeller_class": "team",
+  "events": [
+    {
+      "event": "E07",
+      "target": 700,
+      "burst_share": 1.0,
+      "photos": 700,
+      "in_bursts": 699,
+      "singletons": 1,
+      "groups": 130,
+      "largest_groups": [
+        75,
+        30,
+        29,
+        24,
+        18
+      ],
+      "overlap_photos": 140,
+      "sheet_pages": 0,
+      "groups_available": 171,
+      "singletons_available": 132,
+      "shortfall": 0
+    },
+    {
+      "event": "E03",
+      "target": 300,
+      "burst_share": 0.3,
+      "photos": 300,
+      "in_bursts": 57,
+      "singletons": 243,
+      "groups": 27,
+      "largest_groups": [
+        4,
+        3,
+        2,
+        2,
+        2
+      ],
+      "overlap_photos": 61,
+      "sheet_pages": 0,
+      "groups_available": 27,
+      "singletons_available": 607,
+      "shortfall": 0
+    },
+    {
+      "event": "E09",
+      "target": 300,
+      "burst_share": 0.2,
+      "photos": 300,
+      "in_bursts": 59,
+      "singletons": 241,
+      "groups": 29,
+      "largest_groups": [
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      "overlap_photos": 60,
+      "sheet_pages": 0,
+      "groups_available": 50,
+      "singletons_available": 560,
+      "shortfall": 0
+    }
+  ],
+  "total": 1300
+}

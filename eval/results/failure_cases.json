@@ -1,0 +1,1155 @@
+{
+ "generated_at": "2026-10-09T08:26:11+00:00",
+ "runs": {
+  "E03": "run_aws_e03_agentcore_20261008T062729Z",
+  "E07": "run_aws_e07_20261005T184515Z",
+  "E09": "run_E09_20261005T124847Z"
+ },
+ "n_cases": 27,
+ "per_category": {
+  "false review (over-escalation)": 2,
+  "exposure misjudgement": 3,
+  "false reject (risk)": 1,
+  "face/eye misread": 3,
+  "missed duplicate / over-split burst": 3,
+  "under-split burst": 1,
+  "sharpness misjudgement": 1,
+  "agent tool loop": 3,
+  "data/pipeline": 5,
+  "HITL ergonomics": 5
+ },
+ "cases": [
+  {
+   "id": "C01",
+   "category": "false review (over-escalation)",
+   "event": "E07",
+   "title": "P5 applied per runner-up: one human question per near-identical frame",
+   "severity": "high",
+   "status": "fixed",
+   "source": "2026-10-05 (E07 diagnosis); RUN# worker_escalations 686",
+   "measured": {},
+   "kind": "historical",
+   "after": ""
+  },
+  {
+   "id": "C27",
+   "category": "false review (over-escalation)",
+   "event": "E07",
+   "title": "After the fix, P5 still asks a human on most E07 groups",
+   "severity": "medium",
+   "status": "open (needs labels)",
+   "source": "",
+   "measured": {
+    "E07": {
+     "groups": 171,
+     "groups_asked": 96,
+     "groups_asked_pct": 56.1,
+     "worker_escalations": 98,
+     "review_verdicts": 75,
+     "reasons": {
+      "N distinct frames within N.N for the keep slot": 67,
+      "every frame failed": 18,
+      "N frame(s) with a merit the keeper lacks": 7,
+      "top-scored <photo> has a defect": 6
+     }
+    },
+    "E03": {
+     "groups": 27,
+     "groups_asked": 10,
+     "groups_asked_pct": 37.0,
+     "worker_escalations": 11,
+     "review_verdicts": 9,
+     "reasons": {
+      "N distinct frames within N.N for the keep slot": 7,
+      "every frame failed": 1,
+      "N frame(s) with a merit the keeper lacks": 1,
+      "top-scored <photo> has a defect": 1
+     }
+    },
+    "E09": {
+     "groups": 50,
+     "groups_asked": 10,
+     "groups_asked_pct": 20.0,
+     "worker_escalations": 22,
+     "review_verdicts": 10,
+     "reasons": {
+      "(none recorded)": 10
+     }
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C02",
+   "category": "exposure misjudgement",
+   "event": "E09",
+   "title": "Absolute under-exposure rule fires on a dim indoor venue",
+   "severity": "high",
+   "status": "fixed",
+   "source": "eval/results/first-run/summary_e09_x86_untuned.json",
+   "measured": {
+    "historical": {
+     "n_photos": 661,
+     "verdicts": {
+      "keep": 312,
+      "reject": 42,
+      "review": 307
+     },
+     "EXPOSURE_UNDER": 315
+    },
+    "E09": {
+     "photos": 661,
+     "label_under": 327,
+     "label_over": 0,
+     "under_flag": 1,
+     "over_flag": 0,
+     "EXPOSURE_UNDER_worker": 1,
+     "EXPOSURE_OVER_worker": 0,
+     "groups_mixed_soft_label": 4,
+     "groups_top_decided_by_soft_label": 1
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C03",
+   "category": "exposure misjudgement",
+   "event": "E07",
+   "title": "Studio flash labelled over-exposed; the soft label still steers best-pick",
+   "severity": "medium",
+   "status": "flag fixed; best-pick term open",
+   "source": "2026-10-05 (159 EXPOSURE_OVER pre-fix)",
+   "measured": {
+    "E07": {
+     "photos": 1000,
+     "label_under": 0,
+     "label_over": 202,
+     "under_flag": 0,
+     "over_flag": 0,
+     "EXPOSURE_UNDER_worker": 0,
+     "EXPOSURE_OVER_worker": 0,
+     "groups_mixed_soft_label": 1,
+     "groups_top_decided_by_soft_label": 0
+    },
+    "E09": {
+     "photos": 661,
+     "label_under": 327,
+     "label_over": 0,
+     "under_flag": 1,
+     "over_flag": 0,
+     "EXPOSURE_UNDER_worker": 1,
+     "EXPOSURE_OVER_worker": 0,
+     "groups_mixed_soft_label": 4,
+     "groups_top_decided_by_soft_label": 1
+    },
+    "E03": {
+     "photos": 664,
+     "label_under": 30,
+     "label_over": 0,
+     "under_flag": 0,
+     "over_flag": 0,
+     "EXPOSURE_UNDER_worker": 0,
+     "EXPOSURE_OVER_worker": 0,
+     "groups_mixed_soft_label": 0,
+     "groups_top_decided_by_soft_label": 0
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C04",
+   "category": "exposure misjudgement",
+   "event": "E09",
+   "title": "Agent's single-photo exposure call has no venue baseline",
+   "severity": "medium",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E09": {
+     "rows_adding_under": 2,
+     "examples": [
+      {
+       "photo": "C04-p1",
+       "decided_by": "scripted",
+       "mean_L": 29.119,
+       "subject_L": 91.12,
+       "worker_codes": [
+        "BURST_NOT_BEST",
+        "REVIEW_LOW_CONFIDENCE"
+       ]
+      },
+      {
+       "photo": "C04-p2",
+       "decided_by": "scripted",
+       "mean_L": 42.419,
+       "subject_L": 124.061,
+       "worker_codes": [
+        "BURST_NOT_BEST",
+        "REVIEW_LOW_CONFIDENCE"
+       ]
+      }
+     ]
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C05",
+   "category": "false reject (risk)",
+   "event": "E07",
+   "title": "Whole burst with the main subject's eyes closed: runners-up auto-rejected",
+   "severity": "medium",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E07": {
+     "groups": 18,
+     "sizes": {
+      "2": 13,
+      "4": 1,
+      "3": 3,
+      "5": 1
+     },
+     "frames": 44,
+     "auto_rejects": 26,
+     "auto_reject_conf_min": 0.8789,
+     "examples": [
+      {
+       "size": 2,
+       "frames": [
+        {
+         "photo": "C05-p1",
+         "verdict": "keep",
+         "codes": [
+          "KEEP_BEST_OF_GROUP"
+         ],
+         "confidence": 0.5,
+         "main_p_open": [
+          0.004,
+          0.2491
+         ]
+        },
+        {
+         "photo": "C05-p2",
+         "verdict": "reject",
+         "codes": [
+          "BURST_NOT_BEST",
+          "EYES_CLOSED"
+         ],
+         "confidence": 0.95,
+         "main_p_open": [
+          0.029,
+          0.1178
+         ]
+        }
+       ]
+      },
+      {
+       "size": 4,
+       "frames": [
+        {
+         "photo": "C05-p3",
+         "verdict": "keep",
+         "codes": [
+          "KEEP_BEST_OF_GROUP"
+         ],
+         "confidence": 0.5,
+         "main_p_open": [
+          0.0003,
+          0.0009
+         ]
+        },
+        {
+         "photo": "C05-p4",
+         "verdict": "reject",
+         "codes": [
+          "DUPLICATE_OF",
+          "EYES_CLOSED"
+         ],
+         "confidence": 0.99,
+         "main_p_open": [
+          0.0094,
+          0.003
+         ]
+        },
+        {
+         "photo": "C05-p5",
+         "verdict": "reject",
+         "codes": [
+          "BURST_NOT_BEST",
+          "EYES_CLOSED"
+         ],
+         "confidence": 0.9992,
+         "main_p_open": [
+          0.0003,
+          0.0012
+         ]
+        }
+       ]
+      },
+      {
+       "size": 2,
+       "frames": [
+        {
+         "photo": "C05-p6",
+         "verdict": "keep",
+         "codes": [
+          "KEEP_BEST_OF_GROUP"
+         ],
+         "confidence": 0.5,
+         "main_p_open": [
+          0.0001,
+          0.1204
+         ]
+        },
+        {
+         "photo": "C05-p7",
+         "verdict": "reject",
+         "codes": [
+          "BURST_NOT_BEST",
+          "EYES_CLOSED"
+         ],
+         "confidence": 0.9928,
+         "main_p_open": [
+          0.0005,
+          0.014
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "E03": {
+     "groups": 1,
+     "sizes": {
+      "2": 1
+     },
+     "frames": 2,
+     "auto_rejects": 1,
+     "auto_reject_conf_min": 0.9982,
+     "examples": [
+      {
+       "size": 2,
+       "frames": [
+        {
+         "photo": "C05-p1",
+         "verdict": "reject",
+         "codes": [
+          "BURST_NOT_BEST",
+          "EYES_CLOSED"
+         ],
+         "confidence": 0.9982,
+         "main_p_open": [
+          0.0001,
+          0.0034
+         ]
+        },
+        {
+         "photo": "C05-p2",
+         "verdict": "keep",
+         "codes": [
+          "KEEP_BEST_OF_GROUP"
+         ],
+         "confidence": 0.5,
+         "main_p_open": [
+          0.0,
+          0.0006
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C06",
+   "category": "face/eye misread",
+   "event": "E07",
+   "title": "Small couple-portrait faces give eye state unknown",
+   "severity": "medium",
+   "status": "by design",
+   "source": "",
+   "measured": {
+    "E07": {
+     "faces_scored": 1991,
+     "unknown": 923,
+     "main_faces": 858,
+     "main_unknown": 335,
+     "main_unknown_min_px_median": 72.0,
+     "unknown_ge_100px": 71,
+     "unknown_ge_100px_max": 206.0,
+     "main_unknown_lt_80px": 227,
+     "frame_mean_L_median_unknown_ge_100px": 144.7,
+     "frame_mean_L_median_read_ge_100px": 146.9
+    },
+    "E03": {
+     "faces_scored": 113,
+     "unknown": 5,
+     "main_faces": 57,
+     "main_unknown": 0,
+     "main_unknown_min_px_median": null,
+     "unknown_ge_100px": 5,
+     "unknown_ge_100px_max": 152.0,
+     "main_unknown_lt_80px": 0,
+     "frame_mean_L_median_unknown_ge_100px": 95.5,
+     "frame_mean_L_median_read_ge_100px": 93.0
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C07",
+   "category": "face/eye misread",
+   "event": "E09",
+   "title": "Eye state unknown on large, well-lit faces (>= 100 px)",
+   "severity": "medium",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E09": {
+     "faces_scored": 491,
+     "unknown": 190,
+     "main_faces": 91,
+     "main_unknown": 17,
+     "main_unknown_min_px_median": 186.0,
+     "unknown_ge_100px": 28,
+     "unknown_ge_100px_max": 244.0,
+     "main_unknown_lt_80px": 3,
+     "frame_mean_L_median_unknown_ge_100px": 57.8,
+     "frame_mean_L_median_read_ge_100px": 51.5
+    },
+    "E07": {
+     "faces_scored": 1991,
+     "unknown": 923,
+     "main_faces": 858,
+     "main_unknown": 335,
+     "main_unknown_min_px_median": 72.0,
+     "unknown_ge_100px": 71,
+     "unknown_ge_100px_max": 206.0,
+     "main_unknown_lt_80px": 227,
+     "frame_mean_L_median_unknown_ge_100px": 144.7,
+     "frame_mean_L_median_read_ge_100px": 146.9
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C08",
+   "category": "face/eye misread",
+   "event": "E03",
+   "title": "Group photo with several non-main faces closed passes as keep",
+   "severity": "medium",
+   "status": "partly fixed (group keepers open)",
+   "source": "2026-10-09 (commit bd3a04b; team decision on the remainder)",
+   "measured": {
+    "E03": {
+     "frames": 3,
+     "verdicts": {
+      "review": 1,
+      "keep": 2
+     },
+     "max_closed": 5,
+     "examples": [
+      {
+       "photo": "C08-p3",
+       "faces": 9,
+       "non_main_closed": 5,
+       "verdict": "keep",
+       "codes": [
+        "KEEP_BEST_OF_GROUP"
+       ]
+      },
+      {
+       "photo": "C08-p1",
+       "faces": 3,
+       "non_main_closed": 2,
+       "verdict": "review",
+       "codes": [
+        "BURST_NOT_BEST",
+        "REVIEW_LOW_CONFIDENCE"
+       ]
+      },
+      {
+       "photo": "C08-p2",
+       "faces": 3,
+       "non_main_closed": 2,
+       "verdict": "keep",
+       "codes": [
+        "KEEP_BEST_OF_GROUP"
+       ]
+      }
+     ]
+    },
+    "E07": {
+     "frames": 30,
+     "verdicts": {
+      "keep": 4,
+      "reject": 23,
+      "review": 3
+     },
+     "max_closed": 3,
+     "examples": [
+      {
+       "photo": "C08-p3",
+       "faces": 5,
+       "non_main_closed": 3,
+       "verdict": "review",
+       "codes": [
+        "BURST_NOT_BEST",
+        "REVIEW_LOW_CONFIDENCE"
+       ]
+      },
+      {
+       "photo": "C08-p10",
+       "faces": 5,
+       "non_main_closed": 3,
+       "verdict": "reject",
+       "codes": [
+        "BURST_NOT_BEST"
+       ]
+      },
+      {
+       "photo": "C08-p11",
+       "faces": 5,
+       "non_main_closed": 3,
+       "verdict": "reject",
+       "codes": [
+        "BURST_NOT_BEST"
+       ]
+      }
+     ]
+    },
+    "E09": {
+     "frames": 2,
+     "verdicts": {
+      "keep": 1,
+      "reject": 1
+     },
+     "max_closed": 2,
+     "examples": [
+      {
+       "photo": "C08-p1",
+       "faces": 6,
+       "non_main_closed": 2,
+       "verdict": "keep",
+       "codes": [
+        "KEEP_BEST_OF_GROUP"
+       ]
+      },
+      {
+       "photo": "C08-p2",
+       "faces": 6,
+       "non_main_closed": 2,
+       "verdict": "reject",
+       "codes": [
+        "DUPLICATE_OF"
+       ]
+      }
+     ]
+    }
+   },
+   "kind": "measured",
+   "after": "commit bd3a04b, E07 local rerun on the same inputs: the group-eyes rule now fires on >= 2 closed non-main faces or >= 1/3 of detected non-main faces (review, never reject; unknown is not closed). A group keeper still gets no review code: reason_codes.yaml forbids review codes on keep rows, and the team decided not to change the schema before submission. The E03 9-face keeper still passes."
+  },
+  {
+   "id": "C09",
+   "category": "missed duplicate / over-split burst",
+   "event": "E07",
+   "title": "Byte-identical copies coded as BURST_NOT_BEST; copies disagree",
+   "severity": "low",
+   "status": "fixed",
+   "source": "2026-10-09 (C09 76f62b5)",
+   "measured": {
+    "E07": {
+     "md5_sets": 93,
+     "files_in_sets": 277,
+     "copies_not_DUPLICATE_OF": 139,
+     "sets_with_conflicting_verdicts": 13
+    },
+    "E09": {
+     "md5_sets": 36,
+     "files_in_sets": 72,
+     "copies_not_DUPLICATE_OF": 0,
+     "sets_with_conflicting_verdicts": 0
+    }
+   },
+   "kind": "measured",
+   "after": "commit 76f62b5, E07 local rerun on the same inputs (verdicts unchanged 301/624/75): copies not coded DUPLICATE_OF 139 -> 0, md5 sets with conflicting verdicts 13 -> 0, DUPLICATE_OF rows 65 -> 204 (one judged file per set; copies at confidence 1.0, never asked)."
+  },
+  {
+   "id": "C10",
+   "category": "missed duplicate / over-split burst",
+   "event": "E03",
+   "title": "Near-identical singletons just above the pHash threshold",
+   "severity": "low",
+   "status": "open (not visually confirmed)",
+   "source": "",
+   "measured": {
+    "E03": {
+     "pairs": 12,
+     "phash": {
+      "11": 8,
+      "12": 4
+     },
+     "dt_s_median": 2.3
+    },
+    "E07": {
+     "pairs": 5,
+     "phash": {
+      "11": 1,
+      "12": 4
+     },
+     "dt_s_median": 2.0
+    },
+    "E09": {
+     "pairs": 1,
+     "phash": {
+      "11": 1
+     },
+     "dt_s_median": 0.0
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C11",
+   "category": "missed duplicate / over-split burst",
+   "event": "E07",
+   "title": "One moment possibly split into adjacent groups",
+   "severity": "low",
+   "status": "open (not visually confirmed)",
+   "source": "",
+   "measured": {
+    "E07": {
+     "groups": 171,
+     "size2": 66,
+     "adjacent_within_window": 74,
+     "adjacent_min_link_le_12": 11
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C12",
+   "category": "under-split burst",
+   "event": "E07",
+   "title": "Single-link chaining builds a 29-frame group of distinct frames",
+   "severity": "high",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E07": {
+     "rejects_far_from_keeper": 30,
+     "groups_with_far_rejects": 5,
+     "far_reject_conf_min": 0.8,
+     "widest_group": {
+      "size": 29,
+      "phash_diameter": 42,
+      "pairs_ge_30": 86,
+      "pairs": 406
+     },
+     "examples": [
+      {
+       "photo": "C12-p5",
+       "group": "C12-g3",
+       "group_size": 29,
+       "phash_to_keeper": 37,
+       "confidence": 0.8,
+       "codes": [
+        "BURST_NOT_BEST"
+       ]
+      },
+      {
+       "photo": "C12-p12",
+       "group": "C12-g3",
+       "group_size": 29,
+       "phash_to_keeper": 33,
+       "confidence": 0.99,
+       "codes": [
+        "BURST_NOT_BEST"
+       ]
+      },
+      {
+       "photo": "C12-p13",
+       "group": "C12-g3",
+       "group_size": 29,
+       "phash_to_keeper": 29,
+       "confidence": 0.99,
+       "codes": [
+        "BURST_NOT_BEST"
+       ]
+      }
+     ]
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C13",
+   "category": "sharpness misjudgement",
+   "event": "E07",
+   "title": "Face-ROI sharpness ends 'borderline' on very sharp frames",
+   "severity": "low",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E07": {
+     "photos": 1000,
+     "brisque_null": 1000,
+     "borderline": 83,
+     "borderline_roi": {
+      "faces": 83
+     },
+     "borderline_lap_var_min": 696.1,
+     "borderline_fft_hf_max": 9.97,
+     "lap_sharp_min": 120.0,
+     "borderline_verdicts": {
+      "keep": 8,
+      "reject": 71,
+      "review": 4
+     }
+    },
+    "E03": {
+     "photos": 664,
+     "brisque_null": 664,
+     "borderline": 0,
+     "borderline_roi": {},
+     "borderline_lap_var_min": null,
+     "borderline_fft_hf_max": null,
+     "lap_sharp_min": 120.0,
+     "borderline_verdicts": {}
+    },
+    "E09": {
+     "photos": 661,
+     "brisque_null": 661,
+     "borderline": 0,
+     "borderline_roi": {},
+     "borderline_lap_var_min": null,
+     "borderline_fft_hf_max": null,
+     "lap_sharp_min": 120.0,
+     "borderline_verdicts": {}
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C14",
+   "category": "agent tool loop",
+   "event": "probe",
+   "title": "Malformed resume decision: write_decision retried until recursion limit",
+   "severity": "high",
+   "status": "fixed",
+   "source": "2026-10-08 (AgentCore probe; recursion root cause, 3b02852)",
+   "measured": {},
+   "kind": "historical",
+   "after": ""
+  },
+  {
+   "id": "C15",
+   "category": "agent tool loop",
+   "event": "E09",
+   "title": "Pivot detector read 0 pivots from the real agent trace",
+   "severity": "medium",
+   "status": "fixed",
+   "source": "2026-10-05 (pivot GAP; commit e708b01: 20 pivots)",
+   "measured": {},
+   "kind": "historical",
+   "after": ""
+  },
+  {
+   "id": "C16",
+   "category": "agent tool loop",
+   "event": "E09",
+   "title": "Agent wrote the group-eyes code for a closed main face",
+   "severity": "medium",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E09": {
+     "rows": 3,
+     "examples": [
+      {
+       "photo": "C16-p1",
+       "decided_by": "scripted",
+       "verdict": "review",
+       "worker_verdict": "reject",
+       "worker_codes": [
+        "DUPLICATE_OF",
+        "EYES_CLOSED"
+       ],
+       "worker_conf": 0.99
+      },
+      {
+       "photo": "C16-p2",
+       "decided_by": "scripted",
+       "verdict": "review",
+       "worker_verdict": "reject",
+       "worker_codes": [
+        "DUPLICATE_OF",
+        "EYES_CLOSED"
+       ],
+       "worker_conf": 0.99
+      },
+      {
+       "photo": "C16-p3",
+       "decided_by": "scripted",
+       "verdict": "review",
+       "worker_verdict": "reject",
+       "worker_codes": [
+        "DUPLICATE_OF",
+        "EYES_CLOSED"
+       ],
+       "worker_conf": 0.99
+      }
+     ]
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C17",
+   "category": "data/pipeline",
+   "event": "E07",
+   "title": "Originals never synced: 83 frames NoSuchKey",
+   "severity": "high",
+   "status": "fixed",
+   "source": "2026-10-05 (NoSuchKey root cause)",
+   "measured": {},
+   "kind": "historical",
+   "after": ""
+  },
+  {
+   "id": "C18",
+   "category": "data/pipeline",
+   "event": "E07",
+   "title": "Originals arrive after the worker, so P2 never uses them",
+   "severity": "medium",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E07": {
+     "photos": 1000,
+     "variant_original": 0,
+     "chains_with_original_step": 0,
+     "variant_fallback": 0
+    },
+    "E03": {
+     "photos": 664,
+     "variant_original": 0,
+     "chains_with_original_step": 0,
+     "variant_fallback": 0
+    },
+    "E09": {
+     "photos": 661,
+     "variant_original": 0,
+     "chains_with_original_step": 0,
+     "variant_fallback": 0
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C19",
+   "category": "data/pipeline",
+   "event": "E09",
+   "title": "EXIF without offset: the reception-hour guard reads the wrong hour",
+   "severity": "medium",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E09": {
+     "photos": 661,
+     "tz_unknown": 661,
+     "reception_window_flips": 318,
+     "hour_shift": {
+      "6": 315,
+      "5": 346
+     }
+    },
+    "E07": {
+     "photos": 1000,
+     "tz_unknown": 1000,
+     "reception_window_flips": 554,
+     "hour_shift": {
+      "6": 742,
+      "5": 258
+     }
+    },
+    "E03": {
+     "photos": 664,
+     "tz_unknown": 1,
+     "reception_window_flips": 0,
+     "hour_shift": {
+      "5": 1
+     }
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C20",
+   "category": "data/pipeline",
+   "event": "E07",
+   "title": "Worker and agent both wrote RUN# fields",
+   "severity": "medium",
+   "status": "fixed",
+   "source": "2026-10-05 (two-writer clash); RUN# run_note",
+   "measured": {},
+   "kind": "historical",
+   "after": ""
+  },
+  {
+   "id": "C21",
+   "category": "data/pipeline",
+   "event": "E03",
+   "title": "Pre-culled galleries: no borderline-sharpness frames to test on",
+   "severity": "medium (for claims)",
+   "status": "by design (data)",
+   "source": "",
+   "measured": {
+    "E03": {
+     "photos": 664,
+     "lap_var_below_sharp_min": 0,
+     "blur_codes": 0,
+     "lap_var_p5": 922.7
+    },
+    "E07": {
+     "photos": 1000,
+     "lap_var_below_sharp_min": 0,
+     "blur_codes": 0,
+     "lap_var_p5": 1733.6
+    },
+    "E09": {
+     "photos": 661,
+     "lap_var_below_sharp_min": 0,
+     "blur_codes": 0,
+     "lap_var_p5": 897.3
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C22",
+   "category": "HITL ergonomics",
+   "event": "E07",
+   "title": "Reviewer asked to choose between identical files",
+   "severity": "medium",
+   "status": "fixed",
+   "source": "2026-10-09 (with C09)",
+   "measured": {
+    "E07": {
+     "groups": 13,
+     "asked_with_identical_files": 13,
+     "agent_questions_all_identical": 0,
+     "examples": [
+      {
+       "size": 24,
+       "candidates": 3,
+       "distinct_files": 2,
+       "needs_approval": true
+      },
+      {
+       "size": 9,
+       "candidates": 3,
+       "distinct_files": 2,
+       "needs_approval": true
+      },
+      {
+       "size": 15,
+       "candidates": 3,
+       "distinct_files": 2,
+       "needs_approval": true
+      },
+      {
+       "size": 9,
+       "candidates": 3,
+       "distinct_files": 2,
+       "needs_approval": true
+      }
+     ]
+    },
+    "E09": {
+     "groups": 0,
+     "asked_with_identical_files": 0,
+     "agent_questions_all_identical": 4,
+     "examples": []
+    }
+   },
+   "kind": "measured",
+   "after": "commit 76f62b5, E07 local rerun: groups asking a human about identical files 13 -> 0. The agent-side duplicate proposals on E09 (3) were on the old E09 local run and are not re-measured."
+  },
+  {
+   "id": "C23",
+   "category": "HITL ergonomics",
+   "event": "E09",
+   "title": "One question per pause; the reviewer waits for the next group",
+   "severity": "low",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E09": {
+     "interrupts": 11,
+     "items_per_interrupt": {
+      "1": 11
+     },
+     "resume_to_next_pause_s_median": 49.2,
+     "resume_to_next_pause_s_max": 86.4,
+     "worker_escalations": 22
+    },
+    "E03": {
+     "interrupts": 7,
+     "items_per_interrupt": {
+      "1": 7
+     },
+     "resume_to_next_pause_s_median": 40.7,
+     "resume_to_next_pause_s_max": 68.3,
+     "worker_escalations": 11
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C24",
+   "category": "HITL ergonomics",
+   "event": "E07",
+   "title": "Kept frame is not the top-ranked frame; text shows a negative margin",
+   "severity": "low",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E07": {
+     "groups": 6,
+     "margin_min": -0.2156,
+     "reason_text_negative_margin": 6
+    },
+    "E03": {
+     "groups": 1,
+     "margin_min": -0.0043,
+     "reason_text_negative_margin": 1
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C25",
+   "category": "HITL ergonomics",
+   "event": "E09",
+   "title": "No real human answer yet: approvals are scripted or team tests",
+   "severity": "high (for claims)",
+   "status": "open",
+   "source": "",
+   "measured": {
+    "E09": {
+     "answered_rows": 24,
+     "decided_by": {
+      "scripted": 21,
+      "agent": 3
+     },
+     "human_source": {
+      "scripted": 21,
+      "None": 3
+     },
+     "needs_approval_rows": 22
+    },
+    "E03": {
+     "answered_rows": 0,
+     "decided_by": {},
+     "human_source": {},
+     "needs_approval_rows": 20
+    },
+    "E07": {
+     "answered_rows": 0,
+     "decided_by": {},
+     "human_source": {},
+     "needs_approval_rows": 211
+    }
+   },
+   "kind": "measured",
+   "after": ""
+  },
+  {
+   "id": "C26",
+   "category": "HITL ergonomics",
+   "event": "E09",
+   "title": "Scripted approvals shown as a person; 0.5 decision shown as 100 %",
+   "severity": "high (for claims)",
+   "status": "fixed",
+   "source": "2026-10-05 (human_source; commit e708b01)",
+   "measured": {},
+   "kind": "historical",
+   "after": ""
+  }
+ ],
+ "absent_pattern_checks": {
+  "E03": {
+   "cross_camera": {
+    "cameras": 2,
+    "cross_camera_pairs_le_8": 0
+   },
+   "exif": {
+    "photos": 664,
+    "exif_rows": 664,
+    "no_capture_time": 0
+   },
+   "two_frame_groups": {
+    "groups": 27,
+    "size2": 25,
+    "adjacent_within_window": 2,
+    "adjacent_min_link_le_12": 0
+   }
+  },
+  "E07": {
+   "cross_camera": {
+    "cameras": 1,
+    "cross_camera_pairs_le_8": 0
+   },
+   "exif": {
+    "photos": 1000,
+    "exif_rows": 1000,
+    "no_capture_time": 0
+   },
+   "two_frame_groups": {
+    "groups": 171,
+    "size2": 66,
+    "adjacent_within_window": 74,
+    "adjacent_min_link_le_12": 11
+   }
+  },
+  "E09": {
+   "cross_camera": {
+    "cameras": 2,
+    "cross_camera_pairs_le_8": 0
+   },
+   "exif": {
+    "photos": 661,
+    "exif_rows": 661,
+    "no_capture_time": 0
+   },
+   "two_frame_groups": {
+    "groups": 50,
+    "size2": 49,
+    "adjacent_within_window": 4,
+    "adjacent_min_link_le_12": 0
+   }
+  }
+ }
+}
