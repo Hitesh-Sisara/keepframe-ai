@@ -1,0 +1,94 @@
+%% KeepFrame - AWS architecture. Region ap-south-1.
+%% Every compute box is Arm64 / Graviton. The agent runs on Amazon Bedrock AgentCore Runtime (ARM64 container). The LLM is Claude on Amazon Bedrock (default); any Anthropic-compatible endpoint is an optional setting. No COOL. Managed services with no customer-run compute are labelled "managed".
+%% Photographers upload event shoots to S3 raw/; uploaded photos are READ ONLY.
+flowchart LR
+  classDef ext fill:#f4f4f4,stroke:#888,stroke-dasharray: 5 5,color:#333
+  classDef arm fill:#e8f1fb,stroke:#1f5fa8,color:#0b2545
+  classDef store fill:#fff7e6,stroke:#b07400,color:#4a3200
+  classDef obs fill:#f3ecfa,stroke:#6b3fa0,color:#2d1747
+
+  UP(["Photographer upload<br/>event shoot to S3 raw/eventId/"])
+  SRC[("S3-compatible source (optional)<br/>imported by SyncSource<br/>GET, HEAD, LIST only")]
+
+  subgraph AWS["AWS account, ap-south-1"]
+    direction LR
+
+    subgraph EDGE["Delivery"]
+      direction TB
+      CF["Lambda: review UI (interim)<br/>Next.js static export on HTTP API /ui/<br/>target: CloudFront + S3 once verified<br/>arm64 (Graviton2)"]
+      APIGW["API Gateway HTTP API<br/>+ Lambda authorizer (judge token)<br/>managed"]
+      APIFN["Lambda API (FastAPI + Mangum)<br/>Python 3.12<br/>arm64 (Graviton2)"]
+    end
+
+    subgraph ORCH["Orchestration"]
+      direction TB
+      SFN{{"Step Functions Standard<br/>CullEvent<br/>managed"}}
+      LFN["Lambda: Ingest / Validate / Summarise / Notify<br/>arm64 (Graviton2)"]
+      SHIM["Lambda shims: invoke_agent, agent_status<br/>InvokeAgentRuntime start / status<br/>Wait 30 s loop, 2 h budget<br/>arm64 (Graviton2)"]
+    end
+
+    subgraph COMPUTE["OpenCV 5 compute (ECS Fargate)"]
+      direction TB
+      SYNC["ECS Fargate task: SyncSource (optional)<br/>rclone, 1 vCPU / 2 GiB<br/>ARM64 (Graviton2)"]
+      WORKER["ECS Fargate task: cull-worker<br/>stock opencv-contrib-python-headless 5.0.0.93<br/>4 vCPU / 8 GiB, ARM64 (Graviton2)"]
+    end
+
+    subgraph AGENT["Agent"]
+      direction TB
+      AC["Amazon Bedrock AgentCore Runtime<br/>Strands agent container, HTTP /invocations, /ping<br/>OpenCV 5 @tools, policy hooks, interrupts<br/>PUBLIC network, consumption-billed<br/>ARM64"]
+    end
+
+    subgraph DATA["Data (private)"]
+      direction TB
+      S3[("S3 work bucket<br/>keepframe-work-*<br/>Block Public Access, SSE-S3<br/>raw/ originals/ proxy/ expire 7 d<br/>managed")]
+      DDB[("DynamoDB on-demand<br/>keepframe-decisions (PITR)<br/>keepframe-traces (TTL 90 d)<br/>managed")]
+      SM["Secrets Manager + SSM<br/>optional source keys, judge token,<br/>optional keepframe/anthropic, agent-runtime-arn<br/>managed"]
+    end
+
+    CW["CloudWatch<br/>Logs (JSON), EMF metrics,<br/>KeepFrame dashboard, alarms,<br/>OTEL agent spans<br/>managed"]
+  end
+
+  USER(["Photographer / judge<br/>browser"])
+
+  LLM["Claude on Amazon Bedrock (default)<br/>/ Anthropic-compatible endpoint (optional)<br/>Sonnet 5 planner, Haiku 4.5 reasons<br/>receives tool JSON + 512-px contact sheets only"]
+
+  UP -- "raw/ (+ optional exif/, manifests/)" --> S3
+  SRC -- "GET only" --> SYNC
+  SYNC -- "raw/ exif/ originals/" --> S3
+  SM -. "source keys (optional)" .-> SYNC
+
+  USER -- "/ui/" --> APIGW
+  APIGW -- "GET /ui/*" --> CF
+  USER --> APIGW
+  APIGW --> APIFN
+  APIFN -- "StartExecution" --> SFN
+  APIFN -- "Query / GetItem" --> DDB
+  APIFN -- "presigned GET (15 min max)" --> S3
+  APIFN -- "POST /approvals: InvokeAgentRuntime mode=resume" --> AC
+  SM -. "judge token" .-> APIGW
+  SM -. "optional anthropic key, read once at startup" .-> AC
+
+  SFN --> LFN
+  SFN -- "RunTask .sync (sync_source only)" --> SYNC
+  SFN -- "RunTask .sync (default)" --> WORKER
+  SFN -- "RunAgent" --> SHIM
+  SHIM -- "InvokeAgentRuntime mode=start, then mode=status" --> AC
+
+  WORKER <-- "proxies, hashes, scores" --> S3
+  AC <-- "tool I/O, contact sheets" --> S3
+  AC -- "InvokeModel stream (IAM)" --> LLM
+  AC -- "write_decision, traces" --> DDB
+  WORKER -- "features" --> DDB
+
+  WORKER -. "logs, metrics" .-> CW
+  AC -. "logs, OTEL traces" .-> CW
+  APIFN -. "logs" .-> CW
+  SYNC -. "logs" .-> CW
+
+  class UP,SRC,USER ext
+  class LLM arm
+  class APIFN,LFN,SHIM,SYNC,WORKER,AC arm
+  class S3,DDB,SM store
+  class APIGW,SFN arm
+  class CF arm
+  class CW obs

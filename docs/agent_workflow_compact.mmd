@@ -1,0 +1,34 @@
+%% Compact landscape version of agent_workflow.mmd for the PDF report (same policies P1-P9).
+flowchart LR
+  classDef tool fill:#e8f1fb,stroke:#1f5fa8,color:#0b2545
+  classDef pol fill:#fff7e6,stroke:#b07400,color:#4a3200
+  classDef human fill:#fde8e8,stroke:#b42318,color:#4a0d0d
+  classDef out fill:#e9f7ef,stroke:#1e7a46,color:#0b3d22
+
+  A["ingest_event<br/>compute_hashes<br/>cluster_near_duplicates"] --> B{"P7 budget /<br/>caps OK?"}
+  B -- no --> H
+  B -- yes --> C{"P1 group<br/>size > 1?"}
+  C -- singleton --> S["sharpness roi=saliency<br/>+ exposure"]
+  C -- group --> F["detect_faces<br/>sharpness roi=full"]
+  F --> P2{"P2 borderline<br/>+ faces?"}
+  P2 -- yes --> F2["re-score roi=faces,<br/>then original"]
+  P2 -- no --> P3
+  F2 --> P3{"P3 eyes:<br/>dark/small? group?"}
+  P3 --> E["eyes_open<br/>face_quality"]
+  E --> K["pick_best_in_cluster"]
+  K --> P4{"P4 all fail /<br/>P5 margin < 0.05?"}
+  P4 -- yes --> H
+  P4 -- no --> W
+  S --> P6{"P6 artistic<br/>intent?"}
+  P6 -- yes --> R["review"]
+  P6 -- no --> P5{"P5 reject<br/>conf < 0.8?"}
+  P5 -- yes --> H["request_human_approval<br/>(interrupt, run pauses)"]
+  P5 -- no --> W
+  H -- "human answer: InvokeAgentRuntime resume" --> W
+  R --> W["P9 reason codes<br/>write_decision<br/>P8 keep/reject/review, no delete"]
+  W -- "next group" --> B
+
+  class A,S,F,F2,E,K tool
+  class B,C,P2,P3,P4,P5,P6 pol
+  class H,R human
+  class W out

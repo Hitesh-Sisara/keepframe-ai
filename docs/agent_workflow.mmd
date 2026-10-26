@@ -1,0 +1,63 @@
+%% KeepFrame - agent workflow with the P1–P9 policies as decision diamonds.
+%% Perception = OpenCV 5 tools; decision = Claude planner (Amazon Bedrock by default) + code-enforced policy hooks; action = write_decision / request_human_approval.
+%% Host: Amazon Bedrock AgentCore Runtime (ARM64). Step Functions starts it via the invoke_agent Lambda and polls agent_status every 30 s; a pause is resumed by the API with InvokeAgentRuntime mode=resume on the same runtimeSessionId.
+flowchart TD
+  classDef tool fill:#e8f1fb,stroke:#1f5fa8,color:#0b2545
+  classDef pol fill:#fff7e6,stroke:#b07400,color:#4a3200
+  classDef human fill:#fde8e8,stroke:#b42318,color:#4a0d0d
+  classDef out fill:#e9f7ef,stroke:#1e7a46,color:#0b3d22
+
+  START(["CullEvent RunAgent: Lambda invoke_agent<br/>InvokeAgentRuntime mode=start on AgentCore Runtime<br/>trace header: opencv_version, cv2_file,<br/>thresholds_sha, image_sha, instance_type"]) --> ING["ingest_event"]
+  ING --> HASH["compute_hashes<br/>pHash / BlockMean / ColorMoment"]
+  HASH --> CLU["cluster_near_duplicates<br/>pHash Hamming 10 or less, 10 s window, same camera"]
+  CLU --> BUD{"P7 budget:<br/>get_run_budget more than 20% left?<br/>tool-call and wall-clock caps OK?"}
+  BUD -- "cap hit" --> ESC["request_human_approval<br/>(Strands interrupt, run pauses)"]
+  BUD -- "yes" --> SIZE{"P1 group first:<br/>group size more than 1?"}
+
+  SIZE -- "singleton" --> SS1["score_sharpness roi=saliency<br/>+ score_exposure"]
+  SIZE -- "group" --> FACES["detect_faces<br/>(reuse frsInfo / faces, else YuNet)"]
+
+  FACES --> SHF["score_sharpness roi=full"]
+  SHF --> BORD{"P2 borderline?<br/>lap_var 60-120 at 1024 px<br/>and n_faces 1 or more"}
+  BORD -- "yes" --> SHFACE["score_sharpness roi=faces"]
+  SHFACE --> BORD2{"still borderline<br/>and original exists?"}
+  BORD2 -- "yes" --> SHORIG["score_sharpness variant=original"]
+  BORD2 -- "no" --> DARK
+  SHORIG --> DARK
+  BORD -- "no" --> DARK{"P3 dark scene<br/>and small faces?"}
+  DARK -- "yes: skip eye-state (unknown)" --> FQ
+  DARK -- "no" --> EYES["score_eyes_open<br/>(landmark crops, cv2.dnn)"]
+  EYES --> EYEPOL{"P3 main subject closed p 0.8 or more?<br/>or 3+ faces with one non-main closed?"}
+  EYEPOL -- "group photo, one closed" --> RVEYE["review: REVIEW_POLICY_GROUP_EYES"]
+  EYEPOL -- "otherwise" --> FQ["score_face_quality<br/>(SFace align + eDifFIQA)"]
+  RVEYE --> FQ
+  FQ --> PICK["pick_best_in_cluster<br/>(deterministic weighted score)"]
+
+  PICK --> ALLFAIL{"P4 every frame<br/>in the group fails?"}
+  ALLFAIL -- "yes: best = keep KEEP_BEST_OF_GROUP" --> ESC
+  ALLFAIL -- "no" --> MARGIN{"P5 margin less than 0.05<br/>or tie?"}
+  MARGIN -- "yes: contact sheet" --> ESC
+  MARGIN -- "no" --> ART
+
+  SS1 --> ART{"P6 artistic intent?<br/>BLUR_MOTION and (ExposureTime 1/30 s or longer<br/>or dark dance-floor frame)"}
+  ART -- "yes" --> RVART["review: REVIEW_ARTISTIC_INTENT"]
+  ART -- "no" --> CONF{"P5 reject with<br/>confidence less than 0.8?"}
+  CONF -- "yes" --> ESC
+  CONF -- "no" --> OPT{"P7 budget left for<br/>optional tools?"}
+  OPT -- "yes" --> ENH["score_composition / enhance_keeper<br/>(optional, previews only)"]
+  OPT -- "no" --> EXPL
+  ENH --> EXPL
+
+  ESC --> PAUSE["Session state saved to S3 sessions/run_id.json<br/>agent_status poll returns paused"]
+  PAUSE --> HUMAN["Human in review UI<br/>approve / override + note<br/>POST /approvals/id"]
+  HUMAN -- "API: InvokeAgentRuntime mode=resume<br/>(same runtimeSessionId)" --> EXPL
+  RVART --> EXPL
+  EXPL{"P9 explained?<br/>1+ reason code and<br/>reason of 140 chars or less"} --> WD["write_decision<br/>P8: keep / reject / review only.<br/>No delete tool exists."]
+  WD --> NEXT{"more groups<br/>or singletons?"}
+  NEXT -- "yes" --> BUD
+  NEXT -- "no" --> DONE(["Summary: results/ in S3, DynamoDB,<br/>CloudWatch metrics. Uploaded photos untouched."])
+
+  class ING,HASH,CLU,SS1,FACES,SHF,SHFACE,SHORIG,EYES,FQ,PICK,ENH tool
+  class BUD,SIZE,BORD,BORD2,DARK,EYEPOL,ALLFAIL,MARGIN,ART,CONF,OPT,EXPL,NEXT pol
+  class ESC,PAUSE,HUMAN,RVEYE,RVART human
+  class WD,DONE,START out

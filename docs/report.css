@@ -1,0 +1,12 @@
+/* Print stylesheet for docs/REPORT.md -> docs/REPORT.pdf (md-to-pdf or pandoc --css). */
+body { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 9.5pt; line-height: 1.35; color: #111; }
+h1 { font-size: 17pt; margin: 0 0 4pt; }
+h2 { font-size: 12.5pt; margin: 12pt 0 4pt; border-bottom: 1px solid #ccc; padding-bottom: 2pt; }
+h3, h4 { font-size: 10.5pt; margin: 8pt 0 3pt; }
+p, ul, ol { margin: 3pt 0 5pt; }
+table { border-collapse: collapse; width: 100%; font-size: 8pt; margin: 4pt 0 6pt; page-break-inside: auto; }
+th, td { border: 1px solid #bbb; padding: 2pt 4pt; vertical-align: top; }
+th { background: #f0f0f0; }
+code { font-size: 8pt; }
+pre { font-size: 7.5pt; white-space: pre-wrap; background: #f6f6f6; padding: 4pt; }
+img { max-width: 100%; }
