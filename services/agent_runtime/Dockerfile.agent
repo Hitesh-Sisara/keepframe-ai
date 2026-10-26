@@ -1,0 +1,39 @@
+# KeepFrame agent runtime. linux/arm64 ONLY (AgentCore Runtime requires ARM64; Fargate ARM64 task).
+# Build from the repo root:
+#   docker buildx build --builder arm64builder --platform linux/arm64 \
+#     -f services/agent_runtime/Dockerfile.agent -t keepframe-agent:$(git rev-parse --short HEAD) .
+# Serves /invocations + /ping on 8080 (AgentCore contract). Override the command for a batch run:
+#   python -m keepframe.agent.run --event-id <id> --run-id <id> [--resume]
+# Base pinned by digest (SECURITY_REVIEW #6): python:3.12-slim (Debian 13 trixie), the worker image's base. Bookworm
+# had 7 HIGH with no Debian fix (util-linux, zlib, gcc-12); trixie ships the fixed versions. Recorded 2026-10-09.
+FROM --platform=linux/arm64 public.ecr.aws/docker/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f
+
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 PIP_NO_CACHE_DIR=1 \
+    DOCKER_CONTAINER=1 AWS_REGION=ap-south-1 AWS_DEFAULT_REGION=ap-south-1 \
+    OPENCV_FORCE_DNN_ENGINE=3 CULL_MODELS_DIR=/opt/models CULL_CACHE_DIR=/tmp/cull \
+    KEEPFRAME_LLM_PROVIDER=bedrock CULL_TOOLS=real AWS_EMF_ENVIRONMENT=Local PYTHONPATH=/app
+
+# OS security updates on top of the pinned base (#5).
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY services/agent_runtime/requirements-agent.txt /app/requirements-agent.txt
+COPY scripts/install_opencv_wheel.sh /app/scripts/install_opencv_wheel.sh
+# The script reinstalls the sha256-pinned manylinux_2_28 aarch64 opencv wheel (carotene HAL, no KleidiCV: the
+# faster build on our workload, bench/results/2026-10-08/results.md) and fails the build if getBuildInformation()
+# lists KleidiCV (docs/CV_CORE.md "Arm acceleration").
+RUN pip install -r /app/requirements-agent.txt \
+    && sh /app/scripts/install_opencv_wheel.sh python carotene \
+    && python -c "import cv2; assert cv2.__version__.startswith('5.'), cv2.__version__; print(cv2.__version__, cv2.__file__)"
+
+COPY config/ /app/config/
+COPY scripts/fetch_models.py /app/scripts/fetch_models.py
+RUN python /app/scripts/fetch_models.py --lock /app/config/models.lock --out /opt/models
+
+COPY keepframe/ /app/keepframe/
+COPY services/agent_runtime/app.py /app/app.py
+
+RUN useradd -m -u 1000 bedrock_agentcore && mkdir -p /tmp/cull && chown -R 1000 /tmp/cull
+USER 1000
+EXPOSE 8080
+CMD ["python", "/app/app.py"]

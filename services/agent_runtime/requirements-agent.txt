@@ -1,0 +1,19 @@
+# Agent runtime image (AgentCore Runtime ARM64; Fargate ARM64 fallback). Exact pins, resolved together.
+# Inference: Claude on Amazon Bedrock by default (Strands BedrockModel, boto3); the anthropic SDK backs the
+# optional Anthropic-compatible provider (KEEPFRAME_LLM_PROVIDER=anthropic).
+# bedrock-agentcore is the AgentCore Runtime SDK (BedrockAgentCoreApp: /invocations + /ping).
+# Pin facts: bedrock-agentcore 1.24.0 needs boto3>=1.43.72 (boto3/botocore 1.43.108); strands-agents 1.57.2
+# needs mcp<2.2 (mcp 2.1.1).
+anthropic==1.11.0
+aws-embedded-metrics==3.5.0
+bedrock-agentcore==1.24.0
+boto3==1.43.108
+botocore==1.43.108
+mcp==2.1.1
+numpy==2.3.3
+opencv-contrib-python-headless==5.0.0.93
+pydantic==2.12.3
+pyyaml==6.0.3
+strands-agents==1.57.2
+strands-agents-tools==0.8.9
+uvicorn==0.54.0
