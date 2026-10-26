@@ -1,0 +1,27 @@
+# syntax=docker/dockerfile:1
+# Optional SyncSource task image: S3-compatible source -> S3 work bucket (ECS Fargate ARM64, docs/ARCHITECTURE.md "Components").
+#   docker buildx build --builder arm64builder --platform linux/arm64 -f Dockerfile.sync -t keepframe-sync:dev --load .
+# Runs services/sync/entrypoint.sh (rclone). The pure-python fallback (python -m keepframe.io.sync)
+# lives in the main image, which already has boto3.
+# Base pinned by digest: python:3.12-slim (Debian 13 trixie) from ECR Public, same base as the worker and agent.
+# The old bookworm pin (54c85f3c…) carried 5 CRITICAL / 15 HIGH (perl, util-linux, gcc-12, pcre2). Recorded 2026-10-09.
+FROM --platform=linux/arm64 public.ecr.aws/docker/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f
+
+ARG RCLONE_VERSION=v1.75.1
+ARG RCLONE_SHA256_ARM64=03f2504174034b6d004152ed7369251c9a9ec1f7e0836eda420f5c7a5ec0dff9
+
+RUN apt-get update \
+ && apt-get upgrade -y --no-install-recommends \
+ && apt-get install -y --no-install-recommends ca-certificates curl unzip \
+ && curl -fsSLo /tmp/rclone.zip "https://downloads.rclone.org/${RCLONE_VERSION}/rclone-${RCLONE_VERSION}-linux-arm64.zip" \
+ && echo "${RCLONE_SHA256_ARM64}  /tmp/rclone.zip" | sha256sum -c - \
+ && unzip -j /tmp/rclone.zip '*/rclone' -d /usr/local/bin \
+ && chmod 0755 /usr/local/bin/rclone \
+ && rm -f /tmp/rclone.zip \
+ && apt-get purge -y curl unzip && apt-get autoremove -y && rm -rf /var/lib/apt/lists/* \
+ && useradd --uid 10001 --create-home cullsync
+
+COPY services/sync/ /opt/sync/
+RUN chmod 0755 /opt/sync/entrypoint.sh
+USER 10001
+ENTRYPOINT ["/opt/sync/entrypoint.sh"]

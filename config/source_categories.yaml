@@ -1,0 +1,28 @@
+# Event-category strings exactly as the source database stores them (data labels, not product framing).
+# scripts/pick_events_n1ql.py builds its selection quota from this file, so the strings must match the
+# source data byte for byte or the deterministic selection of E01-E12 changes. Docs and tables show the
+# generic `label` instead.
+quota:
+  - label: ceremony
+    categories: ["Wedding"]
+    count: 5
+    require_one_at_least: 2000   # the ceremony pool must include one event with >= 2,000 photos
+  - label: engagement
+    categories: ["Engagement", "Pre Wedding"]
+    count: 2
+  - label: birthday
+    categories: ["Birthday", "Anniversary"]
+    count: 2
+  - label: corporate
+    categories: ["Corporate"]
+    count: 1
+  - label: other          # anything not covered above (Other, Personal Event, Family Photoshoot, ...)
+    categories: []
+    count: 2
+    distinct_categories: true
+
+# How a source category string is shown in reports and tables (eval/dataset_characteristics.py).
+# Categories not listed are shown as stored.
+display:
+  "Wedding": "Ceremony"
+  "Pre Wedding": "Pre-ceremony"
