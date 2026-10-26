@@ -1,0 +1,1 @@
+{"items":[{"event_id":"ev_01","index":1,"label":"Event 1","category":"Conference","event_date":"2026-10-08","n_photos":278,"n_with_original":278,"n_cameras":1,"name":"TechSummit 2026","verdict_counts":{"keep":174,"reject":81,"review":23},"latest_run":{"run_id":"run_demo02","status":"awaiting_approval","flavor":"stock","started_at":"2026-10-26T04:36:54.322Z"}}],"next_cursor":null}

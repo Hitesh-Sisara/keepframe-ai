@@ -1,0 +1,158 @@
+/* Page-local aliases (every class here is scoped under .kf-page, so nothing leaks into other routes) for the shell's design tokens (BRIEF: --kf-*). The fallbacks match the shell's values so
+   the bench and label pages render correctly on their own; once the shell's globals land, its values win.
+   Use in Tailwind as bg-(--p-surface), text-(--p-muted), etc. */
+.kf-page {
+  --p-bg: var(--kf-bg, #f6f7f9);
+  --p-surface: var(--kf-surface, #ffffff);
+  --p-surface-2: var(--kf-surface-2, #f1f3f6);
+  --p-border: var(--kf-border, #e3e6eb);
+  --p-border-strong: var(--kf-border-strong, #cfd4dc);
+  --p-text: var(--kf-text, #14171c);
+  --p-muted: var(--kf-muted, #5b6370);
+  --p-faint: var(--kf-faint, #6e7683);
+  --p-accent: var(--kf-accent, #2457d6);
+  --p-accent-soft: var(--kf-accent-soft, #eaf0fd);
+  --p-accent-text: var(--kf-accent-text, #1f4bbb);
+  --p-keep: var(--kf-keep, #157347);
+  --p-keep-soft: var(--kf-keep-soft, #e6f4ec);
+  --p-review: var(--kf-review, #a15c00);
+  --p-review-soft: var(--kf-review-soft, #fdf2e1);
+  --p-reject: var(--kf-reject, #c42b2b);
+  --p-reject-soft: var(--kf-reject-soft, #fcebeb);
+  --p-radius: var(--kf-radius, 10px);
+  --p-radius-sm: var(--kf-radius-sm, 7px);
+  --p-shadow: var(--kf-shadow, 0 1px 2px rgb(16 24 40 / 0.05), 0 1px 3px rgb(16 24 40 / 0.04));
+  --p-ring: var(--kf-ring, 0 0 0 3px rgb(36 87 214 / 0.28));
+  --p-mono: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+}
+
+.kf-page .kf-card {
+  background: var(--p-surface);
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  box-shadow: var(--p-shadow);
+}
+
+.kf-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.kf-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--p-muted);
+}
+
+/* A text halo in the surface colour, so a value label stays legible where a gridline crosses it. */
+.kf-halo {
+  text-shadow:
+    0 0 2px var(--p-halo, var(--p-surface)),
+    0 0 2px var(--p-halo, var(--p-surface)),
+    0 0 3px var(--p-halo, var(--p-surface));
+}
+
+.kf-page .kf-kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  padding: 0 0.35rem;
+  border-radius: 5px;
+  font-family: var(--p-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  background: var(--p-surface);
+  color: var(--p-muted);
+  box-shadow: inset 0 -1px 0 var(--p-border-strong), 0 0 0 1px var(--p-border-strong);
+}
+
+.kf-page .kf-focus:focus-visible {
+  outline: none;
+  box-shadow: var(--p-ring);
+}
+
+@keyframes kf-p-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+.kf-page .kf-skel {
+  border-radius: var(--p-radius-sm);
+  background: linear-gradient(90deg, var(--p-surface-2) 25%, var(--p-border) 37%, var(--p-surface-2) 63%);
+  background-size: 200% 100%;
+  animation: kf-p-shimmer 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kf-page .kf-skel { animation: none; }
+  .kf-page * { transition-duration: 0ms !important; }
+}
+
+/* Stage chart rows: name | bars | ratio. Below 640 px the name and ratio share a line above the bars. */
+.kf-stagegrid {
+  display: grid;
+  column-gap: 1.5rem;
+  grid-template-columns: minmax(11rem, 15rem) minmax(0, 1fr);
+  grid-template-areas: "name bars";
+}
+.kf-stagegrid-3 {
+  grid-template-columns: minmax(11rem, 15rem) minmax(0, 1fr) 7.5rem;
+  grid-template-areas: "name bars ratio";
+}
+@media (max-width: 639px) {
+  .kf-stagegrid,
+  .kf-stagegrid-3 {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "name ratio" "bars bars";
+    row-gap: 0.375rem;
+  }
+  .kf-hide-narrow { display: none; }
+}
+
+.kf-viewer { height: var(--view-h); }
+@media (max-width: 1023px) {
+  /* Narrow screens: the viewer takes the photo's own shape so the controls stay close. */
+  .kf-viewer { height: auto; aspect-ratio: var(--ratio); }
+}
+
+/* Keyboard hints mean nothing when the main pointer is a finger (phones, tablets, touch-first laptops). */
+.kf-touch-only { display: none; }
+@media (pointer: coarse) {
+  .kf-page .kf-kbd, .kf-page kbd, .kf-touch-hide { display: none !important; }
+  .kf-touch-only { display: inline; }
+  /* Without the number badge the reason label needs its own inset, and fingers need 44 px. */
+  .kf-page .kf-touch-target { height: 2.75rem; padding-left: 0.75rem; }
+}
+
+/* Cost calculator slider: accent fill track, large thumb, visible focus ring. */
+.kf-page .kf-range {
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--p-surface-2);
+  box-shadow: inset 0 0 0 1px var(--p-border);
+  accent-color: var(--p-accent);
+}
+.kf-page .kf-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--p-accent);
+  border: 3px solid var(--p-surface);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  cursor: grab;
+}
+.kf-page .kf-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--p-accent);
+  border: 3px solid var(--p-surface);
+}
+.kf-page .kf-range:focus-visible {
+  outline: none;
+}
+.kf-page .kf-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--p-ring);
+}

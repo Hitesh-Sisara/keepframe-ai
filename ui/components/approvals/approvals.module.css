@@ -1,0 +1,261 @@
+/* Approvals desk. Page-local aliases over the shell's design tokens (--kf-*), with fallbacks so the page
+   renders the same before and after the shell lands its tokens. */
+.root {
+  --ap-bg: var(--kf-bg, #eef1f4);
+  --ap-surface: var(--kf-surface, #ffffff);
+  --ap-surface-2: var(--kf-surface-2, #f5f7f9);
+  --ap-border: var(--kf-border, #dde3e8);
+  --ap-text: var(--kf-text, #15191d);
+  --ap-muted: var(--kf-muted, #59636c);
+  --ap-accent: var(--kf-accent, #2457d6);
+  --ap-accent-soft: var(--kf-accent-soft, #e6edfc);
+  --ap-keep: var(--kf-keep, #17803d);
+  --ap-review: var(--kf-review, #9a5b00);
+  --ap-reject: var(--kf-reject, #b42318);
+  --ap-radius: var(--kf-radius, 10px);
+  --ap-shadow: var(--kf-shadow, 0 1px 2px rgb(16 24 40 / 0.06), 0 1px 3px rgb(16 24 40 / 0.08));
+  --ap-stage: #14171a;
+  color: var(--ap-text);
+}
+
+.card {
+  background: var(--ap-surface);
+  border: 1px solid var(--ap-border);
+  border-radius: var(--ap-radius);
+  box-shadow: var(--ap-shadow);
+}
+
+.kbd {
+  display: inline-flex;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.3rem;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  font-weight: 650;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: currentColor;
+  background: rgb(127 127 127 / 0.14);
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.12);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Matches the shared .btn.btn-lg (globals.css): same height, radius, type. */
+  gap: 0.45rem;
+  height: 2.5rem;
+  padding: 0 1.1rem;
+  border-radius: var(--kf-radius-sm, 7px);
+  font-weight: 550;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease,
+    color 120ms ease;
+  cursor: pointer;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ap-accent);
+  outline-offset: 2px;
+}
+.btn[aria-disabled="true"],
+.btn[aria-disabled="true"].quiet,
+.btn:disabled {
+  cursor: not-allowed;
+  background: var(--ap-surface-2) !important;
+  color: var(--kf-faint, #6e7683) !important;
+  box-shadow: inset 0 0 0 1px var(--ap-border) !important;
+}
+.primary {
+  background: var(--ap-accent);
+  color: #fff;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.15) inset, 0 1px 2px rgb(16 24 40 / 0.2);
+}
+.primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--kf-accent-hover, #1d47b3);
+}
+.keepBtn {
+  background: var(--ap-keep);
+  color: #fff;
+}
+.keepBtn:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: #126631;
+}
+.quiet {
+  background: var(--ap-surface);
+  color: var(--ap-text);
+  box-shadow:
+    inset 0 0 0 1px var(--kf-border-strong, #cfd4dc),
+    0 1px 1px rgb(16 24 40 / 0.04);
+}
+.quiet:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--ap-surface-2);
+}
+
+/* Skeleton shimmer */
+.skel {
+  background: linear-gradient(90deg, var(--ap-surface-2) 0%, #e7ebef 50%, var(--ap-surface-2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* Success: check draws, progress bar runs, then the desk advances. */
+.check {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: draw 420ms 80ms cubic-bezier(0.6, 0, 0.2, 1) forwards;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.progress {
+  transform-origin: left;
+  animation: grow var(--ap-advance, 1600ms) linear forwards;
+}
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.pulse {
+  animation: pulse 1.1s ease-in-out infinite;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+.fadeIn {
+  animation: fadeIn 160ms ease-out both;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skel,
+  .pulse,
+  .fadeIn {
+    animation: none;
+  }
+  .check {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .progress {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .zoomImg {
+    transition: none !important;
+  }
+}
+
+.zoomImg {
+  transition: transform 140ms ease-out;
+  will-change: transform;
+}
+
+@media (forced-colors: active) {
+  .card {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Queue-cleared confetti: a few soft dots that drift once; nothing under reduced motion. */
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.confetti span {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  opacity: 0;
+  background: var(--ap-keep);
+  animation: burst 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 18ms) both;
+  --a: calc(var(--i) * 25.7deg);
+}
+.confetti span:nth-child(3n) {
+  background: var(--ap-accent);
+}
+.confetti span:nth-child(3n + 1) {
+  background: var(--ap-review);
+}
+@keyframes burst {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateY(0) scale(0.6);
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateY(-130px) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti {
+    display: none;
+  }
+}
+
+/* Queue list: a soft fade at the bottom edge while more rows are below (scroll-driven where supported). */
+.queueScroll {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+}
+@supports (animation-timeline: scroll()) {
+  .queueScroll {
+    animation: apFade linear both;
+    animation-timeline: scroll(self);
+  }
+  @keyframes apFade {
+    0%,
+    97% {
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+    }
+    100% {
+      mask-image: none;
+    }
+  }
+}
+
+/* Desk columns: inbox + decision. The inbox is a selector above the desk below xl (page.tsx). */
+@media (min-width: 1280px) {
+  .deskCols {
+    grid-template-columns: 248px minmax(0, 1fr);
+  }
+}
+@media (min-width: 1440px) {
+  .deskCols {
+    grid-template-columns: 280px minmax(0, 1fr);
+  }
+}

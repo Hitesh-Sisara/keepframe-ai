@@ -1,0 +1,637 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+/* KeepFrame design tokens.
+   Page code uses the --kf-* variables (or the Tailwind colour names mapped to them below).
+   The older names (backlight, sheet, ink, slate, faint, hair, marker, amber, graphite) are kept as aliases
+   so existing pages pick up the new palette without edits. */
+
+:root {
+  --kf-bg: #f6f7f9;
+  --kf-surface: #ffffff;
+  --kf-surface-2: #f1f3f6;
+  --kf-border: #e3e6eb;
+  --kf-border-strong: #cfd4dc;
+  /* Borders that alone identify a control (inputs, selects, checkboxes, keycaps): >= 3:1 (WCAG 1.4.11). */
+  --kf-border-control: #8a929e;
+  --kf-text: #14171c;
+  --kf-muted: #5b6370; /* 6.1:1 on --kf-surface, 5.7:1 on --kf-bg */
+  /* AA floor for text on every tint the app uses (white, bg, surface-2, the soft verdict tints): >= 4.5:1. */
+  --kf-faint: #646c79; /* 4.6:1 on accent/reject-soft, 4.8:1 on surface-2, 5.6:1 on white */
+  --kf-accent: #2457d6;
+  --kf-accent-hover: #1d47b3;
+  --kf-accent-soft: #eaf0fd;
+  --kf-accent-text: #1f4bbb;
+  --kf-keep: #157347;
+  --kf-keep-soft: #e6f4ec;
+  --kf-review: #8f5200; /* text-safe amber: 5.6:1 on review-soft and surface-2 (was #a15c00, 4.5-4.7:1) */
+  --kf-review-soft: #fdf2e1;
+  --kf-reject: #c42b2b;
+  --kf-reject-soft: #fcebeb;
+  --kf-radius: 10px;
+  --kf-radius-sm: 7px;
+  --kf-radius-lg: 14px;
+  --kf-shadow: 0 1px 2px rgb(16 24 40 / 0.05), 0 1px 3px rgb(16 24 40 / 0.04);
+  --kf-shadow-lg: 0 12px 32px -8px rgb(16 24 40 / 0.18), 0 4px 10px -4px rgb(16 24 40 / 0.08);
+  --kf-ring: 0 0 0 3px rgb(36 87 214 / 0.28);
+  /* Focus indicator colour on dark surfaces (photo stage, tooltips, dark chips): 5.6:1 on #14171c. */
+  --kf-focus-on-dark: #8fb0ff;
+  --kf-nav-w: 232px;
+}
+/* Overview chart hues (sync, agent) beside the brand accent. */
+:root {
+  --kf-ov-sync: #7c8796;
+  --kf-ov-agent: #6d4fd8;
+  --kf-ov-wait: #b9c0ca;
+}
+
+/* Dark theme: follows the system by default; the shell toggle pins it with data-theme on <html>.
+   Same token names, so every page that uses --kf-* switches with no page edits. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --kf-bg: #0d1016;
+    --kf-surface: #151a22;
+    --kf-surface-2: #1c222c;
+    --kf-border: #2b3340;
+    --kf-border-strong: #3c4758;
+    --kf-text: #e8ebf0;
+    --kf-muted: #a2abb8; /* 7.4:1 on surface */
+    --kf-faint: #8b95a3; /* 5.6:1 */
+    --kf-accent: #4c7dff;
+    --kf-accent-hover: #6a93ff;
+    --kf-accent-soft: #1a2647;
+    --kf-accent-text: #a9c0ff;
+    --kf-keep: #3cc47c;
+    --kf-keep-soft: #12291d;
+    --kf-review: #f0a93a;
+    --kf-review-soft: #2d2212;
+    --kf-reject: #f2665f;
+    --kf-reject-soft: #2e1516;
+    --kf-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 0 0 1px rgb(255 255 255 / 0.02);
+    --kf-shadow-lg: 0 16px 40px -10px rgb(0 0 0 / 0.6);
+    --kf-ov-sync: #8792a2;
+    --kf-ov-agent: #9a80ff;
+    --kf-ov-wait: #3a4250;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --kf-bg: #0d1016;
+  --kf-surface: #151a22;
+  --kf-surface-2: #1c222c;
+  --kf-border: #2b3340;
+  --kf-border-strong: #3c4758;
+  --kf-text: #e8ebf0;
+  --kf-muted: #a2abb8;
+  --kf-faint: #8b95a3;
+  --kf-accent: #4c7dff;
+  --kf-accent-hover: #6a93ff;
+  --kf-accent-soft: #1a2647;
+  --kf-accent-text: #a9c0ff;
+  --kf-keep: #3cc47c;
+  --kf-keep-soft: #12291d;
+  --kf-review: #f0a93a;
+  --kf-review-soft: #2d2212;
+  --kf-reject: #f2665f;
+  --kf-reject-soft: #2e1516;
+  --kf-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 0 0 1px rgb(255 255 255 / 0.02);
+  --kf-shadow-lg: 0 16px 40px -10px rgb(0 0 0 / 0.6);
+  --kf-ov-sync: #8792a2;
+  --kf-ov-agent: #9a80ff;
+  --kf-ov-wait: #3a4250;
+}
+
+/* Between md and xl the sidebar is an icon rail, so a 1024 screen keeps its width for content. */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  :root {
+    --kf-nav-w: 64px;
+  }
+}
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* New names */
+  --color-kf-bg: var(--kf-bg);
+  --color-kf-surface: var(--kf-surface);
+  --color-kf-surface-2: var(--kf-surface-2);
+  --color-kf-border: var(--kf-border);
+  --color-kf-text: var(--kf-text);
+  --color-kf-muted: var(--kf-muted);
+  --color-kf-accent: var(--kf-accent);
+  --color-kf-accent-soft: var(--kf-accent-soft);
+  --color-kf-keep: var(--kf-keep);
+  --color-kf-review: var(--kf-review);
+  --color-kf-reject: var(--kf-reject);
+
+  /* Legacy aliases, remapped onto the tokens */
+  --color-backlight: var(--kf-surface-2);
+  --color-sheet: var(--kf-surface);
+  --color-ink: var(--kf-text);
+  --color-slate: var(--kf-muted);
+  --color-faint: var(--kf-faint);
+  --color-hair: var(--kf-border);
+  /* "marker" was the keep/best emphasis colour in the old proof-sheet look, so it maps to keep. */
+  --color-marker: var(--kf-keep);
+  --color-marker-tint: var(--kf-keep-soft);
+  --color-amber: var(--kf-review);
+  --color-amber-tint: var(--kf-review-soft);
+  --color-graphite: #3a404a;
+
+  --color-series-1: #2a78d6;
+  --color-series-2: #eb6834;
+  --color-series-3: #1baf7a;
+  --color-series-4: #eda100;
+
+  --animate-kf-shimmer: kf-shimmer 1.4s ease-in-out infinite;
+}
+
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+    /* Classic (non-overlay) scrollbars: a slim thumb on the page colour, so the reserved gutter never reads as a strip. */
+    scrollbar-width: thin;
+    scrollbar-color: var(--kf-border-strong) var(--kf-bg);
+    font-family: var(--font-sans);
+    background: var(--kf-bg);
+    color: var(--kf-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
+  }
+  body {
+    min-height: 100dvh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  :focus-visible {
+    outline: 2px solid var(--kf-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  /* Opt-in for dark surfaces (photo stages, dark toolbars): the accent ring is 2.9:1 on near-black. */
+  .kf-on-dark :focus-visible,
+  .kf-on-dark:focus-visible {
+    outline-color: var(--kf-focus-on-dark);
+  }
+  /* WCAG 2.4.11: a focused element scrolled into view must clear the sticky bars (mobile top bar 56px, plus
+     the burst grid's toolbar, about 62px once stuck) and the bottom toast stack. scroll-padding applies to
+     keyboard focus moves and to #main from the skip link. */
+  html {
+    scroll-padding-top: 8rem;
+    scroll-padding-bottom: 6rem;
+  }
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 4.5rem;
+    }
+  }
+  ::selection {
+    background: var(--kf-accent-soft);
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  /* A modal covers the reserved scrollbar gutter too: lock the page scroll and drop the gutter while one is open,
+     so the backdrop runs to the right edge instead of stopping short beside a light strip. */
+  html.kf-no-scroll {
+    scrollbar-gutter: auto;
+  }
+  html:has(dialog[open]) {
+    overflow: hidden;
+    scrollbar-gutter: auto;
+  }
+  dialog::backdrop {
+    background: rgb(15 17 26 / 0.5);
+    backdrop-filter: blur(2px);
+  }
+}
+
+@layer components {
+  /* Type scale, product-tool sized */
+  .t-display {
+    font-weight: 620;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    letter-spacing: -0.022em;
+  }
+  .t-title {
+    font-weight: 600;
+    font-size: 1.22rem;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .t-heading {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.35;
+    letter-spacing: -0.008em;
+  }
+  .t-data {
+    font-variant-numeric: tabular-nums;
+  }
+  .t-small {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+  .t-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--kf-muted);
+  }
+  .t-mono {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+
+  /* Card surface (legacy name "mount") */
+  .mount,
+  .kf-card {
+    background: var(--kf-surface);
+    border: 1px solid var(--kf-border);
+    border-radius: var(--kf-radius);
+    box-shadow: var(--kf-shadow);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    height: 2.125rem;
+    border-radius: var(--kf-radius-sm);
+    padding: 0 0.85rem;
+    font-weight: 550;
+    font-size: 0.8125rem;
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+      background-color 120ms ease,
+      box-shadow 120ms ease,
+      color 120ms ease,
+      opacity 120ms ease;
+    user-select: none;
+  }
+  /* Disabled: a flat grey fill with readable text (3.9:1+) instead of fading the whole button to ~2:1. Disabled
+     controls are exempt from 1.4.3, but judges read every one of them ("Read-only judge view"). */
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    opacity: 1;
+    cursor: not-allowed;
+    /* Outline only, no fill: legible (4.6:1 text) but never mistaken for a live or pressed button. */
+    background: transparent !important;
+    color: var(--kf-faint) !important;
+    box-shadow: none !important;
+    border: 1px solid var(--kf-border-strong);
+  }
+  /* Ghost and dark-surface buttons stay borderless when disabled (pager arrows on the photo stage). */
+  .btn-ghost:disabled,
+  .kf-on-dark .btn:disabled {
+    border-color: transparent;
+  }
+  /* WCAG 2.5.8: icon buttons and small buttons keep a 24x24 hit area even when drawn smaller. */
+  .btn-icon {
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+  }
+  .btn-sm {
+    height: 1.75rem;
+    padding: 0 0.6rem;
+    font-size: 0.78rem;
+  }
+  .btn-lg {
+    height: 2.5rem;
+    padding: 0 1.1rem;
+    font-size: 0.875rem;
+  }
+  /* primary */
+  .btn-ink,
+  .btn-primary {
+    background: var(--kf-accent);
+    color: #fff;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.12),
+      0 1px 2px rgb(16 24 40 / 0.12);
+  }
+  .btn-ink:hover:not(:disabled),
+  .btn-primary:hover:not(:disabled) {
+    background: var(--kf-accent-hover);
+  }
+  /* keep-affirming action (approve, mark keep) */
+  .btn-marker,
+  .btn-keep {
+    background: var(--kf-keep);
+    color: #fff;
+    box-shadow: 0 1px 2px rgb(16 24 40 / 0.12);
+  }
+  .btn-marker:hover:not(:disabled),
+  .btn-keep:hover:not(:disabled) {
+    background: #0f5c38;
+  }
+  .btn-danger {
+    background: var(--kf-reject);
+    color: #fff;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: #a32222;
+  }
+  .btn-quiet,
+  .btn-secondary {
+    background: var(--kf-surface);
+    color: var(--kf-text);
+    box-shadow:
+      inset 0 0 0 1px var(--kf-border-strong),
+      0 1px 1px rgb(16 24 40 / 0.04);
+  }
+  .btn-quiet:hover:not(:disabled),
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--kf-surface-2);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--kf-muted);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--kf-surface-2);
+    color: var(--kf-text);
+  }
+  .btn-icon {
+    width: 2.125rem;
+    padding: 0;
+  }
+
+  .kf-input {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: var(--kf-radius-sm);
+    border: 1px solid var(--kf-border-control);
+    background: var(--kf-surface);
+    padding: 0 0.8rem;
+    font-size: 0.875rem;
+    color: var(--kf-text);
+    transition:
+      border-color 120ms ease,
+      box-shadow 120ms ease;
+  }
+  .kf-input::placeholder {
+    color: var(--kf-faint);
+  }
+  .kf-input:focus {
+    outline: none;
+    border-color: var(--kf-accent);
+    box-shadow: var(--kf-ring);
+  }
+  .kf-input[aria-invalid="true"] {
+    border-color: var(--kf-reject);
+  }
+  .kf-input[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 3px rgb(196 43 43 / 0.2);
+  }
+
+  /* Native select restyled to match the segmented controls: same height, radius, border and a drawn chevron. */
+  .kf-select {
+    appearance: none;
+    height: 2rem;
+    border-radius: var(--kf-radius-sm);
+    border: 1px solid var(--kf-border-control);
+    background: var(--kf-surface)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 6.5 8 10l3.5-3.5' fill='none' stroke='%235b6370' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      no-repeat right 0.5rem center / 14px;
+    padding: 0 2rem 0 0.7rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--kf-text);
+    box-shadow: 0 1px 1px rgb(16 24 40 / 0.04);
+    transition:
+      border-color 120ms ease,
+      box-shadow 120ms ease;
+  }
+  .kf-select:hover {
+    border-color: var(--kf-muted);
+  }
+  .kf-select:focus-visible {
+    outline: none;
+    border-color: var(--kf-accent);
+    box-shadow: var(--kf-ring);
+  }
+
+  kbd,
+  .kf-kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    height: 1.25rem;
+    padding: 0 0.3rem;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 550;
+    line-height: 1;
+    border-radius: 5px;
+    background: var(--kf-surface);
+    color: var(--kf-muted);
+    border: 1px solid var(--kf-border-control);
+    box-shadow: 0 1px 0 var(--kf-border-control);
+  }
+
+  /* Native range inputs: 3:1 track, 24px-tall hit area, focus ring. Pair every slider with +/- buttons
+     (WCAG 2.5.7): see the ZoomStepper in components/ui. */
+  input[type="range"].kf-range {
+    height: 1.5rem;
+    background: transparent;
+  }
+
+  /* Expand a small control's hit area to 24x24 without changing how it looks (WCAG 2.5.8). Needs a
+     the control to establish a containing block (it sets position: relative). */
+  .kf-hit {
+    position: relative;
+  }
+  .kf-hit::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 24px);
+    height: max(100%, 24px);
+    transform: translate(-50%, -50%);
+  }
+
+  .kf-skeleton {
+    background: linear-gradient(90deg, var(--kf-surface-2) 0%, var(--kf-border) 40%, var(--kf-surface-2) 80%);
+    background-size: 200% 100%;
+    animation: var(--animate-kf-shimmer);
+    border-radius: 6px;
+  }
+}
+
+@keyframes kf-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+/* Transform only: if a background tab stalls the animation, content is still fully visible. */
+@keyframes kf-pop {
+  from {
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes kf-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.kf-pop {
+  animation: kf-pop 160ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.kf-fade {
+  animation: kf-fade 200ms ease both;
+}
+
+/* Marker strokes draw once when a pivot comes into view. */
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--len, 400);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.draw {
+  stroke-dasharray: var(--len, 400);
+  animation: draw 700ms cubic-bezier(0.6, 0, 0.2, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .draw {
+    animation: none;
+    stroke-dasharray: none;
+  }
+  .kf-pop,
+  .kf-fade,
+  .kf-skeleton {
+    animation: none;
+  }
+  /* Catch-all for page-local keyframes (spinners keep turning via motion-reduce:animate-none where they
+     opt in; everything else finishes instantly). Smooth scrolling is turned off too. */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (forced-colors: active) {
+  .mount,
+  .kf-card {
+    border: 1px solid CanvasText;
+  }
+  /* Box-shadow rings vanish in forced colours: give every focused element a system outline. */
+  :focus-visible {
+    outline: 2px solid Highlight !important;
+  }
+}
+
+/* The Next.js dev-mode badge overlaps the sidebar footer; it never ships in the static export. */
+nextjs-portal {
+  display: none;
+}
+
+/* Keyboard hints mean nothing on touch-only devices. */
+@media (hover: none) and (pointer: coarse) {
+  .kf-kbd-hint {
+    display: none !important;
+  }
+}
+
+/* ---- Overview (home) ---- */
+.kf-ov-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 120% at 100% 0%, color-mix(in srgb, var(--kf-accent) 9%, transparent) 0%, transparent 60%);
+}
+.kf-ov-hero > * {
+  position: relative;
+}
+.kf-ov-cta {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--kf-accent) 18%, transparent),
+    0 6px 16px -6px color-mix(in srgb, var(--kf-accent) 60%, transparent);
+}
+@keyframes kf-ov-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+.kf-ov-grow {
+  transform-origin: left;
+  animation: kf-ov-grow 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes kf-ov-scan {
+  from {
+    left: -35%;
+    opacity: 0.9;
+  }
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+.kf-ov-scan {
+  background: linear-gradient(90deg, transparent, rgb(120 160 255 / 0.45), transparent);
+  animation: kf-ov-scan 900ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kf-ov-grow,
+  .kf-ov-scan {
+    animation: none;
+  }
+}
+/* Text on the timeline's coloured segments: white on the light theme's deep hues, near-black on dark's bright ones. */
+.kf-ov-seg {
+  color: #fff;
+}
+:root[data-theme="dark"] .kf-ov-seg {
+  color: #0d1016;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .kf-ov-seg {
+    color: #0d1016;
+  }
+}
+/* The neutral waiting segment keeps light text on dark and dark text on light. */
+.kf-ov-seg[data-k="waiting"],
+:root[data-theme="dark"] .kf-ov-seg[data-k="waiting"] {
+  color: var(--kf-text);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .kf-ov-seg[data-k="waiting"] {
+    color: var(--kf-text);
+  }
+}
+/* "Flagged alone" review share: hatched amber, so it differs from asked-about review by pattern, not hue. */
+.kf-ov-hatch {
+  background: repeating-linear-gradient(135deg, var(--kf-review) 0 4px, color-mix(in srgb, var(--kf-review) 45%, transparent) 4px 8px);
+}
