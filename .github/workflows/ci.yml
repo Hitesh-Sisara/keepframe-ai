@@ -1,0 +1,123 @@
+# CI: every job runs on ubuntu-24.04-arm. On this account only the arm hosted pool has proven reliable; x64
+# ubuntu-latest jobs sat queued and were cancelled ("not acquired by Runner of type hosted").
+# Pushes touching only docs/** or *.md skip the image build. The filter runs INSIDE the image job, so
+# the build can never be skipped because a separate job failed to get a runner.
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  # PRs: a new push supersedes the old run. main: never cancel, so every main commit gets a final
+  # verdict to release from (docs-only pushes were cancelling the run of the commit being released).
+  group: ci-${{ github.ref }}-${{ github.ref == 'refs/heads/main' && github.sha || 'latest' }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+env:
+  UV_VERSION: "0.11.16"
+jobs:
+  python:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          python-version: "3.12"
+      - run: uv sync --frozen --all-extras
+      - run: uv run --frozen ruff check .
+      - run: uv run --frozen mypy
+      - run: uv run --frozen pytest -q
+      - name: requirements*.txt match uv.lock
+        run: |
+          make requirements
+          git diff --exit-code requirements.txt
+
+  cdk:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: cdk/package-lock.json
+      - run: npm ci --no-audit --no-fund
+        working-directory: cdk
+      - run: npx tsc --noEmit -p .
+        working-directory: cdk
+      - name: cdk synth + cdk-nag (no AWS credentials needed)
+        working-directory: cdk
+        env:
+          CDK_DEFAULT_ACCOUNT: "000000000000"
+          CDK_DEFAULT_REGION: ap-south-1
+        run: npx cdk synth --quiet -c adoptExisting=false
+      - name: Arm-only check (x86 only in the labelled baseline)
+        run: |
+          if grep -rniE 'x86|amd64|X86_64' cdk/lib cdk/bin | grep -viE 'x86-?baseline|X86Baseline|enableX86Baseline|labelled|x86 benchmark|x86 only|LABELLED'; then
+            echo "unexpected x86 reference in cdk/"; exit 1; fi
+
+  image:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Docs-only change? (skip the build only when every changed path is docs/markdown)
+        id: diff
+        continue-on-error: true   # a broken filter must never skip the build: unset output => build
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_PR: ${{ github.event.pull_request.base.sha }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          base="$([[ "$EVENT" == pull_request ]] && echo "$BASE_PR" || echo "$BEFORE")"
+          # new branch / force push / unknown base: be safe and build the image
+          if [[ -z "$base" || "$base" =~ ^0+$ ]] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            echo "code=true" >> "$GITHUB_OUTPUT"; echo "no usable base; image job runs"; exit 0
+          fi
+          files="$(git diff --name-only "$base" "$GITHUB_SHA")"
+          echo "$files"
+          if [[ -z "$files" ]] || printf '%s\n' "$files" | grep -qvE '^(docs/)|\.md$'; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=false" >> "$GITHUB_OUTPUT"; echo "docs-only change; image job skipped"
+          fi
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+        if: steps.diff.outputs.code != 'false'
+      - name: Build stock worker image (linux/arm64, native)
+        if: steps.diff.outputs.code != 'false'
+        run: docker buildx build --platform linux/arm64 -t keepframe:ci --load .
+      - name: Assert OpenCV 5.x + contrib inside the image
+        if: steps.diff.outputs.code != 'false'
+        run: |
+          docker run --rm --entrypoint python keepframe:ci -c "import cv2, platform; assert cv2.__version__.startswith('5.'), cv2.__version__; assert hasattr(cv2,'img_hash') and hasattr(cv2,'quality'); assert platform.machine()=='aarch64'; print(cv2.__version__, cv2.__file__, platform.machine())"
+      - name: Build sync image
+        if: steps.diff.outputs.code != 'false'
+        run: docker buildx build --platform linux/arm64 -f Dockerfile.sync -t keepframe-sync:ci --load .
+      - name: Build API Lambda image
+        if: steps.diff.outputs.code != 'false'
+        run: docker buildx build --platform linux/arm64 -f services/api/Dockerfile -t keepframe-api:ci --load .
+      - name: API image imports and has a consistent dependency set
+        if: steps.diff.outputs.code != 'false'
+        # --no-deps installs can silently mix boto3/botocore versions (seen 2026-10-05: ImportModuleError)
+        run: |
+          docker run --rm --entrypoint sh keepframe-api:ci -c 'pip check && cd /var/task && python -c "import app.main; print(\"api import ok\")"'
+
+  gitleaks:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: gitleaks (pinned binary, sha256-verified)
+        env:
+          GITLEAKS_VERSION: "8.30.1"
+          GITLEAKS_SHA256: "e4a487ee7ccd7d3a7f7ec08657610aa3606637dab924210b3aee62570fb4b080"  # linux_arm64
+        run: |
+          curl -fsSLo /tmp/gl.tgz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_arm64.tar.gz"
+          echo "${GITLEAKS_SHA256}  /tmp/gl.tgz" | sha256sum -c -
+          tar -xzf /tmp/gl.tgz -C /tmp gitleaks
+          /tmp/gitleaks detect --source . --redact --config .gitleaks.toml --verbose
