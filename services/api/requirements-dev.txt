@@ -1,0 +1,7 @@
+-r requirements.txt
+httpx==0.28.1
+numpy==2.3.3
+opencv-contrib-python-headless==5.0.0.93
+pytest==8.4.2
+ruff==0.14.0
+uvicorn==0.54.0

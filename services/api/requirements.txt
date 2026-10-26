@@ -1,0 +1,21 @@
+# Lambda runtime deps for the KeepFrame API: direct pins (fastapi, mangum, pydantic, boto3/botocore)
+# plus the full resolved transitive set, all exact. Regenerate: uv pip compile from these direct pins.
+annotated-doc==0.0.5
+annotated-types==0.8.0
+anyio==4.15.1
+boto3==1.43.108
+botocore==1.43.108
+fastapi==0.142.2
+idna==3.20
+jmespath==1.1.0
+mangum==0.22.0
+opentelemetry-api==1.45.0
+pydantic==2.12.3
+pydantic-core==2.41.4
+python-dateutil==2.9.0.post0
+s3transfer==0.19.2
+six==1.17.0
+starlette==1.7.0
+typing-extensions==4.16.0
+typing-inspection==0.4.4
+urllib3==2.8.0

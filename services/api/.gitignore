@@ -1,0 +1,3 @@
+# Generated fixture output (synthetic images + tables) — regenerate with tests/fixtures/make_fixtures.py
+tests/fixtures/out/
+.local/
