@@ -18,7 +18,7 @@ Team: KeepFrame: Hitesh Sisara (founder).
 ## Judge path (about 2 minutes)
 
 1. **Open the live review desk:** https://fnua4aumrl.execute-api.ap-south-1.amazonaws.com/ui/ (served by the HTTP API under `/ui` until CloudFront is enabled for the account; `docs/DEPLOY.md`). The read-only judge token is in the Devpost submission's private "testing instructions" field, never in this repo. Paste it into "Access token" ([`docs/JUDGE_ACCESS.md`](docs/JUDGE_ACCESS.md)).
-2. **Watch the video** (5:00 or less, unlisted): <<VIDEO URL>>.
+2. **Watch the video** (5:00 or less, unlisted): https://www.youtube.com/watch?v=lAsRbTtC7Kc.
 3. **Read the report:** [`docs/REPORT.md`](docs/REPORT.md) (the PDF is built by `make report-pdf`, 12 pages or fewer, not committed).
 4. **Check the architecture and the security review:** [`docs/architecture.png`](docs/architecture.png), the agent loop [`docs/agent_workflow.png`](docs/agent_workflow.png), and the security & privacy review [`docs/SECURITY_REVIEW.md`](docs/SECURITY_REVIEW.md) (open High items: [`docs/RESPONSIBLE_USE.md`](docs/RESPONSIBLE_USE.md#open-findings-from-the-security-review)). OpenCV 5 proof and model licences are [below](#opencv-5-proof).
 5. **Run it locally without AWS or an LLM key:** `uv sync --frozen --all-extras && make models demo-local` ([Local demo](#local-demo)) culls a synthetic event with OpenCV 5, then runs the agent with `KEEPFRAME_LLM_PROVIDER=fake`; approvals are answered by a script and labelled `scripted`.

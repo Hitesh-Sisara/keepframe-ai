@@ -5,7 +5,7 @@
 <!-- Structure follows the competition's ten report items. Target: 12 pages or fewer as PDF (`make report-pdf`).
      Numbers are measured (with the evidence file named) unless labelled as design parameters or estimates. -->
 
-**Team:** KeepFrame · **Repo:** https://github.com/Hitesh-Sisara/keepframe-ai (public, Apache-2.0) · **Demo:** https://fnua4aumrl.execute-api.ap-south-1.amazonaws.com/ui/ ("Explore the demo", no sign-in; read-only judge token in Devpost private notes) · **Video:** <<VIDEO URL>>
+**Team:** KeepFrame · **Repo:** https://github.com/Hitesh-Sisara/keepframe-ai (public, Apache-2.0) · **Demo:** https://fnua4aumrl.execute-api.ap-south-1.amazonaws.com/ui/ ("Explore the demo", no sign-in; read-only judge token in Devpost private notes) · **Video:** https://www.youtube.com/watch?v=lAsRbTtC7Kc
 
 **Path:** Agentic Vision. We do not enter Best Use of COOL: COOL carries an AWS Marketplace software fee and this project spends AWS credits only (§5, §6).
 
