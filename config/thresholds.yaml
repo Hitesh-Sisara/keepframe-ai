@@ -1,0 +1,177 @@
+# KeepFrame — every numeric threshold used by the CV tools and the decision policies.
+# Source: docs/REPORT.md §3 (per-tool spec) and §4 (policies).
+# Values marked "starting" are the plan's starting points; tune on the labelled set (docs/EVALUATION.md)
+# and bump `version`. Every run records sha256(this file) as thresholds_sha.
+version: 1
+
+proxy:
+  long_edge: 1024          # p1024: cv2.resize(..., INTER_AREA); never upscale smaller images
+  jpeg_quality: 90         # proxy/<eventId>/<photoId>.jpg
+  write_to_store: true     # also upload the proxy to proxy/<eventId>/ (S3 or local root)
+  memory_lru: 64           # decoded proxies kept per process
+
+hashes:
+  phash_max: 10            # pHash Hamming <= 10 -> candidate pair (imagededup default)
+  block_mean_max: 25       # blockMeanHash mode 0 Hamming <= 25/256 (second vote, needs |dt| <= block_mean_dt_s)
+  block_mean_dt_s: 3.0
+  color_moment_max: 2.0    # colorMoment L2 (empirical, tune); only used when use_color_moment_vote
+  use_color_moment_vote: false
+  dup_phash_max: 2         # pHash <= 2 to the keeper AND best-score gap < dup_score_gap -> DUPLICATE_OF
+  dup_score_gap: 0.05      # (pHash ignores blur: a blurred copy is BURST_NOT_BEST + BLUR_*, not a duplicate)
+
+cluster:
+  time_window_s: 10.0      # pre-bucket by camera + clickedAt +/- window
+  refine_enabled: false    # optional ORB + USAC_MAGSAC + SSIM split for large groups
+  refine_min_size: 9       # "groups > 8"
+  refine_orb_features: 500
+  refine_ssim_min: 0.85    # split when SSIM < 0.85
+  refine_long_edge: 512    # SSIM computed on this downscale of p1024_gray
+
+sharpness:
+  lap_blurry_max: 60.0     # lap_var < 60 -> blurry (at 1024 px)
+  lap_sharp_min: 120.0     # lap_var > 120 -> sharp; [60,120] borderline
+  lap_conf_center: 90.0    # confidence = |lap_var - 90| / 90 clipped
+  lap_conf_min: 0.3
+  lap_conf_max: 0.95
+  conf_weight_lap: 0.5     # confidence = w_lap * lap_conf + (1 - w_lap) * vote_agreement
+  fft_hf_blurry_max: 10.0  # fft_hf < 10 -> blurry vote
+  fft_resize: 500          # FFT computed at 500 px long edge
+  fft_window: 60           # zeroed centre window (px) at 500 px
+  brisque_poor_min: 55.0   # BRISQUE > 55 -> poor vote (0-100, lower better)
+  brisque_mode: on_disagree  # on_disagree | always | never
+  motion_ratio_min: 2.5    # max(Ex,Ey)/min(Ex,Ey) > 2.5 -> BLUR_MOTION else BLUR_FOCUS
+  face_roi_expand: 0.20    # faces ROI = union of face bboxes expanded 20%
+  saliency_thresh_frac: 0.6  # saliency ROI = bounding rect of map >= 0.6 * max
+  saliency_long_edge: 512  # saliency map computed on this downscale, rect scaled back
+  roi_min_px: 32           # smaller ROIs fall back to the full frame
+  borderline_final: keep   # verdict when still borderline after policy-2 escalation: keep | review
+
+exposure:
+  clip_lo_bins: 6          # hist[:6]
+  clip_hi_bin: 250         # hist[250:]
+  over_clip_hi_pct: 0.05   # clip_hi_pct > 5% and mean_L > 200 -> label "over" (soft label, kept in scores)
+  over_mean_l: 200.0
+  # EXPOSURE_OVER needs over_flag (same idea as under_flag). Real E07 (studio engagement, 1000 frames, white
+  # backdrops + flash): event median mean_L 158, 159 frames labelled "over", yet faces in them had median
+  # L 124 and only 1.4 % of face pixels at L >= 250. over_flag requires ALL of:
+  #   1. the global over label;
+  #   2. the subject is clipped. With faces: the most clipped face box has >= face_over_clip_frac of its
+  #      pixels at L >= clip_hi_bin. Without faces: clip_hi_pct >= over_noface_clip_hi AND the frame's p5 L
+  #      >= over_noface_p5_l (no shadows left anywhere);
+  #   3. adaptive baseline: mean_L > event median + event_over_delta_l (skipped without a baseline).
+  face_over_clip_frac: 0.20
+  over_noface_clip_hi: 0.25
+  over_noface_p5_l: 180.0
+  event_over_delta_l: 40.0
+  under_clip_lo_pct: 0.40  # clip_lo_pct > 40% and mean_L < 45 -> label "under" (soft label, kept in scores)
+  under_mean_l: 45.0
+  # EXPOSURE_UNDER (a review flag) needs MORE than the global label. First real event (indoor birthday, 661
+  # frames): event median mean_L 44, 49% of frames labelled "under", yet face-box mean L had median 106 and
+  # p5 74. A dark venue with a lit subject is a venue property, not a defect. under_flag requires ALL of:
+  #   1. the global under label (above);
+  #   2. the subject is dark. With faces: the BRIGHTEST face box has mean L < face_under_max_l (one lit main
+  #      subject makes the frame readable; a face box always includes some background, so its std is not
+  #      used). Without faces: the lit part of the frame (p95 of L) < subject_under_max_l AND that region is
+  #      flat (std of the top-10% pixels < subject_under_max_std), i.e. nothing in the frame is lit;
+  #   3. adaptive per-event baseline: mean_L < event_rel_frac * (event median mean_L). Off when the event
+  #      has fewer than event_baseline_min_photos frames (single-tool / agent calls skip it).
+  # On that event this flags 2/661 frames (both with face L < 40) instead of 327.
+  face_under_max_l: 40.0
+  subject_under_max_l: 45.0
+  subject_under_max_std: 20.0
+  subject_p_hi: 95          # percentile of L used as subject lightness when there are no faces
+  event_rel_frac: 0.5
+  event_baseline_min_photos: 20
+  low_contrast_std_l: 25.0 # std_L < 25 -> low_contrast
+  conf_min: 0.3
+  conf_max: 0.95
+  no_subject_std_l_max: 6.0     # near-uniform frame (lens cap, wall) -> NO_SUBJECT
+  no_subject_entropy_max: 2.5   # bits
+
+eyes:
+  # Policy-level eye rules (docs/REPORT.md §4 P3). Tool-level eye-state thresholds (open/closed p, crop size,
+  # main-subject min px, dark small faces) live in the faces: block below (face tools).
+  reject_closed_p: 0.8     # main subject closed with p_closed = 1 - mean(open_p) >= 0.8 -> EYES_CLOSED
+  group_photo_min_faces: 3 # n_faces >= 3 and non-main faces closed (below) -> REVIEW_POLICY_GROUP_EYES (review)
+  group_eyes_min_closed: 2 # >= 2 non-main faces closed, or
+  group_eyes_share_den: 3  # >= 1/3 of the detected non-main faces closed (C08; unknown never counts as closed)
+  skip_dark_mean_l: 45.0   # frame mean_L < 45 AND largest face < skip_small_face_px -> do not run eye state
+  skip_small_face_px: 60
+
+best:
+  weights:
+    sharp_faces_norm: 0.35
+    eyes_open_mean: 0.25
+    exposure_ok: 0.15
+    fiqa_mean: 0.15
+    composition: 0.10
+  sharpness_norm: log_minmax   # log_minmax | minmax (within the group)
+  sharpness_full_ratio: 4.0    # min-max spread reaches full weight only when max/min lap_var >= 4x;
+                               # near-equal frames (e.g. 800 vs 1000) are not split by the full 0.35
+  unknown_component: 0.5       # neutral value for a component that was not computed
+  exposure_ok_values: {ok: 1.0, low_contrast: 0.5, under: 0.0, over: 0.0}
+  tie_margin: 0.02             # tie = margin < 0.02
+
+policy:
+  reject_conf_min: 0.8         # any reject with confidence < 0.8 -> review (human)
+  best_margin_review: 0.05     # pick_best margin < 0.05 or tie -> human approval
+  burst_conf_base: 0.55        # burst reject confidence = base + slope * (s_best - s_i), floored at reject_conf_min
+  burst_conf_slope: 2.0
+  burst_conf_max: 0.99
+  burst_conf_near: 0.95        # near-identical to the keeper: pHash <= hashes.dup_phash_max, or gap <= burst_near_gap
+  burst_near_gap: 0.01         #   with the same per-face eye states
+  max_tied_candidates: 3       # P5 per GROUP: one question about the KEEP slot, keeper + at most 2 rivals
+  duplicate_conf: 0.99
+  no_subject_conf: 0.95
+  exposure_verdicts: {over: reject, under: review, low_contrast: review}
+  artistic_exposure_time_s: 0.0333   # ExposureTime >= 1/30 s
+  artistic_clip_lo_pct: 0.30
+  reception_hour_start: 18     # dance floor / reception: local hour >= 18 or < 4
+  reception_hour_end: 4
+  default_tz_offset_min: 330   # IST, used only when EXIF DateTimeOriginal is absent
+  budget_optional_min_frac: 0.20
+  reason_text_max: 140
+
+worker:
+  singleton_eyes: false    # P1: singletons get only saliency sharpness + exposure (eyes only inside groups)
+  group_faces_roi: true    # score faces-ROI sharpness for every group member with faces (like-for-like best pick)
+  contact_sheets_for_approval: true
+  sheet_tile_h: 256
+  sheet_cols: 4
+  sheet_jpeg_quality: 85
+
+# face tools (keepframe/tools/_face_defaults.py merges this block over its defaults).
+faces:
+  yunet_score_threshold: 0.9
+  yunet_nms_threshold: 0.3
+  yunet_top_k: 5000
+  detect_long_edge: 1024
+  detect_retry_long_edge: 1600
+  reuse_crop_expand: 0.3
+  reuse_crop_long_edge: 320
+  reuse_score_threshold: 0.5
+  reuse_min_iou: 0.3
+  eye_crop_iod_frac: 0.5
+  eye_open_min_p: 0.6
+  eye_closed_max_p: 0.3
+  eye_min_crop_px: 16
+  main_subject_min_px: 40
+  dark_face_mean_l: 40.0
+  dark_face_max_px: 80
+  fiqa_good: 0.5
+  sface_cosine_same: 0.363
+  clahe_clip_limit: 2.0
+  clahe_tile: 8
+  denoise_iso_min: 3200
+  denoise_brisque_min: 50.0
+  nlmeans_h: 3
+  nlmeans_h_color: 3
+  nlmeans_template: 7
+  nlmeans_search: 21
+  wb_saturation_threshold: 0.99
+  preview_long_edge: 1024
+  preview_jpeg_quality: 90
+  brisque_long_edge: 1024
+  publish_blur_score_threshold: 0.6
+  publish_blur_expand: 0.25
+  saliency_threshold_frac: 0.6

@@ -1,0 +1,17 @@
+# Fixed reason-code vocabulary. The UI and metrics key on these.
+# DUPLICATE_OF is parameterised: "DUPLICATE_OF:<photo_id>".
+codes:
+  BLUR_MOTION: {verdicts: [reject, review], text: "Motion blur"}
+  BLUR_FOCUS: {verdicts: [reject, review], text: "Out of focus"}
+  EYES_CLOSED: {verdicts: [reject, review], text: "Main subject's eyes closed"}
+  EXPOSURE_UNDER: {verdicts: [reject, review], text: "Underexposed"}
+  EXPOSURE_OVER: {verdicts: [reject, review], text: "Overexposed"}
+  LOW_CONTRAST: {verdicts: [reject, review], text: "Low contrast"}
+  DUPLICATE_OF: {verdicts: [reject, review], param: photo_id, text: "Duplicate of {param}"}
+  BURST_NOT_BEST: {verdicts: [reject, review], text: "Not the best frame of its burst"}
+  NO_SUBJECT: {verdicts: [reject, review], text: "No subject in frame"}
+  KEEP_BEST_OF_GROUP: {verdicts: [keep], text: "Best frame of its group"}
+  KEEP_SINGLETON: {verdicts: [keep], text: "Unique frame, passes checks"}
+  REVIEW_LOW_CONFIDENCE: {verdicts: [review], text: "Low confidence, needs a human look"}
+  REVIEW_POLICY_GROUP_EYES: {verdicts: [review], text: "People in a group shot have eyes closed"}
+  REVIEW_ARTISTIC_INTENT: {verdicts: [review], text: "Blur may be intentional (long exposure / dance floor)"}
